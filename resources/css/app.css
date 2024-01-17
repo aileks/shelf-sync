@@ -1,3 +1,13 @@
+@import url(https://fonts.bunny.net/css?family=averia-serif-libre:300);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background-color: rgba(232, 214, 203, 0.5);
+}
+
+p {
+    @apply font-serif;
+}
