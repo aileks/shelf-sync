@@ -1,10 +1,17 @@
 <script setup>
 
+  import StyledButton from "@/Shared/StyledButton.vue";
 </script>
 
 <template>
   <Layout>
-    <p>Your books will show up here :)</p>
+    <h1 class="text-xl mb-4">Your books will show up here :)</h1>
+
+    <StyledButton>
+      <Link href="/">
+        Home
+      </Link>
+    </StyledButton>
   </Layout>
 </template>
 

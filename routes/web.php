@@ -19,9 +19,9 @@ Route::get('/add-book', function () {
     return Inertia::render('Books/CreateBook');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('Login', function () {
+    return Inertia::render('Auth/Login');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

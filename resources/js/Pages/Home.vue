@@ -35,6 +35,11 @@
           View Books
         </Link>
       </StyledButton>
+      <StyledButton>
+        <Link href="/login">
+          Login
+        </Link>
+      </StyledButton>
     </div>
   </Layout>
 </template>
