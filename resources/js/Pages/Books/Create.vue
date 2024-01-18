@@ -46,11 +46,11 @@
   <Head title="Add a Book"/>
 
   <Layout>
-    <h1 class="text-xl">Add a book!</h1>
-
-    <div class="flex items-center justify-center h-1/2 mt-4">
+    <div class="flex items-center justify-center h-screen">
       <div id="container"
-           class="justify-center rounded-xl w-1/3 p-4 mb-2">
+           class="justify-center rounded-xl w-1/4 p-4 mb-2">
+        <h1 id="box-text"
+            class="text-xl border-b pb-1.5">Add Book</h1>
         <Form :formFields="formFields">
           <div class="space-x-10 mt-4">
             <StyledButton id="form-button"
@@ -75,11 +75,7 @@
     background-color: rgb(208, 173, 167);
   }
 
-  #form-button {
-    background-color: rgb(232, 214, 203);
-  }
-
-  #form-button:hover {
-    background-color: rgba(232, 214, 203, 0.8);
+  #box-text {
+    border-color: rgb(232, 214, 203);
   }
 </style>

@@ -25,19 +25,27 @@
     <p class="text-2xl">Welcome to ShelfSync!</p>
     <p class="text-xl mt-2">Your personal library.</p>
 
-    <div class="flex justify-center space-x-3 mt-10">
+    <div class="flex justify-center space-x-4 mt-10">
+      <StyledButton>
+        <Link href="/register">
+          Register
+        </Link>
+      </StyledButton>
+
+      <StyledButton>
+        <Link href="/login">
+          Login
+        </Link>
+      </StyledButton>
+
       <StyledButton>
         <Link href="/add-book">Add Book
         </Link>
       </StyledButton>
+
       <StyledButton>
         <Link href="/books">
           View Books
-        </Link>
-      </StyledButton>
-      <StyledButton>
-        <Link href="/login">
-          Login
         </Link>
       </StyledButton>
     </div>

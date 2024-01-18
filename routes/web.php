@@ -5,10 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
+    return Inertia::render('Home');
 });
 
 Route::get('/books', function () {
@@ -16,7 +13,11 @@ Route::get('/books', function () {
 });
 
 Route::get('/add-book', function () {
-    return Inertia::render('Books/CreateBook');
+    return Inertia::render('Books/Create');
+});
+
+Route::get('/register', function () {
+    return Inertia::render('Auth/Register');
 });
 
 Route::get('Login', function () {

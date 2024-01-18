@@ -23,3 +23,11 @@ button {
 button:hover {
     background-color: rgba(208, 173, 167, 0.5);
 }
+
+#form-button {
+    background-color: rgb(232, 214, 203);
+}
+
+#form-button:hover {
+    background-color: rgba(232, 214, 203, 0.8);
+}
