@@ -16,6 +16,10 @@ div, p, button {
     @apply font-serif;
 }
 
-a {
+button {
     background-color: rgb(208, 173, 167);
+}
+
+button:hover {
+    background-color: rgba(208, 173, 167, 0.5);
 }

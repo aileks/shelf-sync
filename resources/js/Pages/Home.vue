@@ -1,5 +1,6 @@
 <script setup>
   import {onMounted, ref} from 'vue'
+  import StyledButton from "@/Shared/StyledButton.vue";
 
   const animate = ref(false)
 
@@ -25,12 +26,15 @@
     <p class="text-xl mt-2">Your personal library.</p>
 
     <div class="flex justify-center space-x-3 mt-10">
-      <Link class="p-1.5 rounded-lg"
-            href="/add-book">Add Book
-      </Link>
-      <Link class="p-1.5 rounded-lg"
-            href="/books">View Books
-      </Link>
+      <StyledButton>
+        <Link href="/add-book">Add Book
+        </Link>
+      </StyledButton>
+      <StyledButton>
+        <Link href="/books">
+          View Books
+        </Link>
+      </StyledButton>
     </div>
   </Layout>
 </template>
