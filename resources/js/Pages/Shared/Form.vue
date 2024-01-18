@@ -7,7 +7,7 @@
 <template>
   <form>
     <div v-for="field in formFields"
-         class="mt-4 flex flex-col space-y-2">
+         class="mt-4 flex flex-col space-y-2 text-md">
       <label :for="field.label">{{ field.label }}</label>
       <input v-model="field.model.value"
              :name="field.name"

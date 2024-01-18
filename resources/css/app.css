@@ -31,3 +31,7 @@ button:hover {
 #form-button:hover {
     background-color: rgba(232, 214, 203, 0.8);
 }
+
+#box-text {
+    border-color: rgb(208, 173, 167)
+}

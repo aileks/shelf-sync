@@ -1,7 +1,8 @@
 <script setup>
-  import StyledButton from "@/Shared/StyledButton.vue";
-  import Form from "@/Shared/Form.vue";
-  import {ref} from "vue";
+  import StyledButton from '@/Shared/StyledButton.vue';
+  import Form from '@/Shared/Form.vue';
+  import FormLayout from '@/Shared/FormLayout.vue';
+  import {ref} from 'vue';
 
   let formFields = ref([
     {
@@ -46,35 +47,29 @@
   <Head title="Add a Book"/>
 
   <Layout>
-    <div class="flex items-center justify-center h-screen">
-      <div id="container"
-           class="justify-center rounded-xl w-1/4 p-4 mb-2">
-        <h1 id="box-text"
-            class="text-xl border-b pb-1.5">Add Book</h1>
-        <Form :formFields="formFields">
-          <div class="space-x-10 mt-4">
-            <StyledButton id="form-button"
-                          type="submit">
-              Submit
-            </StyledButton>
+    <FormLayout>
+      <h1 id="box-text"
+          class="text-xl border-b pb-1.5">Add Book</h1>
 
-            <StyledButton id="form-button">
-              <Link href="/">
-                Home
-              </Link>
-            </StyledButton>
-          </div>
-        </Form>
-      </div>
-    </div>
+      <Form :formFields="formFields">
+        <div class="space-x-10 mt-4">
+          <StyledButton id="form-button"
+                        type="submit">
+            Submit
+          </StyledButton>
+
+          <StyledButton id="form-button">
+            <Link href="/">
+              Home
+            </Link>
+          </StyledButton>
+        </div>
+      </Form>
+    </FormLayout>
   </Layout>
 </template>
 
 <style scoped>
-  #container {
-    background-color: rgb(208, 173, 167);
-  }
-
   #box-text {
     border-color: rgb(232, 214, 203);
   }
