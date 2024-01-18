@@ -11,6 +11,14 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/books', function () {
+    return Inertia::render('Books/Index');
+});
+
+Route::get('/add-book', function () {
+    return Inertia::render('Books/CreateBook');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

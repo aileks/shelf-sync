@@ -4,10 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    @apply overflow-hidden;
+}
+
 body {
     background-color: rgba(232, 214, 203, 0.5);
 }
 
-p {
+div, p, button {
     @apply font-serif;
+}
+
+a {
+    background-color: rgb(208, 173, 167);
 }

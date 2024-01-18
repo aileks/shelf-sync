@@ -1,5 +1,11 @@
 <script setup>
-  import {Head} from '@inertiajs/vue3';
+  import {onMounted, ref} from 'vue'
+
+  const animate = ref(false)
+
+  onMounted(() => {
+    animate.value = true
+  })
 
   defineProps({
     canLogin: {
@@ -13,9 +19,20 @@
 
 <template>
   <Head title="Your Personal Library"/>
-  <div class="flex justify-center items-center h-screen">
-    <p class="text-2xl">Welcome To Your Personal Library!</p>
-  </div>
+
+  <Layout>
+    <p class="text-2xl">Welcome to ShelfSync!</p>
+    <p class="text-xl mt-2">Your personal library.</p>
+
+    <div class="flex justify-center space-x-3 mt-10">
+      <Link class="p-1.5 rounded-lg"
+            href="/add-book">Add Book
+      </Link>
+      <Link class="p-1.5 rounded-lg"
+            href="/books">View Books
+      </Link>
+    </div>
+  </Layout>
 </template>
 
 <style>
