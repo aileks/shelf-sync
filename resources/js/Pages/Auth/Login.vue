@@ -1,25 +1,17 @@
 <script setup>
-  import StyledButton from '@/Shared/StyledButton.vue';
-  import Form from '@/Shared/Form.vue'
-  import FormLayout from '@/Shared/FormLayout.vue';
-  import {ref} from 'vue';
+import StyledButton from '@/Shared/StyledButton.vue';
+import Form from '@/Shared/Form.vue'
+import FormLayout from '@/Shared/FormLayout.vue';
+import {useForm} from "@inertiajs/vue3";
 
-  let formFields = ref([
-    {
-      label: "Email",
-      placeholder: "Email",
-      name: "email",
-      type: "email",
-      model: "email",
-    },
-    {
-      label: "Password",
-      placeholder: "Password",
-      name: "password",
-      type: "password",
-      model: "password",
-    },
-  ]);
+let form = useForm({
+  email: '',
+  password: '',
+});
+
+let submit = () => {
+  form.post('/login');
+}
 </script>
 
 <template>
@@ -29,7 +21,29 @@
     <FormLayout>
       <h1 id="box-text"
           class="text-xl border-b pb-1.5">Login</h1>
-      <Form :formFields="formFields">
+      <form @submit.prevent="submit">
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="email">Email</label>
+          <input v-model="form.email"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="email"
+                 placeholder="email@example.com"
+                 required
+                 type="email"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="password">Password</label>
+          <input v-model="form.password"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="password"
+                 placeholder="Password"
+                 required
+                 type="password"
+          />
+        </div>
+
         <div class="space-x-10 mt-4">
           <StyledButton id="form-button"
                         type="submit">
@@ -42,13 +56,13 @@
             </Link>
           </StyledButton>
         </div>
-      </Form>
+      </form>
     </FormLayout>
   </Layout>
 </template>
 
 <style scoped>
-  #box-text {
-    border-color: rgb(232, 214, 203);
-  }
+#box-text {
+  border-color: rgb(232, 214, 203);
+}
 </style>

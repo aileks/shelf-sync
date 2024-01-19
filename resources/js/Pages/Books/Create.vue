@@ -1,46 +1,21 @@
 <script setup>
-  import StyledButton from '@/Shared/StyledButton.vue';
-  import Form from '@/Shared/Form.vue';
-  import FormLayout from '@/Shared/FormLayout.vue';
-  import {ref} from 'vue';
+import StyledButton from '@/Shared/StyledButton.vue';
+import Form from '@/Shared/Form.vue';
+import FormLayout from '@/Shared/FormLayout.vue';
+import {useForm} from '@inertiajs/vue3';
 
-  let formFields = ref([
-    {
-      label: "Title",
-      placeholder: "Title",
-      name: "title",
-      type: "text",
-      model: "title",
-    },
-    {
-      label: "Author",
-      placeholder: "Author",
-      name: "author",
-      type: "text",
-      model: "author",
-    },
-    {
-      label: "Pages",
-      placeholder: "Pages",
-      name: "pages",
-      type: "number",
-      model: "pages",
-    },
-    {
-      label: "Genre",
-      placeholder: "Genre",
-      name: "genre",
-      type: "text",
-      model: "genre",
-    },
-    {
-      label: "Publish Date",
-      placeholder: "Publish Date",
-      name: "publish_date",
-      type: "date",
-      model: "publish_date",
-    },
-  ]);
+const form = useForm({
+  title: null,
+  author: null,
+  pages: null,
+  genre: null,
+  publishDate: null,
+  read: null,
+});
+
+const submit = () => {
+  form.post('/books');
+}
 </script>
 
 <template>
@@ -51,8 +26,73 @@
       <h1 id="box-text"
           class="text-xl border-b pb-1.5">Add Book</h1>
 
-      <Form :formFields="formFields">
-        <div class="space-x-10 mt-4">
+      <form @submit.prevent="submit">
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="title">Title</label>
+          <input v-model="form.title"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="title"
+                 placeholder="Title"
+                 required
+                 type="text"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="author">Author</label>
+          <input v-model="form.author"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="author"
+                 placeholder="Author"
+                 required
+                 type="text"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="pages">Pages</label>
+          <input v-model="form.pages"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="pages"
+                 placeholder="Pages"
+                 required
+                 type="number"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="genre">Genre</label>
+          <input v-model="form.genre"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="genre"
+                 placeholder="Genre"
+                 required
+                 type="text"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="publishDate">Publish Date</label>
+          <input v-model="form.publishDate"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="publishDate"
+                 placeholder="Publish Date"
+                 required
+                 type="date"
+          />
+        </div>
+
+        <div class="mt-6 flex space-x-6 justify-center items-center text-lg">
+          <label for="read">Read/Unread</label>
+          <input v-model="form.read"
+                 class="border border-slate-200 rounded-md text-center"
+                 name="read"
+                 required
+                 type="checkbox"
+          />
+        </div>
+
+        <div class="space-x-10 mt-5">
           <StyledButton id="form-button"
                         type="submit">
             Submit
@@ -60,17 +100,18 @@
 
           <StyledButton id="form-button">
             <Link href="/">
-              Home
+              Cancel
             </Link>
           </StyledButton>
         </div>
-      </Form>
+      </form>
+
     </FormLayout>
   </Layout>
 </template>
 
 <style scoped>
-  #box-text {
-    border-color: rgb(232, 214, 203);
-  }
+#box-text {
+  border-color: rgb(232, 214, 203);
+}
 </style>

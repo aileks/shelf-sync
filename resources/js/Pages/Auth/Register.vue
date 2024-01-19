@@ -1,39 +1,18 @@
 <script setup>
-  import Form from '@/Shared/Form.vue';
-  import FormLayout from '@/Shared/FormLayout.vue';
-  import StyledButton from '@/Shared/StyledButton.vue';
-  import {ref} from 'vue';
+import Form from '@/Shared/Form.vue';
+import FormLayout from '@/Shared/FormLayout.vue';
+import StyledButton from "@/Shared/StyledButton.vue";
+import {useForm} from '@inertiajs/vue3';
 
-  let formFields = ref([
-    {
-      label: "First Name",
-      placeholder: "First Name",
-      name: "firstName",
-      type: "text",
-      model: "first_name",
-    },
-    {
-      label: "Last Name",
-      placeholder: "Last Name",
-      name: "lastName",
-      type: "text",
-      model: "last_name",
-    },
-    {
-      label: "Email",
-      placeholder: "Email",
-      name: "email",
-      type: "email",
-      model: "email",
-    },
-    {
-      label: "Password",
-      placeholder: "Password",
-      name: "password",
-      type: "password",
-      model: "password",
-    },
-  ]);
+const form = useForm({
+  name: null,
+  email: null,
+  password: null,
+});
+
+const submit = () => {
+  form.post('/register');
+}
 </script>
 
 <template>
@@ -43,8 +22,40 @@
     <FormLayout>
       <h1 id="box-text"
           class="text-xl border-b pb-1.5">Register</h1>
+      <form @submit.prevent="submit">
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="name">Name</label>
+          <input v-model="form.name"
+                 class="border border-slate-200 rounded-md p-2"
+                 name="name"
+                 placeholder="Name"
+                 required
+                 type="text"
+          />
+        </div>
 
-      <Form :formFields="formFields">
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="email">Email</label>
+          <input v-model="form.email"
+                 class="border border-slate-200 rounded-md p-2"
+                 name="email"
+                 placeholder="email@example.com"
+                 required
+                 type="email"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col space-y-2 text-md">
+          <label for="password">Password</label>
+          <input v-model="form.password"
+                 class="border border-slate-200 rounded-md p-2"
+                 name="password"
+                 placeholder="Password"
+                 required
+                 type="password"
+          />
+        </div>
+
         <div class="space-x-10 mt-4">
           <StyledButton id="form-button"
                         type="submit">
@@ -57,13 +68,7 @@
             </Link>
           </StyledButton>
         </div>
-      </Form>
+      </form>
     </FormLayout>
   </Layout>
 </template>
-
-<style scoped>
-  #box-text {
-    border-color: rgb(232, 214, 203);
-  }
-</style>
