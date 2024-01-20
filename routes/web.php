@@ -9,7 +9,7 @@ use Inertia\Inertia;
 Route::get('/', fn () => Inertia::render('Home'))->name('Home');
 
 Route::get('/books', [BookController::class, 'index']);
-Route::post('/books', [BookController::class, 'store']);
+Route::post('/books/add', [BookController::class, 'store']);
 Route::get('/books/add', [BookController::class, 'add']);
 
 Route::get('/register', fn () => Inertia::render('Auth/Register'));

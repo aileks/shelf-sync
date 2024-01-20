@@ -13,7 +13,7 @@ class BookController extends Controller
     public function index(): Response
     {
         return Inertia::render('Books/Index', [
-            'books' => Book::with('user:id')->get(),
+            'books' => auth()->user()->books,
         ]);
     }
 
@@ -25,17 +25,18 @@ class BookController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $fields = $request->validate([
+            'user_id' => ['exists:users,id'],
             'title' => ['required', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
             'pages' => ['required', 'integer'],
             'genre' => ['required', 'string', 'max:255'],
             'publishDate' => ['required', 'date'],
-            'read' => ['required', 'boolean'],
+            'read' => ['boolean'],
         ]);
 
-        Book::create($fields);
+        $request->user()->books()->create($fields);
 
-        return redirect(route('books.index'));
+        return redirect(('/books'));
     }
 
     /**
