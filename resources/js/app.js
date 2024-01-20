@@ -7,7 +7,7 @@ import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 import Layout from "@/Shared/Layout.vue";
 
-const appName = 'ShelfSync';
+const appName = 'Quillify';
 
 createInertiaApp({
     title: (title) => `${appName} - ${title}`,

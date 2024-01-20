@@ -5,7 +5,7 @@
 <template>
   <div class="flex items-center justify-center h-screen">
     <div id="container"
-         class="justify-center rounded-xl w-1/5 p-4 mb-2">
+         class="justify-center rounded-xl w-1/2 p-4 mb-2">
       <slot/>
     </div>
   </div>

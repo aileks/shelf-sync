@@ -30,7 +30,7 @@ onMounted(() => {
       </StyledButton>
 
       <StyledButton>
-        <Link href="/add-book">
+        <Link href="/books/add">
           Add Book
         </Link>
       </StyledButton>
