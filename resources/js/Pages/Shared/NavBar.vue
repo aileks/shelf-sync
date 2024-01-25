@@ -1,19 +1,25 @@
 <script setup>
 import StyledButton from "@/Shared/StyledButton.vue";
+import { computed } from "vue";
+
+const isLoggedIn = computed(() => {
+  // Replace this with your actual login check logic
+  return true; // Assuming the user is logged in
+});
 </script>
 
 <template>
   <nav class="flex mx-2 mt-2 space-x-4">
     <div class="mr-auto">
-      <StyledButton>
+      <StyledButton v-if="!isLoggedIn.value">
         <Link href="/register"> Register </Link>
       </StyledButton>
 
-      <StyledButton>
+      <StyledButton v-if="!isLoggedIn.value">
         <Link href="/login"> Log In </Link>
       </StyledButton>
 
-      <StyledButton>
+      <StyledButton v-if="isLoggedIn.value">
         <Link as="button" href="/logout" method="post" type="button">
           Log Out
         </Link>

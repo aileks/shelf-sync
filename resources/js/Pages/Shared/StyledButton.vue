@@ -5,7 +5,9 @@ defineProps({
 </script>
 
 <template>
-  <button class="bg-[#d7bda3] hover:bg-[#d7bda399] p-1.5 m-1 rounded-md">
+  <button
+    class="bg-[#69442e] hover:bg-[#69442e99] text-neutral-50 p-1 mx-1 rounded-md"
+  >
     <slot />
   </button>
 </template>

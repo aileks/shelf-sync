@@ -5,11 +5,11 @@
 @tailwind utilities;
 
 /* Colors:
-* #282827
-* #3f4043
-* #fae8c8
-* #d7bda3
-* #909193
+* #69442e
+* #9d8461
+* #f8ead6
+* #cfdba6
+* #ceb68b
 */
 
 * {
@@ -18,5 +18,5 @@
 }
 
 body {
-    @apply text-[#282827] bg-[#fae8c8];
+    @apply text-neutral-800 bg-[#f8ead6];
 }
