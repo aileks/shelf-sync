@@ -9,8 +9,6 @@ defineProps({
 <template>
   <Head title="Your Books" />
   <Layout>
-    <h1 class="text-xl mb-4">Your Books</h1>
-
     <StyledButton>
       <Link href="/"> Home </Link>
     </StyledButton>
@@ -19,30 +17,49 @@ defineProps({
       <Link href="/books/add"> Add Another Book </Link>
     </StyledButton>
 
-    <div class="flex justify-center mt-8">
+    <div class="flex justify-center mt-2">
       <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div
-            class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+            class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
           >
             <div
-              class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+              class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
             >
               <template v-if="books">
-                <table class="min-w-full divide-y divide-gray-200">
+                <h1 class="bg-[#9d8461] text-neutral-50 text-xl">Your Books</h1>
+                <table>
+                  <thead class="bg-[#cfbda6] divide-x">
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th class="px-4">Read/Unread</th>
+                    <th>Pages</th>
+                  </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="book in books" :key="book.id">
+                    <tr
+                      v-for="(book, index) in books"
+                      :key="book.id"
+                      class="divide-x"
+                    >
                       <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center">
-                          <div>
-                            <div class="text-sm font-medium text-gray-900">
-                              <b>Title:</b> {{ book.title }} || <b>Author:</b>
-                              {{ book.author }} ||
-                              <span v-if="book.read"><b>Read</b></span>
-                              <span v-else><b>Unread</b></span> || <b>Pages:</b>
-                              {{ book.pages }}
-                            </div>
-                          </div>
+                        <div class="text-sm font-medium">
+                          {{ book.title }}
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium">
+                          {{ book.author }}
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium">
+                          <span v-if="book.read"><b>Read</b></span>
+                          <span v-else><b>Unread</b></span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium">
+                          {{ book.pages }}
                         </div>
                       </td>
                     </tr>
