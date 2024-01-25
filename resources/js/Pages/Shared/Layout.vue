@@ -1,4 +1,5 @@
 <script setup>
+import NavBar from "./NavBar.vue";
 // import { onMounted, onUnmounted, ref } from "vue";
 
 // const animate = ref(false);
@@ -9,6 +10,7 @@
 </script>
 
 <template>
+  <NavBar />
   <!-- <Transition
       enter-active-class="transition-all duration-700 ease-out"
       enter-from-class="-translate-y-8"

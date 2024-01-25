@@ -1,6 +1,7 @@
 <script setup>
 import StyledButton from "@/Shared/StyledButton.vue";
 import { usePage } from "@inertiajs/inertia-vue3";
+import NavBar from "./Shared/NavBar.vue";
 
 defineProps({
   canLogin: Boolean,
@@ -21,29 +22,5 @@ console.log(props);
         Keep track of all those books you don't read. ;)
       </h2>
     </header>
-
-    <div class="flex justify-center mt-10 space-x-4">
-      <StyledButton v-if="!$page.props.user">
-        <Link href="/register"> Register </Link>
-      </StyledButton>
-
-      <StyledButton v-if="!$page.props.user">
-        <Link href="/login"> Log In </Link>
-      </StyledButton>
-
-      <StyledButton v-if="$page.props.user">
-        <Link as="button" href="/logout" method="post" type="button">
-          Log Out
-        </Link>
-      </StyledButton>
-
-      <StyledButton v-if="$page.props.user">
-        <Link href="/books/add"> Add Book </Link>
-      </StyledButton>
-
-      <StyledButton v-if="!$page.props.user">
-        <Link href="/books"> View Books </Link>
-      </StyledButton>
-    </div>
   </Layout>
 </template>
