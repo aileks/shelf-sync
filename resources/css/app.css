@@ -4,30 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: rgba(232, 214, 203, 0.5);
-}
+/* Colors:
+* #282827
+* #3f4043
+* #fae8c8
+* #d7bda3
+* #909193
+*/
 
-div, p, button {
+* {
     @apply font-serif;
+    min-width: 0;
 }
 
-button {
-    background-color: rgb(208, 173, 167);
-}
-
-button:hover {
-    background-color: rgba(208, 173, 167, 0.5);
-}
-
-#form-button {
-    background-color: rgb(232, 214, 203);
-}
-
-#form-button:hover {
-    background-color: rgba(232, 214, 203, 0.8);
-}
-
-#box-text {
-    border-color: rgb(208, 173, 167)
+body {
+    @apply text-[#282827] bg-[#fae8c8];
 }
