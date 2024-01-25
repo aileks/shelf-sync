@@ -4,6 +4,9 @@ import { router } from "@inertiajs/vue3";
 import FormLayout from "../Shared/FormLayout.vue";
 import Layout from "../Shared/Layout.vue";
 import StyledButton from "../Shared/StyledButton.vue";
+import genreData from "../../../data/genres.json";
+
+const genres = genreData.genres;
 
 const props = defineProps(["book"]);
 const title = props.book.title;
@@ -15,13 +18,11 @@ const book = ref({
 
 const saveBook = () => {
   book.value.read = document.querySelector('input[name="read"]').checked;
+  if (!confirm("Are you ok with these changes?")) {
+    return;
+  }
   router.patch(`/books/edit`, {
     data: book.value,
-    onBefore: () => {
-      if (!confirm("Are you sure you want to edit this book?")) {
-        return;
-      }
-    },
   });
 };
 </script>
@@ -29,10 +30,19 @@ const saveBook = () => {
 <template>
   <Head title="Edit Your Book" />
   <Layout>
-    <FormLayout
-      ><h1 id="box-text" class="text-xl border-b border-[#9d8461] pb-1.5">
-        Editing {{ title }} by {{ author }}
-      </h1>
+    <FormLayout>
+      <header class="border-b border-[#9d8461] mb-1 pb-1">
+        <h2 id="box-text" class="text-xl">
+          Editing:
+          <span class="italic font-bold">
+            {{ title }}
+          </span>
+        </h2>
+        <h2 id="box-text" class="text-xl">
+          By:
+          <span class="font-bold">{{ author }}</span>
+        </h2>
+      </header>
 
       <form @submit.prevent="saveBook">
         <div class="flex flex-col mt-4 space-y-2 text-md">
@@ -75,14 +85,18 @@ const saveBook = () => {
 
         <div class="flex flex-col mt-4 space-y-2 text-md">
           <label for="genre">Genre</label>
-          <input
+          <select
             v-model="book.genre"
             class="text-center border border-[#9d8461] rounded-md"
             name="genre"
             placeholder="Genre"
             required
             type="select"
-          />
+          >
+            <option v-for="(genre, index) in genres" :key="index">
+              {{ genre }}
+            </option>
+          </select>
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-md">

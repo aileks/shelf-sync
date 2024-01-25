@@ -2,6 +2,7 @@
 import StyledButton from "@/Shared/StyledButton.vue";
 import Form from "@/Shared/Form.vue";
 import FormLayout from "@/Shared/FormLayout.vue";
+import genreData from "../../../data/genres.json";
 import { useForm } from "@inertiajs/vue3";
 
 const form = useForm({
@@ -12,6 +13,8 @@ const form = useForm({
   publishDate: null,
   read: false,
 });
+
+const genres = genreData.genres;
 
 const submit = () => {
   form.read = document.querySelector('input[name="read"]').checked;
@@ -24,7 +27,9 @@ const submit = () => {
 
   <Layout>
     <FormLayout>
-      <h1 id="box-text" class="text-xl border-b pb-1.5">Add Book</h1>
+      <h1 id="box-text" class="text-xl border-b border-[#9d8461] pb-1.5">
+        Add Book
+      </h1>
 
       <form method="POST" @submit.prevent="submit">
         <div class="flex flex-col mt-4 space-y-2 text-md">
@@ -67,14 +72,17 @@ const submit = () => {
 
         <div class="flex flex-col mt-4 space-y-2 text-md">
           <label for="genre">Genre</label>
-          <input
+          <select
             v-model="form.genre"
             class="text-center border border-[#9d8461] rounded-md"
             name="genre"
             placeholder="Genre"
             required
-            type="select"
-          />
+          >
+            <option v-for="(genre, index) in genres" :key="index">
+              {{ genre }}
+            </option>
+          </select>
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-md">
@@ -113,8 +121,4 @@ const submit = () => {
   </Layout>
 </template>
 
-<style scoped>
-#box-text {
-  border-color: rgb(232, 214, 203);
-}
-</style>
+<style scoped></style>
