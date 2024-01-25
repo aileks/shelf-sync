@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Validator;
 
 class BookController extends Controller
 {
@@ -39,17 +40,11 @@ class BookController extends Controller
         return redirect(('/books'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Book $book)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Book $book)
     {
         return Inertia::render('Books/Edit', [
@@ -57,19 +52,35 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Book $book)
     {
-        //
+        $bookData = $request->input('data');
+
+        $validator = Validator::make($bookData, [
+            'title' => ['required', 'string', 'max:255'],
+            'author' => ['required', 'string', 'max:255'],
+            'pages' => ['required', 'integer'],
+            'genre' => ['required', 'string', 'max:255'],
+            'publishDate' => ['required', 'date'],
+            'read' => ['boolean'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/books/edit/' . $bookData['id'])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $book = Book::find($bookData['id']);
+        $book->update($validator->validated());
+
+        return redirect('/books');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect('/books');
     }
 }

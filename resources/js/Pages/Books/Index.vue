@@ -1,9 +1,20 @@
 <script setup>
 import StyledButton from "@/Shared/StyledButton.vue";
+import { router } from "@inertiajs/vue3";
 
 defineProps({
   books: Object,
 });
+
+const deleteBook = (id) => {
+  router.delete(`/books/${id}`, {
+    onBefore: () => {
+      if (!confirm("Are you sure you want to delete this book?")) {
+        return false;
+      }
+    },
+  });
+};
 </script>
 
 <template>
@@ -33,38 +44,28 @@ defineProps({
                     <th>Title</th>
                     <th>Author</th>
                     <th>Genre</th>
-                    <th class="px-3">Read?</th>
-                    <th>Pages</th>
+                    <th class="px-3">Read Status</th>
+                    <th class="px-3">Pages</th>
                     <th>Modify</th>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    <tr
-                      v-for="(book, index) in books"
-                      :key="book.id"
-                      class="divide-x"
-                    >
-                      <td class="px-3">
+                    <tr v-for="book in books" :key="book.id" class="divide-x">
+                      <td class="px-3 py-m">
                         <div class="text-md">
                           {{ book.title }}
                         </div>
                       </td>
-                      <td class="px-3">
-                        <div class="text-md">
-                          {{ book.author }}
-                        </div>
+                      <td class="px-3 text-md">
+                        {{ book.author }}
                       </td>
                       <td class="px-4">
-                        <div class="text-md">
-                          {{ book.genre }}
-                        </div>
+                        {{ book.genre }}
                       </td>
                       <td>
-                        <span class="text-center" v-if="book.read">✔️</span>
+                        <span v-if="book.read">✔️</span>
                       </td>
                       <td>
-                        <div class="text-md">
-                          {{ book.pages }}
-                        </div>
+                        {{ book.pages }}
                       </td>
                       <td class="px-2">
                         <Link
@@ -73,10 +74,13 @@ defineProps({
                         >
                           Edit
                         </Link>
+
                         <p class="inline-block mx-1 px-0.5">|</p>
+
                         <Link
                           href="#"
                           class="inline-block text-[#9e442e] hover:underline"
+                          @click.prevent="deleteBook(book.id)"
                         >
                           Delete
                         </Link>
@@ -88,7 +92,7 @@ defineProps({
 
               <template v-else>
                 <div class="flex justify-center">
-                  <p class="text-xl">You have no books yet.</p>
+                  <h2 class="text-xl">You have no books yet.</h2>
                 </div>
               </template>
             </div>

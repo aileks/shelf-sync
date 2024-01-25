@@ -11,7 +11,9 @@ Route::get('/', fn () => Inertia::render('Home'))->name('Home');
 Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/add', [BookController::class, 'add']);
 Route::post('/books/add', [BookController::class, 'store']);
-Route::get('/books/edit/{id}', [BookController::class, 'edit']);
+Route::get('/books/edit/{book}', [BookController::class, 'edit']);
+Route::patch('/books/edit', [BookController::class, 'update']);
+Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
 Route::get('/register', fn () => Inertia::render('Auth/Register'));
 Route::post('/register', function () {
