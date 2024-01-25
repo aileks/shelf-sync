@@ -10,7 +10,7 @@ use Inertia\Response;
 
 class BookController extends Controller
 {
-    public function index(): Response
+    public function index(): Response|RedirectResponse
     {
         return Inertia::render('Books/Index', [
             'books' => auth()->user()->books,

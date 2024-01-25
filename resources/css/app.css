@@ -4,10 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    @apply overflow-hidden;
-}
-
 body {
     background-color: rgba(232, 214, 203, 0.5);
 }

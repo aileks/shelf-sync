@@ -6,10 +6,6 @@
   onMounted(() => {
     animate.value = true
   })
-
-  onUnmounted(() => {
-    animate.value = false
-  })
 </script>
 
 <template>
@@ -20,7 +16,7 @@
       leave-to-class="-translate-y-8 opacity-0"
   >
     <div v-show="animate"
-         class="mt-4 p-2 text-center">
+         class="mt-4 p-2 text-center overflow-none">
       <slot/>
     </div>
   </Transition>

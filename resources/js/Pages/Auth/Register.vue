@@ -1,18 +1,18 @@
 <script setup>
-import Form from '@/Shared/Form.vue';
-import FormLayout from '@/Shared/FormLayout.vue';
-import StyledButton from "@/Shared/StyledButton.vue";
-import {useForm} from '@inertiajs/vue3';
+  import Form from '@/Shared/Form.vue';
+  import FormLayout from '@/Shared/FormLayout.vue';
+  import StyledButton from "@/Shared/StyledButton.vue";
+  import {useForm} from '@inertiajs/vue3';
 
-const form = useForm({
-  name: null,
-  email: null,
-  password: null,
-});
+  const form = useForm({
+    name: null,
+    email: null,
+    password: null,
+  });
 
-const submit = () => {
-  form.post('/register');
-}
+  const submit = () => {
+    form.post('/register');
+  }
 </script>
 
 <template>
@@ -57,12 +57,12 @@ const submit = () => {
         </div>
 
         <div class="space-x-10 mt-4">
-          <StyledButton id="form-button"
+          <StyledButton class="hover:bg-[#E8D6CB] bg-[#AD6A6C] hover:text-black text-white"
                         type="submit">
             Submit
           </StyledButton>
 
-          <StyledButton id="form-button">
+          <StyledButton class="hover:bg-[#E8D6CB] bg-[#AD6A6C] hover:text-black text-white">
             <Link href="/">
               Cancel
             </Link>
