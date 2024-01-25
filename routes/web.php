@@ -6,13 +6,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', fn() => Inertia::render('Home'))->name('Home');
+Route::get('/', fn () => Inertia::render('Home'))->name('Home');
 
 Route::get('/books', [BookController::class, 'index']);
-Route::post('/books/add', [BookController::class, 'store']);
 Route::get('/books/add', [BookController::class, 'add']);
+Route::post('/books/add', [BookController::class, 'store']);
+Route::get('/books/edit/{id}', [BookController::class, 'edit']);
 
-Route::get('/register', fn() => Inertia::render('Auth/Register'));
+Route::get('/register', fn () => Inertia::render('Auth/Register'));
 Route::post('/register', function () {
     $attributes = request()->validate([
         'name' => ['required', 'string', 'max:255'],
@@ -25,7 +26,7 @@ Route::post('/register', function () {
     return redirect('/');
 });
 
-Route::get('/login', fn() => Inertia::render('Auth/Login'));
+Route::get('/login', fn () => Inertia::render('Auth/Login'));
 Route::post('/login', [LoginController::class, 'store']);
 
 Route::post('logout', [LoginController::class, 'destroy'])->name('logout');

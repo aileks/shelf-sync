@@ -19,21 +19,23 @@ defineProps({
 
     <div class="flex justify-center mt-2">
       <div class="flex flex-col">
-        <div class="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="my-2 overflow-x-auto md:-mx-6 lg:-mx-8">
           <div
-            class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
+            class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
           >
             <div
-              class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
+              class="overflow-hidden border-b border-gray-200 shadow md:rounded-lg"
             >
               <template v-if="books">
                 <h1 class="bg-[#9d8461] text-neutral-50 text-xl">Your Books</h1>
                 <table>
-                  <thead class="bg-[#cfbda6] divide-x">
+                  <thead class="bg-[#cfbda6] text-lg underline divide-x">
                     <th>Title</th>
                     <th>Author</th>
-                    <th class="px-4">Read/Unread</th>
+                    <th>Genre</th>
+                    <th class="px-3">Read?</th>
                     <th>Pages</th>
+                    <th>Modify</th>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
                     <tr
@@ -41,26 +43,43 @@ defineProps({
                       :key="book.id"
                       class="divide-x"
                     >
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium">
+                      <td class="px-3">
+                        <div class="text-md">
                           {{ book.title }}
                         </div>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium">
+                      <td class="px-3">
+                        <div class="text-md">
                           {{ book.author }}
                         </div>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium">
-                          <span v-if="book.read"><b>Read</b></span>
-                          <span v-else><b>Unread</b></span>
+                      <td class="px-4">
+                        <div class="text-md">
+                          {{ book.genre }}
                         </div>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium">
+                      <td>
+                        <span class="text-center" v-if="book.read">✔️</span>
+                      </td>
+                      <td>
+                        <div class="text-md">
                           {{ book.pages }}
                         </div>
+                      </td>
+                      <td class="px-2">
+                        <Link
+                          :href="`/books/edit/${book.id}`"
+                          class="inline-block text-[#2e4269] hover:underline"
+                        >
+                          Edit
+                        </Link>
+                        <p class="inline-block mx-1 px-0.5">|</p>
+                        <Link
+                          href="#"
+                          class="inline-block text-[#9e442e] hover:underline"
+                        >
+                          Delete
+                        </Link>
                       </td>
                     </tr>
                   </tbody>
