@@ -1,9 +1,12 @@
 <script setup>
-import StyledButton from "./StyledButton.vue";
 import { useForm } from "@inertiajs/vue3";
+import FormButtons from "./FormButtons.vue";
 
 const props = defineProps({
   formFields: Array,
+  submitText: String,
+  cancelUrl: String,
+  postUrl: String,
 });
 
 const form = useForm(
@@ -11,7 +14,9 @@ const form = useForm(
 );
 
 const submit = () => {
-  form.post("/login");
+  form.post(props.postUrl, {
+    preserveState: true,
+  });
 };
 </script>
 
@@ -23,6 +28,7 @@ const submit = () => {
       class="flex flex-col mt-4 space-y-2 text-md"
     >
       <label :for="field.label">{{ field.label }}</label>
+
       <input
         v-model="form[field.model]"
         class="text-center border border-[#9d8461] rounded-md"
@@ -31,17 +37,12 @@ const submit = () => {
         :type="field.type"
         required
       />
+      <div v-if="form.errors[field.model]" class="text-red-500">
+        {{ form.errors[field.model] }}
+      </div>
     </div>
 
-    <div class="mt-8 space-x-12">
-      <StyledButton class="bg-[#69442e] text-neutral-100" type="submit">
-        Submit
-      </StyledButton>
-
-      <StyledButton class="bg-[#69442e] text-neutral-100">
-        <Link href="/"> Cancel </Link>
-      </StyledButton>
-    </div>
+    <FormButtons :submit-text="props.submitText" :cancelUrl="props.cancelUrl" />
     <slot />
   </form>
 </template>

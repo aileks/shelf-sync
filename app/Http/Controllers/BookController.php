@@ -13,6 +13,10 @@ class BookController extends Controller
 {
     public function index(): Response|RedirectResponse
     {
+        if (empty(auth()->user()->books)) {
+            return Inertia::render('Books/Index', ['books' => []]);
+        }
+
         return Inertia::render('Books/Index', [
             'books' => auth()->user()->books,
         ]);
@@ -25,6 +29,10 @@ class BookController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
+
         $fields = $request->validate([
             'user_id' => ['exists:users,id'],
             'title' => ['required', 'string', 'max:255'],

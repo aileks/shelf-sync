@@ -108,12 +108,10 @@ const submit = () => {
         </div>
 
         <div class="mt-5 space-x-10">
-          <StyledButton class="text-[rgb(232, 214, 203)]" type="submit">
-            Submit
-          </StyledButton>
+          <StyledButton type="submit"> Add </StyledButton>
 
-          <StyledButton class="text-[rgb(232, 214, 203)]">
-            <Link href="/"> Cancel </Link>
+          <StyledButton>
+            <Link href="/books"> Go Back </Link>
           </StyledButton>
         </div>
       </form>

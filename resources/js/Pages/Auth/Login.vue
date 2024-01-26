@@ -1,9 +1,8 @@
 <script setup>
 import Form from "@/Shared/Form.vue";
 import FormLayout from "@/Shared/FormLayout.vue";
-import { useForm } from "@inertiajs/vue3";
 
-let formFields = [
+const formFields = [
   {
     model: "email",
     label: "Email",
@@ -28,7 +27,13 @@ let formFields = [
     <FormLayout>
       <h2 class="text-xl border-[#9d8461] border-b pb-1.5">Login</h2>
 
-      <Form :form-fields="formFields" @submit="$emit('submit')" />
+      <Form
+        :form-fields="formFields"
+        submit-text="Login"
+        cancel-url="/"
+        post-url="/login"
+        @submit="$emit('submit')"
+      />
     </FormLayout>
   </Layout>
 </template>

@@ -21,10 +21,6 @@ const deleteBook = (id) => {
   <Head title="Your Books" />
   <Layout>
     <StyledButton>
-      <Link href="/"> Home </Link>
-    </StyledButton>
-
-    <StyledButton>
       <Link href="/books/add"> Add Another Book </Link>
     </StyledButton>
 
@@ -35,10 +31,11 @@ const deleteBook = (id) => {
             class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
           >
             <div
-              class="overflow-hidden border-b border-gray-200 shadow md:rounded-lg"
+              class="overflow-hidden shadow-[1px_2px_2px_rgba(0,0,0,0.3)] md:rounded-lg"
             >
-              <template v-if="books">
+              <div v-if="books.length > 0">
                 <h1 class="bg-[#9d8461] text-neutral-50 text-xl">Your Books</h1>
+
                 <table>
                   <thead class="bg-[#cfbda6] text-lg underline divide-x">
                     <th>Title</th>
@@ -48,6 +45,7 @@ const deleteBook = (id) => {
                     <th class="px-3">Pages</th>
                     <th>Modify</th>
                   </thead>
+
                   <tbody class="bg-white divide-y divide-gray-200">
                     <tr v-for="book in books" :key="book.id" class="divide-x">
                       <td class="px-3 py-m">
@@ -55,6 +53,7 @@ const deleteBook = (id) => {
                           {{ book.title }}
                         </div>
                       </td>
+
                       <td class="px-3 text-md">
                         {{ book.author }}
                       </td>
@@ -88,13 +87,11 @@ const deleteBook = (id) => {
                     </tr>
                   </tbody>
                 </table>
-              </template>
+              </div>
 
-              <template v-else>
-                <div class="flex justify-center">
-                  <h2 class="text-xl">You have no books yet.</h2>
-                </div>
-              </template>
+              <div v-else class="p-2 bg-[#ceb68b]">
+                <h2 class="text-xl">You don't have any books yet.</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -102,5 +99,3 @@ const deleteBook = (id) => {
     </div>
   </Layout>
 </template>
-
-<style scoped></style>

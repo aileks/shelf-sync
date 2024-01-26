@@ -20,7 +20,7 @@ Route::post('/register', function () {
     $attributes = request()->validate([
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'email', 'max:255'],
-        'password' => ['required', 'min:8'],
+        'password' => ['required', 'min:8', 'confirmed'],
     ]);
 
     User::create($attributes);
