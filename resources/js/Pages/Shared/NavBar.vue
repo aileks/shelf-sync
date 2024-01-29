@@ -4,7 +4,7 @@ import StyledButton from "@/Shared/StyledButton.vue";
 
 <template>
   <nav
-    class="flex mx-2 mt-2 py-2 px-1 bg-[#f8ead6] rounded-md space-x-4 shadow-[0_1px_1px_1px_rgba(0,0,0,0.2)]"
+    class="flex mx-2 mt-2 py-2 px-1 bg-[#cfbda6] rounded-md space-x-4 shadow-[0_1px_1px_rgba(0,0,0,0.4)]"
   >
     <div class="mr-auto">
       <StyledButton>

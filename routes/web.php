@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', fn () => Inertia::render('Home'))->name('Home');
-
 Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/add', [BookController::class, 'add']);
 Route::post('/books/add', [BookController::class, 'store']);
