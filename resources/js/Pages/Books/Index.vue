@@ -21,9 +21,9 @@ const deleteBook = (id) => {
   <Head title="Your Books" />
 
   <Layout>
-    <StyledButton>
+    <!-- <StyledButton>
       <Link href="/books/add"> Add Another Book </Link>
-    </StyledButton>
+    </StyledButton> -->
 
     <div class="flex justify-center mt-2">
       <div class="flex flex-col">
@@ -92,6 +92,12 @@ const deleteBook = (id) => {
 
               <div v-else class="p-2 bg-[#ceb68b]">
                 <h2 class="text-xl">You don't have any books yet.</h2>
+
+                <Link
+                  class="text-lg hover:underline text-[#69442e]"
+                  href="/books/add"
+                  >Add a book!
+                </Link>
               </div>
             </div>
           </div>

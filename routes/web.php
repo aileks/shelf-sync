@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -22,19 +23,7 @@ Route::get('/profile', fn () => Inertia::render('Profile/Index', ['name' => Auth
 
 // Auth stuff
 Route::get('/register', fn () => Inertia::render('Auth/Register'));
-Route::post('/register', function () {
-    $attributes = request()->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'email', 'max:255'],
-        'password' => ['required', 'min:8', 'confirmed'],
-    ]);
-
-    User::create($attributes);
-
-    return redirect('/');
-});
-
+Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/login', fn () => Inertia::render('Auth/Login'));
 Route::post('/login', [LoginController::class, 'store']);
-
 Route::post('logout', [LoginController::class, 'destroy'])->name('logout');

@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(Inertia::render('Home'));
+        return redirect(Inertia::render('/'));
     }
 
     /**

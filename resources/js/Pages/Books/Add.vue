@@ -9,8 +9,8 @@ const form = useForm({
   title: null,
   author: null,
   pages: null,
-  genre: null,
-  publishDate: null,
+  genre: "",
+  publishYear: "",
   read: false,
 });
 
@@ -38,7 +38,7 @@ const submit = () => {
             v-model="form.title"
             class="text-center border border-[#9d8461] rounded-md"
             name="title"
-            placeholder="Title"
+            placeholder="What's it called?"
             required
             type="text"
           />
@@ -50,7 +50,7 @@ const submit = () => {
             v-model="form.author"
             class="text-center border border-[#9d8461] rounded-md"
             name="author"
-            placeholder="Author"
+            placeholder="Who wrote it?"
             required
             type="text"
           />
@@ -62,7 +62,7 @@ const submit = () => {
             v-model="form.pages"
             class="text-center border border-[#9d8461] rounded-md"
             name="pages"
-            placeholder="Pages"
+            placeholder="How many pages?"
             required
             type="number"
             min="1"
@@ -79,6 +79,7 @@ const submit = () => {
             placeholder="Genre"
             required
           >
+            <option disabled value="">Please select a genre</option>
             <option v-for="(genre, index) in genres" :key="index">
               {{ genre }}
             </option>
@@ -86,15 +87,22 @@ const submit = () => {
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-md">
-          <label for="publishDate">Publish Date</label>
-          <input
-            v-model="form.publishDate"
+          <label for="publishYear">Publish Year</label>
+          <select
             class="text-center border border-[#9d8461] rounded-md"
-            name="publishDate"
-            placeholder="Publish Date"
+            v-model="form.publishYear"
+            name="publishYear"
             required
-            type="date"
-          />
+          >
+            <option disabled value="">Please select a year</option>
+            <option
+              v-for="year in new Date().getFullYear() - 1900"
+              :key="year"
+              :value="year + 1900"
+            >
+              {{ year + 1900 }}
+            </option>
+          </select>
         </div>
 
         <div class="flex items-center justify-center mt-6 space-x-6 text-lg">

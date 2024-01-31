@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('author');
             $table->integer('pages');
             $table->string('genre');
-            $table->date('publishDate');
+            $table->integer('publishYear');
             $table->boolean('read')->default(false);
             $table->timestamps();
         });

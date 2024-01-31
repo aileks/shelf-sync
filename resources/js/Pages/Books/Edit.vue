@@ -101,15 +101,21 @@ const saveBook = () => {
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-md">
-          <label for="publishDate">Publish Date</label>
-          <input
-            v-model="book.publishDate"
+          <label for="publishYear">Publish Year</label>
+          <select
             class="text-center border border-[#9d8461] rounded-md"
-            name="publishDate"
-            placeholder="Publish Date"
-            required
-            type="date"
-          />
+            v-model="form.publishYear"
+            name="publishYear"
+          >
+            <option disabled value="">Please select a year</option>
+            <option
+              v-for="year in new Date().getFullYear() - 1900"
+              :key="year"
+              :value="year + 1900"
+            >
+              {{ year + 1900 }}
+            </option>
+          </select>
         </div>
 
         <div class="flex items-center justify-center mt-6 space-x-6 text-lg">

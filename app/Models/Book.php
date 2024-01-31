@@ -29,7 +29,7 @@ class Book extends Model
         'author',
         'pages',
         'genre',
-        'publishDate',
+        'publishYear',
         'read',
     ];
 
