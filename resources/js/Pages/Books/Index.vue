@@ -19,6 +19,7 @@ const deleteBook = (id) => {
 
 <template>
   <Head title="Your Books" />
+
   <Layout>
     <StyledButton>
       <Link href="/books/add"> Add Another Book </Link>

@@ -18,7 +18,7 @@ Route::patch('/books/edit', [BookController::class, 'update']);
 Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
 // Profile stuff
-Route::get('/profile', fn () => Inertia::render('Profile/Index'));
+Route::get('/profile', fn () => Inertia::render('Profile/Index', ['name' => Auth::user()->name]));
 
 // Auth stuff
 Route::get('/register', fn () => Inertia::render('Auth/Register'));

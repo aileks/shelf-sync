@@ -1,5 +1,8 @@
 <script setup>
 import StyledButton from "@/Shared/StyledButton.vue";
+// import { ref } from "vue";
+
+// const auth = ref($page.props.auth);
 </script>
 
 <template>
@@ -7,15 +10,15 @@ import StyledButton from "@/Shared/StyledButton.vue";
     class="flex mx-2 mt-2 py-2 px-1 bg-[#cfbda6] rounded-md space-x-4 shadow-[0_1px_1px_rgba(0,0,0,0.4)]"
   >
     <div class="mr-auto">
-      <StyledButton>
+      <StyledButton v-show="!$page.props.auth.user">
         <Link href="/register"> Register </Link>
       </StyledButton>
 
-      <StyledButton>
+      <StyledButton v-show="!$page.props.auth.user">
         <Link href="/login"> Log In </Link>
       </StyledButton>
 
-      <StyledButton>
+      <StyledButton v-show="$page.props.auth.user">
         <Link as="button" href="/logout" method="post" type="button">
           Log Out
         </Link>
@@ -23,15 +26,15 @@ import StyledButton from "@/Shared/StyledButton.vue";
     </div>
 
     <div class="ml-auto">
-      <StyledButton>
+      <StyledButton v-show="$page.props.auth.user">
         <Link href="/books/add"> Add Book </Link>
       </StyledButton>
 
-      <StyledButton>
+      <StyledButton v-show="$page.props.auth.user">
         <Link href="/books"> View Books </Link>
       </StyledButton>
 
-      <StyledButton>
+      <StyledButton v-show="$page.props.auth.user">
         <Link href="/profile"> Profile </Link>
       </StyledButton>
     </div>

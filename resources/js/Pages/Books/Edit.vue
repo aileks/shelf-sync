@@ -29,16 +29,17 @@ const saveBook = () => {
 
 <template>
   <Head title="Edit Your Book" />
+
   <Layout>
     <FormLayout>
       <header class="border-b border-[#9d8461] mb-1 pb-1">
-        <h2 id="box-text" class="text-xl">
+        <h2 id="box-text" class="text-lg">
           Editing:
           <span class="italic font-bold">
             {{ title }}
           </span>
         </h2>
-        <h2 id="box-text" class="text-xl">
+        <h2 id="box-text" class="text-lg">
           By:
           <span class="font-bold">{{ author }}</span>
         </h2>
