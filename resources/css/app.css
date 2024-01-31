@@ -13,11 +13,10 @@
 */
 
 * {
-    @apply font-serif;
-    min-width: 0;
+  @apply font-serif;
+  min-width: 0;
 }
 
 body {
-    @apply text-neutral-800 bg-[#f8ead6];
+  @apply text-neutral-800 bg-[#f8ead6];
 }
-

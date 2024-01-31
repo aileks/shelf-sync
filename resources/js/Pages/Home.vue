@@ -20,6 +20,7 @@ onMounted(() => {
     >
       <header v-show="animate" class="flex flex-col mt-12">
         <h1 class="text-2xl">Welcome to Quillify!</h1>
+
         <h2 class="mt-2 text-xl">
           Keep track of all those books you don't read. ;)
         </h2>
