@@ -16,12 +16,17 @@ const book = ref({
   ...props.book,
 });
 
+const isRead = computed({
+  get: () => Boolean(book.value.read),
+  set: (value) => (book.value.read = value),
+});
+
 const saveBook = () => {
   book.value.read = document.querySelector('input[name="read"]').checked;
   if (!confirm("Are you ok with these changes?")) {
     return;
   }
-  router.patch(`/books/edit`, {
+  router.patch(`/books/edit/${book.value.id}`, {
     data: book.value,
   });
 };
@@ -92,7 +97,6 @@ const saveBook = () => {
             name="genre"
             placeholder="Genre"
             required
-            type="select"
           >
             <option v-for="(genre, index) in genres" :key="index">
               {{ genre }}
@@ -104,7 +108,7 @@ const saveBook = () => {
           <label for="publishYear">Publish Year</label>
           <select
             class="text-center border border-[#9d8461] rounded-md"
-            v-model="form.publishYear"
+            v-model="book.publishYear"
             name="publishYear"
           >
             <option disabled value="">Please select a year</option>
@@ -121,7 +125,7 @@ const saveBook = () => {
         <div class="flex items-center justify-center mt-6 space-x-6 text-lg">
           <label for="read">Read</label>
           <input
-            v-model="book.read"
+            v-model="isRead"
             class="text-center border border-[#9d8461] rounded-md"
             name="read"
             type="checkbox"

@@ -69,7 +69,7 @@ class BookController extends Controller
             'author' => ['required', 'string', 'max:255'],
             'pages' => ['required', 'integer'],
             'genre' => ['required', 'string', 'max:255'],
-            'publishYear' => ['required', 'date'],
+            'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
         ]);
 

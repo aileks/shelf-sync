@@ -26,12 +26,13 @@ class LoginController extends Controller
             return redirect()->intended();
         }
 
-        return redirect('/');
+        return redirect()->route('Home');
     }
+
 
     public function destroy()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect()->route('Home');
     }
 }
