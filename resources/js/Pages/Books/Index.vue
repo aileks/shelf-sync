@@ -64,7 +64,7 @@ watch(
             <div class="shadow-paper md:rounded-lg overflow-hidden">
               <h2 class="bg-bronze text-neutral-50 text-xl">Your Books</h2>
 
-              <div v-if="filteredBooks.length === 0" class="w-[800px]">
+              <div v-if="filteredBooks.length === 0" class="w-[600px]">
                 <h2 class="p-2 text-xl bg-white">No books found.</h2>
               </div>
 
