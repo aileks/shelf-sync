@@ -11,7 +11,7 @@ use Validator;
 
 class BookController extends Controller
 {
-    public function index(): Response|RedirectResponse
+    public function index(Request $request): Response|RedirectResponse
     {
         if (empty(auth()->user()->books)) {
             return Inertia::render('Books/Index', ['books' => []]);
@@ -19,6 +19,7 @@ class BookController extends Controller
 
         return Inertia::render('Books/Index', [
             'books' => auth()->user()->books,
+            'filters' => $request->only(['search'])
         ]);
     }
 
