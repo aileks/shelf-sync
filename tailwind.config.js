@@ -13,6 +13,9 @@ export default {
   // prettier-ignore
   theme: {
     extend: {
+      boxShadow: {
+        'paper': '1px 1px 3px rgba(0,0,0,0.2), 1px 1px 2px rgba(0,0,0,0.3)'
+      },
       colors: {
         'primary': '#f8ead6',
         'brown': '#69442e',

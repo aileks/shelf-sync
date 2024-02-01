@@ -18,24 +18,18 @@ const deleteBook = (id) => {
 </script>
 
 <template>
-  <Head title="Your Books" />
+  <Head title="Books" />
 
   <Layout>
-    <!-- <StyledButton>
-      <Link href="/books/add"> Add Another Book </Link>
-    </StyledButton> -->
-
-    <div class="flex justify-center mt-2">
+    <main class="flex justify-center mt-2">
       <div class="flex flex-col">
         <div class="my-2 overflow-x-auto md:-mx-6 lg:-mx-8">
           <div
             class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
           >
-            <div
-              class="overflow-hidden shadow-[1px_2px_2px_rgba(0,0,0,0.3)] md:rounded-lg"
-            >
+            <div class="overflow-hidden shadow-paper md:rounded-lg">
               <div v-if="books.length > 0">
-                <h1 class="text-xl bg-bronze text-neutral-50">Your Books</h1>
+                <h2 class="text-xl bg-bronze text-neutral-50">Your Books</h2>
 
                 <table>
                   <thead class="text-lg underline divide-x bg-sandy">
@@ -103,6 +97,6 @@ const deleteBook = (id) => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </Layout>
 </template>
