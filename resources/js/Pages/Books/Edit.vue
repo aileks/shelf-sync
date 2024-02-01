@@ -37,25 +37,26 @@ const saveBook = () => {
 
   <Layout>
     <FormLayout>
-      <header class="border-b border-[#9d8461] mb-1 pb-1">
-        <h2 id="box-text" class="text-lg">
+      <header class="pb-1 mb-1 border-b border-bronze">
+        <h2 id="box-text" class="text-xl">
           Editing:
-          <span class="italic font-bold">
+          <span class="italic font-bold underline">
             {{ title }}
           </span>
         </h2>
-        <h2 id="box-text" class="text-lg">
+
+        <h2 id="box-text" class="text-xl">
           By:
           <span class="font-bold">{{ author }}</span>
         </h2>
       </header>
 
       <form @submit.prevent="saveBook">
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="flex flex-col mt-4 space-y-2 text-lg">
           <label for="title">Title</label>
           <input
             v-model="book.title"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="title"
             placeholder="Title"
             required
@@ -63,11 +64,11 @@ const saveBook = () => {
           />
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="flex flex-col mt-4 space-y-2 text-lg">
           <label for="author">Author</label>
           <input
             v-model="book.author"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="author"
             placeholder="Author"
             required
@@ -75,11 +76,11 @@ const saveBook = () => {
           />
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="flex flex-col mt-4 space-y-2 text-lg">
           <label for="pages">Pages</label>
           <input
             v-model="book.pages"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="pages"
             placeholder="Pages"
             required
@@ -89,11 +90,11 @@ const saveBook = () => {
           />
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="flex flex-col mt-4 space-y-2 text-lg">
           <label for="genre">Genre</label>
           <select
             v-model="book.genre"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="genre"
             placeholder="Genre"
             required
@@ -104,10 +105,10 @@ const saveBook = () => {
           </select>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="flex flex-col mt-4 space-y-2 text-lg">
           <label for="publishYear">Publish Year</label>
           <select
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             v-model="book.publishYear"
             name="publishYear"
           >
@@ -126,7 +127,7 @@ const saveBook = () => {
           <label for="read">Read</label>
           <input
             v-model="isRead"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="read"
             type="checkbox"
           />

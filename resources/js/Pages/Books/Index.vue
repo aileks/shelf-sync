@@ -35,10 +35,10 @@ const deleteBook = (id) => {
               class="overflow-hidden shadow-[1px_2px_2px_rgba(0,0,0,0.3)] md:rounded-lg"
             >
               <div v-if="books.length > 0">
-                <h1 class="bg-[#9d8461] text-neutral-50 text-xl">Your Books</h1>
+                <h1 class="text-xl bg-bronze text-neutral-50">Your Books</h1>
 
                 <table>
-                  <thead class="bg-[#cfbda6] text-lg underline divide-x">
+                  <thead class="text-lg underline divide-x bg-sandy">
                     <th>Title</th>
                     <th>Author</th>
                     <th>Genre</th>
@@ -70,7 +70,7 @@ const deleteBook = (id) => {
                       <td class="px-2">
                         <Link
                           :href="`/books/edit/${book.id}`"
-                          class="inline-block text-[#2e4269] hover:underline"
+                          class="inline-block text-blue hover:underline"
                         >
                           Edit
                         </Link>
@@ -79,7 +79,7 @@ const deleteBook = (id) => {
 
                         <Link
                           href="#"
-                          class="inline-block text-[#9e442e] hover:underline"
+                          class="inline-block text-red hover:underline"
                           @click.prevent="deleteBook(book.id)"
                         >
                           Delete
@@ -90,11 +90,11 @@ const deleteBook = (id) => {
                 </table>
               </div>
 
-              <div v-else class="p-2 bg-[#ceb68b]">
-                <h2 class="text-xl">You don't have any books yet.</h2>
+              <div v-else class="p-3 bg-sandy">
+                <h2 class="text-2xl">You don't have any books yet.</h2>
 
                 <Link
-                  class="text-lg hover:underline text-[#69442e]"
+                  class="text-xl hover:underline text-brown"
                   href="/books/add"
                   >Add a book!
                 </Link>

@@ -27,7 +27,7 @@ const submit = () => {
 
   <Layout>
     <FormLayout>
-      <h1 id="box-text" class="text-xl border-b border-[#9d8461] pb-1.5">
+      <h1 id="box-text" class="text-3xl border-b border-bronze pb-1.5">
         Add Book
       </h1>
 
@@ -36,7 +36,7 @@ const submit = () => {
           <label for="title">Title</label>
           <input
             v-model="form.title"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="title"
             placeholder="What's it called?"
             required
@@ -48,7 +48,7 @@ const submit = () => {
           <label for="author">Author</label>
           <input
             v-model="form.author"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="author"
             placeholder="Who wrote it?"
             required
@@ -60,7 +60,7 @@ const submit = () => {
           <label for="pages">Pages</label>
           <input
             v-model="form.pages"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="pages"
             placeholder="How many pages?"
             required
@@ -74,7 +74,7 @@ const submit = () => {
           <label for="genre">Genre</label>
           <select
             v-model="form.genre"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="genre"
             placeholder="Genre"
             required
@@ -89,7 +89,7 @@ const submit = () => {
         <div class="flex flex-col mt-4 space-y-2 text-md">
           <label for="publishYear">Publish Year</label>
           <select
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             v-model="form.publishYear"
             name="publishYear"
             required
@@ -109,7 +109,7 @@ const submit = () => {
           <label for="read">Read</label>
           <input
             v-model="form.read"
-            class="text-center border border-[#9d8461] rounded-md"
+            class="text-center border rounded-md border-bronze"
             name="read"
             type="checkbox"
           />

@@ -40,7 +40,7 @@ const formFields = [
 
   <Layout>
     <FormLayout>
-      <h2 class="text-xl border-[#9d8461] border-b pb-1.5">Register</h2>
+      <h2 class="text-2xl border-bronze border-b pb-1.5">Register</h2>
 
       <Form
         :form-fields="formFields"

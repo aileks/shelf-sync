@@ -31,7 +31,7 @@ const submit = () => {
 
       <input
         v-model="form[field.model]"
-        class="text-center border border-[#9d8461] rounded-md"
+        class="text-center border border-bronze rounded-md"
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"

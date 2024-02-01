@@ -4,19 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Colors:
-* #69442e
-* #9d8461
-* #f8ead6
-* #cfdba6
-* #ceb68b
-*/
-
 * {
   @apply font-serif;
   min-width: 0;
 }
 
 body {
-  @apply text-neutral-800 bg-[#f8ead6];
+  @apply text-neutral-800 bg-primary;
 }
