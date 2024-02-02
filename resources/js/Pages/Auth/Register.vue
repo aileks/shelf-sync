@@ -1,7 +1,6 @@
 <script setup>
 import Form from "@/Shared/Form.vue";
 import FormLayout from "@/Shared/FormLayout.vue";
-import FormButtons from "../Shared/FormButtons.vue";
 
 const formFields = [
   {
