@@ -25,13 +25,15 @@ const submit = () => {
     <div
       v-for="(field, index) in props.formFields"
       :key="index"
-      class="text-md flex flex-col mt-4 space-y-2"
+      class="text-md flex flex-col text-left"
     >
-      <label :for="field.label">{{ field.label }}</label>
+      <label class="mt-3 mb-1 ml-1" :for="field.label"
+        >{{ field.label }}:</label
+      >
 
       <input
         v-model="form[field.model]"
-        class="border-bronze text-center border rounded-md"
+        class="border-bronze text-left border rounded-md"
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"

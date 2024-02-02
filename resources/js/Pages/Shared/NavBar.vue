@@ -1,23 +1,10 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
 import StyledButton from "@/Shared/StyledButton.vue";
-
-const isSubMenuOpen = ref(false);
-
-const handleEscapePress = (e) => {
-  if (e.key === "Escape") {
-    isSubMenuOpen.value = false;
-  }
-};
-
-onMounted(() => {
-  window.addEventListener("keydown", handleEscapePress);
-});
 </script>
 
 <template>
   <nav
-    class="flex px-1 py-2 mx-2 mt-2 space-x-4 rounded-md bg-sandy shadow-paper"
+    class="bg-sandy shadow-paper flex px-1 py-2 mx-4 mt-2 space-x-4 rounded-md"
   >
     <div class="mr-auto">
       <StyledButton v-show="!$page.props.auth.user">
@@ -59,7 +46,7 @@ onMounted(() => {
       >
         <div
           v-show="isSubMenuOpen"
-          class="absolute right-0 w-48 mt-2 mr-2 rounded-md shadow-paper bg-sandy submenu"
+          class="shadow-paper bg-sandy submenu absolute right-0 w-48 mt-2 mr-2 rounded-md"
         >
           <div
             class="py-1"
@@ -69,13 +56,13 @@ onMounted(() => {
           >
             <Link
               href="/profile/stats"
-              class="block px-4 py-2 text-sm transition-all duration-300 hover:bg-brown/90 hover:text-neutral-50"
+              class="hover:bg-brown/90 hover:text-neutral-50 block px-4 py-2 text-sm transition-all duration-300"
               role="menuitem"
               >Stats</Link
             >
             <Link
               href="/profile/settings"
-              class="block px-4 py-2 text-sm transition-all duration-300 hover:bg-brown/90 hover:text-neutral-50"
+              class="hover:bg-brown/90 hover:text-neutral-50 block px-4 py-2 text-sm transition-all duration-300"
               role="menuitem"
               >Settings</Link
             >

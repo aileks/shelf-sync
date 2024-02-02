@@ -29,7 +29,7 @@ const formFields = [
     label: "Confirm Password",
     name: "password_confirmation",
     type: "password",
-    placeholder: "Password",
+    placeholder: "Confirm Password",
   },
 ];
 </script>
