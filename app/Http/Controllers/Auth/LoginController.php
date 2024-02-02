@@ -15,7 +15,7 @@ class LoginController extends Controller
         return Inertia::render('Auth/Login');
     }
 
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required'],
@@ -27,13 +27,13 @@ class LoginController extends Controller
             return redirect()->intended();
         }
 
-        return Inertia::render('Home');
+        return Inertia::location(route('Home'));
     }
 
 
-    public function destroy(): Response
+    public function destroy()
     {
         Auth::logout();
-        return Inertia::render('Home');
+        return Inertia::location(route('Home'));
     }
 }

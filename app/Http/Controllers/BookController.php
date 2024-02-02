@@ -55,7 +55,7 @@ class BookController extends Controller
 
         $request->user()->books()->create($validated);
 
-        return Inertia::render('Books/Index');
+        return Inertia::location(route('Books/Index'));
     }
 
     public function edit(Book $book): Response
@@ -87,13 +87,13 @@ class BookController extends Controller
         $book = Book::find($bookData['id']);
         $book->update($validator->validated());
 
-        return Inertia::render('Books/Index');
+        return Inertia::location(route('Books/Index'));
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
 
-        return Inertia::render('Books/Index');
+        return Inertia::location(route('Books/Index'));
     }
 }
