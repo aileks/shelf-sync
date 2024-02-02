@@ -8,7 +8,9 @@
   ],
   "license": "MIT",
   "require": {
-    "php": "^7.3|^8.1",
+    "php": "^7.3|^8.3",
+    "bref/bref": "^2.1",
+    "bref/laravel-bridge": "^2.2",
     "guzzlehttp/guzzle": "^7.2",
     "inertiajs/inertia-laravel": "^0.6.8",
     "laravel/breeze": "^1.28",
