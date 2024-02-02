@@ -27,7 +27,9 @@ class LoginController extends Controller
             return redirect()->intended();
         }
 
-        return Inertia::location(route('Home'));
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
 

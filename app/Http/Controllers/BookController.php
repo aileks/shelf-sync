@@ -16,13 +16,6 @@ class BookController extends Controller
             return Inertia::render('Books/Index', ['books' => []]);
         }
 
-        // if ($request->has('search')) {
-        //     return Inertia::render('Books/Index', [
-        //         'books' => auth()->user()->books->where('title', 'like', '%' . $request->input('search') . '%'),
-        //         'filters' => $request->only(['search'])
-        //     ]);
-        // }
-
         return Inertia::render('Books/Index', [
             'books' => auth()->user()->books,
             'filters' => $request->only(['search'])
