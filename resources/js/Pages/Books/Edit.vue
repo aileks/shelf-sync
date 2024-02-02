@@ -37,7 +37,7 @@ const saveBook = () => {
 
   <Layout>
     <FormLayout>
-      <header class="pb-1 mb-1 border-b border-bronze">
+      <header class="border-bronze pb-1 mb-1 border-b">
         <h2 id="box-text" class="text-xl">
           Editing:
           <span class="italic font-bold underline">
@@ -56,7 +56,7 @@ const saveBook = () => {
           <label for="title">Title</label>
           <input
             v-model="book.title"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="title"
             placeholder="Title"
             required
@@ -68,7 +68,7 @@ const saveBook = () => {
           <label for="author">Author</label>
           <input
             v-model="book.author"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="author"
             placeholder="Author"
             required
@@ -80,13 +80,13 @@ const saveBook = () => {
           <label for="pages">Pages</label>
           <input
             v-model="book.pages"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="pages"
             placeholder="Pages"
             required
             type="number"
             min="1"
-            max="1000"
+            max="3000"
           />
         </div>
 
@@ -94,7 +94,7 @@ const saveBook = () => {
           <label for="genre">Genre</label>
           <select
             v-model="book.genre"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="genre"
             placeholder="Genre"
             required
@@ -108,7 +108,7 @@ const saveBook = () => {
         <div class="flex flex-col mt-4 space-y-2 text-lg">
           <label for="publishYear">Publish Year</label>
           <select
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             v-model="book.publishYear"
             name="publishYear"
           >
@@ -127,7 +127,7 @@ const saveBook = () => {
           <label for="read">Read</label>
           <input
             v-model="isRead"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="read"
             type="checkbox"
           />
