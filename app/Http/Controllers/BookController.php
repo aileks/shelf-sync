@@ -35,26 +35,29 @@ class BookController extends Controller
             return redirect('/login');
         }
 
-        $user = User::find($request->input('user_id'));
+        $user = auth()->id();
 
-        if (!$user) {
-            return redirect()->back()->withErrors(['user_id' => 'Invalid user ID']);
-        }
-
-        $fields = $request->validate([
-            'user_id' => ['required'],
-            'title' => ['required', 'string', 'max:255'],
-            'author' => ['required', 'string', 'max:255'],
+        $validator = Validator::make($request->all(), [
+            'title' => ['required', 'string', 'max:255', 'min:3'],
+            'author' => ['required', 'string', 'max:255', 'min:3'],
             'pages' => ['required', 'integer'],
-            'genre' => ['required', 'string', 'max:255'],
+            'genre' => ['required', 'string'],
             'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        $request->user()->books()->create($fields);
+        $validated = $validator->validated();
+        $validated['user_id'] = $user;
 
-        return redirect(('/books'));
+        $request->user()->books()->create($validated);
+
+        return redirect('/books');
     }
 
     public function show(Book $book)
@@ -74,10 +77,10 @@ class BookController extends Controller
         $bookData = $request->input('data');
 
         $validator = Validator::make($bookData, [
-            'title' => ['required', 'string', 'max:255'],
-            'author' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255', 'min:3'],
+            'author' => ['required', 'string', 'max:255', 'min:3'],
             'pages' => ['required', 'integer'],
-            'genre' => ['required', 'string', 'max:255'],
+            'genre' => ['required', 'string',],
             'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
         ]);

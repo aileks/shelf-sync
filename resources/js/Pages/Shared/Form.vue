@@ -25,19 +25,19 @@ const submit = () => {
     <div
       v-for="(field, index) in props.formFields"
       :key="index"
-      class="flex flex-col mt-4 space-y-2 text-md"
+      class="text-md flex flex-col mt-4 space-y-2"
     >
       <label :for="field.label">{{ field.label }}</label>
 
       <input
         v-model="form[field.model]"
-        class="text-center border border-bronze rounded-md"
+        class="border-bronze text-center border rounded-md"
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"
         required
       />
-      <div v-if="form.errors[field.model]" class="text-red-500">
+      <div v-if="form.errors[field.model]" class="error">
         {{ form.errors[field.model] }}
       </div>
     </div>
@@ -46,3 +46,11 @@ const submit = () => {
     <slot />
   </form>
 </template>
+
+<style scoped>
+.error {
+  color: darkred;
+  font-size: 14px;
+  font-style: italic;
+}
+</style>

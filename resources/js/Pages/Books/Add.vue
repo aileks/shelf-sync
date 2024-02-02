@@ -5,6 +5,10 @@ import FormLayout from "@/Shared/FormLayout.vue";
 import genreData from "../../../data/genres.json";
 import { useForm } from "@inertiajs/vue3";
 
+defineProps({
+  errors: Object,
+});
+
 const form = useForm({
   title: null,
   author: null,
@@ -32,35 +36,37 @@ const submit = () => {
       </h1>
 
       <form method="POST" @submit.prevent="submit">
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="text-md flex flex-col mt-4 space-y-2">
           <label for="title">Title</label>
           <input
             v-model="form.title"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="title"
             placeholder="What's it called?"
             required
             type="text"
           />
+          <div v-if="errors.title" class="error">{{ errors.title }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="text-md flex flex-col mt-4 space-y-2">
           <label for="author">Author</label>
           <input
             v-model="form.author"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="author"
             placeholder="Who wrote it?"
             required
             type="text"
           />
+          <div v-if="errors.author" class="error">{{ errors.author }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="text-md flex flex-col mt-4 space-y-2">
           <label for="pages">Pages</label>
           <input
             v-model="form.pages"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="pages"
             placeholder="How many pages?"
             required
@@ -68,13 +74,14 @@ const submit = () => {
             min="1"
             max="1000"
           />
+          <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="text-md flex flex-col mt-4 space-y-2">
           <label for="genre">Genre</label>
           <select
             v-model="form.genre"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="genre"
             placeholder="Genre"
             required
@@ -84,12 +91,13 @@ const submit = () => {
               {{ genre }}
             </option>
           </select>
+          <div v-if="errors.genre" class="error">{{ errors.genre }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-md">
+        <div class="text-md flex flex-col mt-4 space-y-2">
           <label for="publishYear">Publish Year</label>
           <select
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             v-model="form.publishYear"
             name="publishYear"
             required
@@ -103,23 +111,25 @@ const submit = () => {
               {{ year + 1900 }}
             </option>
           </select>
+          <div v-if="errors.year" class="error">{{ errors.year }}</div>
         </div>
 
         <div class="flex items-center justify-center mt-6 space-x-6 text-lg">
           <label for="read">Read</label>
           <input
             v-model="form.read"
-            class="text-center border rounded-md border-bronze"
+            class="border-bronze text-center border rounded-md"
             name="read"
             type="checkbox"
           />
+          <div v-if="errors.read" class="error">{{ errors.read }}</div>
         </div>
 
         <div class="mt-5 space-x-10">
-          <StyledButton type="submit"> Add </StyledButton>
+          <StyledButton type="submit">Add</StyledButton>
 
           <StyledButton>
-            <Link href="/books"> Go Back </Link>
+            <Link href="/books">Go Back</Link>
           </StyledButton>
         </div>
       </form>
@@ -127,4 +137,10 @@ const submit = () => {
   </Layout>
 </template>
 
-<style scoped></style>
+<style scoped>
+.error {
+  color: darkred;
+  font-size: 14px;
+  font-style: italic;
+}
+</style>
