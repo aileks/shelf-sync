@@ -10,6 +10,11 @@ use Validator;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request): Response
     {
         if (empty(auth()->user()->books)) {
@@ -55,7 +60,7 @@ class BookController extends Controller
 
         $request->user()->books()->create($validated);
 
-        return Inertia::location(route('Books/Index'));
+        return Inertia::location(route('books'));
     }
 
     public function edit(Book $book): Response
@@ -87,13 +92,13 @@ class BookController extends Controller
         $book = Book::find($bookData['id']);
         $book->update($validator->validated());
 
-        return Inertia::location(route('Books/Index'));
+        return Inertia::location(route('books'));
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
 
-        return Inertia::location(route('Books/Index'));
+        return Inertia::location(route('books'));
     }
 }

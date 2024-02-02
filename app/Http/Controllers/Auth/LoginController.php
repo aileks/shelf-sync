@@ -36,6 +36,6 @@ class LoginController extends Controller
     public function destroy()
     {
         Auth::logout();
-        return Inertia::location(route('Home'));
+        return Inertia::location(route('home'));
     }
 }

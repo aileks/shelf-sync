@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Home
-Route::get('/', fn () => Inertia::render('Home'))->name('Home');
+Route::get('/', fn () => Inertia::render('Home'))->name('home');
 
 // Books stuff
-Route::get('/books', [BookController::class, 'index'])->name('Books/Index');
+Route::get('/books', [BookController::class, 'index'])->name('books');
 Route::get('/books/add', [BookController::class, 'create']);
 Route::post('/books/add', [BookController::class, 'store']);
 Route::get('/books/edit/{book}', [BookController::class, 'edit']);
@@ -26,6 +26,6 @@ Route::delete('/books/{book}', [BookController::class, 'destroy']);
 // Auth stuff
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
-Route::get('/login', [LoginController::class, 'create']);
+Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
