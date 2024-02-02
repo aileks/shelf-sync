@@ -3,7 +3,7 @@ import { ref, watch, computed } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 
-let props = defineProps({
+const props = defineProps({
   books: Object,
   filters: Object,
 });
@@ -18,7 +18,7 @@ const deleteBook = (id) => {
   });
 };
 
-const search = ref(props.filters.search);
+const search = ref(props.filters ? props.filters.search : "");
 const filteredBooks = computed(() => {
   if (!search.value) return props.books;
   return props.books.filter((book) =>
@@ -61,10 +61,13 @@ watch(
           <div
             class="md:px-6 lg:px-8 inline-block min-w-full py-2 align-middle"
           >
-            <div class="shadow-paper md:rounded-lg overflow-hidden">
+            <div
+              v-show="books.length > 0"
+              class="shadow-paper md:rounded-lg overflow-hidden"
+            >
               <h2 class="bg-bronze text-neutral-50 text-xl">Your Books</h2>
 
-              <div v-if="filteredBooks.length === 0" class="w-[600px]">
+              <div v-if="books > 0 && search" class="w-[600px]">
                 <h2 class="p-2 text-xl bg-white">No books found.</h2>
               </div>
 
@@ -79,11 +82,7 @@ watch(
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                  <tr
-                    v-for="book in filteredBooks"
-                    :key="book.id"
-                    class="divide-x"
-                  >
+                  <tr v-for="book in books" :key="book.id" class="divide-x">
                     <td class="py-m px-3">
                       <div class="text-md">
                         {{ book.title }}
@@ -125,11 +124,14 @@ watch(
               </table>
             </div>
 
-            <div v-show="books.length <= 0" class="bg-sandy p-3">
-              <h2 class="text-2xl">You don't have any books yet.</h2>
+            <div
+              v-show="books.length <= 0"
+              class="bg-sandy shadow-paper p-8 rounded-md"
+            >
+              <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
 
               <Link
-                class="hover:underline text-brown text-xl"
+                class="hover:underline text-brown mt-4 text-xl"
                 href="/books/add"
               >
                 Add a book!

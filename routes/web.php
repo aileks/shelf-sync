@@ -28,3 +28,14 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/login', fn () => Inertia::render('Auth/Login'));
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
+
+// Database Test
+Route::get('/test-database', function () {
+    try {
+        DB::connection()->getPdo();
+        print_r("Connected successfully to: " . DB::connection()->getDatabaseName());
+    } catch (\Exception $e) {
+        die("Could not connect to the database.  Please check your configuration. Error:" . $e );
+    }
+});
+

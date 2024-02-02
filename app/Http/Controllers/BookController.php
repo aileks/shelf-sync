@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -34,8 +35,14 @@ class BookController extends Controller
             return redirect('/login');
         }
 
+        $user = User::find($request->input('user_id'));
+
+        if (!$user) {
+            return redirect()->back()->withErrors(['user_id' => 'Invalid user ID']);
+        }
+
         $fields = $request->validate([
-            'user_id' => ['exists:users,id'],
+            'user_id' => ['required'],
             'title' => ['required', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
             'pages' => ['required', 'integer'],
@@ -43,6 +50,7 @@ class BookController extends Controller
             'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
         ]);
+
 
         $request->user()->books()->create($fields);
 
