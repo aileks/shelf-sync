@@ -39,7 +39,8 @@ const submit = () => {
         :type="field.type"
         required
       />
-      <div v-if="form.errors[field.model]" class="error">
+
+      <div class="error mt-4" v-if="form.errors[field.model]">
         {{ form.errors[field.model] }}
       </div>
     </div>

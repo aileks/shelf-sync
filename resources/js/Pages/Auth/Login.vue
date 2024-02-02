@@ -2,6 +2,10 @@
 import Form from "@/Shared/Form.vue";
 import FormLayout from "@/Shared/FormLayout.vue";
 
+defineProps({
+  status: String,
+});
+
 const formFields = [
   {
     model: "email",
@@ -27,6 +31,11 @@ const formFields = [
     <FormLayout>
       <h2 class="text-2xl border-bronze border-b pb-1.5">Log In</h2>
 
+      <div class="text-blue pt-2 mt-4 italic" v-show="status">
+        {{ status }}
+      </div>
+      {{ console.log(status) }}
+
       <Form
         :form-fields="formFields"
         submit-text="Login"
@@ -36,6 +45,12 @@ const formFields = [
       />
     </FormLayout>
   </Layout>
+
+  <div class="flex items-center justify-center">
+    <Link href="/forgot-password" class="text-blue hover:underline italic"
+      >Forgot Password?</Link
+    >
+  </div>
 </template>
 
 <style scoped></style>

@@ -8,7 +8,10 @@ import genreData from "../../../data/genres.json";
 
 const genres = genreData.genres;
 
-const props = defineProps(["book"]);
+const props = defineProps({
+  book: Object,
+  errors: Object,
+});
 const title = props.book.title;
 const author = props.book.author;
 
@@ -23,9 +26,7 @@ const isRead = computed({
 
 const saveBook = () => {
   book.value.read = document.querySelector('input[name="read"]').checked;
-  if (!confirm("Are you ok with these changes?")) {
-    return;
-  }
+
   router.patch(`/books/edit/${book.value.id}`, {
     data: book.value,
   });
@@ -62,6 +63,7 @@ const saveBook = () => {
             required
             type="text"
           />
+          <div v-if="errors.title" class="error">{{ errors.title }}</div>
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-lg">
@@ -74,6 +76,7 @@ const saveBook = () => {
             required
             type="text"
           />
+          <div v-if="errors.author" class="error">{{ errors.author }}</div>
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-lg">
@@ -88,6 +91,7 @@ const saveBook = () => {
             min="1"
             max="3000"
           />
+          <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-lg">
@@ -103,6 +107,7 @@ const saveBook = () => {
               {{ genre }}
             </option>
           </select>
+          <div v-if="errors.genre" class="error">{{ errors.genre }}</div>
         </div>
 
         <div class="flex flex-col mt-4 space-y-2 text-lg">
@@ -121,6 +126,7 @@ const saveBook = () => {
               {{ year + 1900 }}
             </option>
           </select>
+          <div v-if="errors.year" class="error">{{ errors.year }}</div>
         </div>
 
         <div class="flex items-center justify-center mt-6 space-x-6 text-lg">
@@ -131,6 +137,7 @@ const saveBook = () => {
             name="read"
             type="checkbox"
           />
+          <div v-if="errors.read" class="error">{{ errors.read }}</div>
         </div>
 
         <div class="mt-5 space-x-10">
@@ -144,3 +151,11 @@ const saveBook = () => {
     </FormLayout>
   </Layout>
 </template>
+
+<style scoped>
+.error {
+  color: darkred;
+  font-size: 14px;
+  font-style: italic;
+}
+</style>
