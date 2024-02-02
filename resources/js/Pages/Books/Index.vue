@@ -25,6 +25,7 @@ const filteredBooks = computed(() => {
     book.title.toLowerCase().includes(search.value.toLowerCase())
   );
 });
+const searchActive = computed(() => search.value !== "");
 
 watch(
   search,
@@ -62,12 +63,15 @@ watch(
             class="md:px-6 lg:px-8 inline-block min-w-full py-2 align-middle"
           >
             <div
-              v-show="books.length > 0"
+              v-show="props.books.length > 0"
               class="shadow-paper md:rounded-lg overflow-hidden"
             >
               <h2 class="bg-bronze text-neutral-50 text-xl">Your Books</h2>
 
-              <div v-if="books > 0 && search" class="w-[600px]">
+              <div
+                v-if="filteredBooks.length === 0 && searchActive"
+                class="w-[600px]"
+              >
                 <h2 class="p-2 text-xl bg-white">No books found.</h2>
               </div>
 
@@ -82,7 +86,11 @@ watch(
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                  <tr v-for="book in books" :key="book.id" class="divide-x">
+                  <tr
+                    v-for="book in filteredBooks"
+                    :key="filteredBooks.id"
+                    class="divide-x"
+                  >
                     <td class="py-m px-3">
                       <div class="text-md">
                         {{ book.title }}

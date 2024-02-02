@@ -16,6 +16,13 @@ class BookController extends Controller
             return Inertia::render('Books/Index', ['books' => []]);
         }
 
+        // if ($request->has('search')) {
+        //     return Inertia::render('Books/Index', [
+        //         'books' => auth()->user()->books->where('title', 'like', '%' . $request->input('search') . '%'),
+        //         'filters' => $request->only(['search'])
+        //     ]);
+        // }
+
         return Inertia::render('Books/Index', [
             'books' => auth()->user()->books,
             'filters' => $request->only(['search'])
@@ -27,10 +34,10 @@ class BookController extends Controller
         return Inertia::render('Books/Add');
     }
 
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
         if (!auth()->check()) {
-            return redirect('/login');
+            return Inertia::location(route('/login'));
         }
 
         $user = auth()->id();
@@ -65,7 +72,7 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(Request $request, Book $book): Response
+    public function update(Request $request, Book $book)
     {
         $bookData = $request->input('data');
 

@@ -12,7 +12,7 @@ use Inertia\Inertia;
 Route::get('/', fn () => Inertia::render('Home'))->name('Home');
 
 // Books stuff
-Route::get('/books', [BookController::class, 'index']);
+Route::get('/books', [BookController::class, 'index'])->name('Books/Index');
 Route::get('/books/add', [BookController::class, 'create']);
 Route::post('/books/add', [BookController::class, 'store']);
 Route::get('/books/edit/{book}', [BookController::class, 'edit']);

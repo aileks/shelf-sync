@@ -72,7 +72,7 @@ const submit = () => {
             required
             type="number"
             min="1"
-            max="1000"
+            max="3000"
           />
           <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
         </div>
