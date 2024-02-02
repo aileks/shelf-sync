@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,7 +10,7 @@ use Validator;
 
 class BookController extends Controller
 {
-    public function index(Request $request): Response|RedirectResponse
+    public function index(Request $request): Response
     {
         if (empty(auth()->user()->books)) {
             return Inertia::render('Books/Index', ['books' => []]);
@@ -24,12 +22,12 @@ class BookController extends Controller
         ]);
     }
 
-    public function add(): Response
+    public function create(): Response
     {
         return Inertia::render('Books/Add');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): Response
     {
         if (!auth()->check()) {
             return redirect('/login');
@@ -57,22 +55,17 @@ class BookController extends Controller
 
         $request->user()->books()->create($validated);
 
-        return redirect('/books');
+        return Inertia::render('Books/Index');
     }
 
-    public function show(Book $book)
-    {
-        //
-    }
-
-    public function edit(Book $book)
+    public function edit(Book $book): Response
     {
         return Inertia::render('Books/Edit', [
             'book' => $book,
         ]);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Book $book): Response
     {
         $bookData = $request->input('data');
 
@@ -94,13 +87,13 @@ class BookController extends Controller
         $book = Book::find($bookData['id']);
         $book->update($validator->validated());
 
-        return redirect('/books');
+        return Inertia::render('Books/Index');
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
 
-        return redirect('/books');
+        return Inertia::render('Books/Index');
     }
 }
