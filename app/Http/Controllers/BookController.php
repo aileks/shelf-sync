@@ -16,20 +16,32 @@ class BookController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        if (empty(auth()->user()->books)) {
+        if (!auth()->check()) {
+            return Inertia::render('Login');
+        }
+
+        // return all books from oldest to newest
+        $books = auth()->user()->books()->orderBy('created_at', 'asc')->get();
+
+        if ($books->isEmpty()) {
             return Inertia::render('Books/Index', ['books' => []]);
         }
 
         return Inertia::render('Books/Index', [
-            'books' => auth()->user()->books,
-            'filters' => $request->only(['search'])
+            'books' => $books,
+            // not needed anymore but keeping just in case
+            // 'filters' => $request->only(['search'])
         ]);
     }
 
-    public function create(): Response
+    public function create()
     {
+        if (!auth()->check()) {
+            return Inertia::render('Login');
+        }
+
         return Inertia::render('Books/Add');
     }
 
@@ -66,12 +78,16 @@ class BookController extends Controller
 
     public function edit(Book $book): Response
     {
+        if (!auth()->check()) {
+            return Inertia::render('Login');
+        }
+
         return Inertia::render('Books/Edit', [
             'book' => $book,
         ]);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request)
     {
         $bookData = $request->input('data');
 
