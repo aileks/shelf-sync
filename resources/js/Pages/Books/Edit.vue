@@ -19,6 +19,11 @@ const book = ref({
   ...props.book,
 });
 
+const reversedYears = Array.from(
+  { length: new Date().getFullYear() - 1900 + 1 },
+  (_, i) => i + 1900
+).reverse();
+
 const isRead = computed({
   get: () => Boolean(book.value.read),
   set: (value) => (book.value.read = value),
@@ -117,12 +122,8 @@ const saveBook = () => {
             name="publishYear"
           >
             <option disabled value="">Please select a year</option>
-            <option
-              v-for="year in new Date().getFullYear() - 1900"
-              :key="year"
-              :value="year + 1900"
-            >
-              {{ year + 1900 }}
+            <option v-for="year in reversedYears" :key="year" :value="year">
+              {{ year }}
             </option>
           </select>
           <div v-if="errors.year" class="error">{{ errors.year }}</div>

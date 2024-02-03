@@ -19,9 +19,13 @@ const form = useForm({
 });
 
 const genres = genreData.genres;
+const reversedYears = Array.from(
+  { length: new Date().getFullYear() - 1900 + 1 },
+  (_, i) => i + 1900
+).reverse();
 
 const submit = () => {
-  form.read = document.querySelector('input[name="read"]').checked;
+  form.read = document.queryselector('input[name="read"]').checked;
   form.post("/books/add");
 };
 </script>
@@ -103,11 +107,11 @@ const submit = () => {
           >
             <option disabled value="">Please select a year</option>
             <option
-              v-for="year in new Date().getFullYear() - 1900"
+              v-for="year in new reversedYears()"
               :key="year"
-              :value="year + 1900"
+              :value="year"
             >
-              {{ year + 1900 }}
+              {{ year }}
             </option>
           </select>
           <div v-if="errors.year" class="error">{{ errors.year }}</div>
