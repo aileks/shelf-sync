@@ -33,7 +33,6 @@ const formFields = [
     <div class="text-blue pt-2 mt-4 italic" v-show="status">
       {{ status }}
     </div>
-    {{ console.log(status) }}
 
     <Form
       :form-fields="formFields"
