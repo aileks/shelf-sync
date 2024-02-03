@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->uuid('user_id');
             $table->string('title');
             $table->string('author');
-            $table->integer('pages');
+            $table->integer('pages')->nullable();
             $table->string('genre');
             $table->integer('publishYear');
             $table->boolean('read')->default(false);

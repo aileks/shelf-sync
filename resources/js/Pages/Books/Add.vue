@@ -36,11 +36,11 @@ const submit = () => {
       </h1>
 
       <form method="POST" @submit.prevent="submit">
-        <div class="text-md flex flex-col mt-4 space-y-2">
-          <label for="title">Title</label>
+        <div class="text-md flex flex-col mt-4 space-y-1">
+          <label class="text-left" for="title">Title</label>
           <input
             v-model="form.title"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="title"
             placeholder="What's it called?"
             required
@@ -49,11 +49,11 @@ const submit = () => {
           <div v-if="errors.title" class="error">{{ errors.title }}</div>
         </div>
 
-        <div class="text-md flex flex-col mt-4 space-y-2">
-          <label for="author">Author</label>
+        <div class="text-md flex flex-col mt-4 space-y-1">
+          <label class="text-left" for="author">Author</label>
           <input
             v-model="form.author"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="author"
             placeholder="Who wrote it?"
             required
@@ -63,13 +63,12 @@ const submit = () => {
         </div>
 
         <div class="text-md flex flex-col mt-4 space-y-2">
-          <label for="pages">Pages</label>
+          <label class="text-left" for="pages">Pages</label>
           <input
             v-model="form.pages"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="pages"
             placeholder="How many pages?"
-            required
             type="number"
             min="1"
             max="3000"
@@ -78,10 +77,10 @@ const submit = () => {
         </div>
 
         <div class="text-md flex flex-col mt-4 space-y-2">
-          <label for="genre">Genre</label>
+          <label class="text-left" for="genre">Genre</label>
           <select
             v-model="form.genre"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="genre"
             placeholder="Genre"
             required
@@ -95,9 +94,9 @@ const submit = () => {
         </div>
 
         <div class="text-md flex flex-col mt-4 space-y-2">
-          <label for="publishYear">Publish Year</label>
+          <label class="text-left" for="publishYear">Publish Year</label>
           <select
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             v-model="form.publishYear"
             name="publishYear"
             required
@@ -114,18 +113,18 @@ const submit = () => {
           <div v-if="errors.year" class="error">{{ errors.year }}</div>
         </div>
 
-        <div class="flex items-center justify-center mt-6 space-x-6 text-lg">
-          <label for="read">Read</label>
+        <div class="flex items-center justify-center my-6 space-x-6 text-lg">
+          <label for="read">Read?</label>
           <input
             v-model="form.read"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="read"
             type="checkbox"
           />
           <div v-if="errors.read" class="error">{{ errors.read }}</div>
         </div>
 
-        <div class="mt-5 space-x-10">
+        <div class="mt-6 space-x-10">
           <StyledButton type="submit">Add</StyledButton>
 
           <StyledButton>

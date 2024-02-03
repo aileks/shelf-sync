@@ -53,11 +53,11 @@ const saveBook = () => {
       </header>
 
       <form @submit.prevent="saveBook">
-        <div class="flex flex-col mt-4 space-y-2 text-lg">
-          <label for="title">Title</label>
+        <div class="flex flex-col mt-4 space-y-1 text-lg">
+          <label class="text-left" for="title">Title</label>
           <input
             v-model="book.title"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="title"
             placeholder="Title"
             required
@@ -66,11 +66,11 @@ const saveBook = () => {
           <div v-if="errors.title" class="error">{{ errors.title }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-lg">
-          <label for="author">Author</label>
+        <div class="flex flex-col mt-4 space-y-1 text-lg">
+          <label class="text-left" for="author">Author</label>
           <input
             v-model="book.author"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="author"
             placeholder="Author"
             required
@@ -79,14 +79,13 @@ const saveBook = () => {
           <div v-if="errors.author" class="error">{{ errors.author }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-lg">
-          <label for="pages">Pages</label>
+        <div class="flex flex-col mt-4 space-y-1 text-lg">
+          <label class="text-left" for="pages">Pages</label>
           <input
             v-model="book.pages"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="pages"
             placeholder="Pages"
-            required
             type="number"
             min="1"
             max="3000"
@@ -94,11 +93,11 @@ const saveBook = () => {
           <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-lg">
-          <label for="genre">Genre</label>
+        <div class="flex flex-col mt-4 space-y-1 text-lg">
+          <label class="text-left" for="genre">Genre</label>
           <select
             v-model="book.genre"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="genre"
             placeholder="Genre"
             required
@@ -110,10 +109,10 @@ const saveBook = () => {
           <div v-if="errors.genre" class="error">{{ errors.genre }}</div>
         </div>
 
-        <div class="flex flex-col mt-4 space-y-2 text-lg">
-          <label for="publishYear">Publish Year</label>
+        <div class="flex flex-col mt-4 space-y-1 text-lg">
+          <label class="text-left" for="publishYear">Publish Year</label>
           <select
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             v-model="book.publishYear"
             name="publishYear"
           >
@@ -129,18 +128,18 @@ const saveBook = () => {
           <div v-if="errors.year" class="error">{{ errors.year }}</div>
         </div>
 
-        <div class="flex items-center justify-center mt-6 space-x-6 text-lg">
-          <label for="read">Read</label>
+        <div class="flex items-center justify-center my-6 space-x-6 text-lg">
+          <label for="read">Read?</label>
           <input
             v-model="isRead"
-            class="border-bronze text-center border rounded-md"
+            class="border-bronze text-left border rounded-md"
             name="read"
             type="checkbox"
           />
           <div v-if="errors.read" class="error">{{ errors.read }}</div>
         </div>
 
-        <div class="mt-5 space-x-10">
+        <div class="mt-6 space-x-10">
           <StyledButton type="submit"> Save </StyledButton>
 
           <StyledButton>

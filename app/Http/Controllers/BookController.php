@@ -43,7 +43,7 @@ class BookController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255', 'min:3'],
             'author' => ['required', 'string', 'max:255', 'min:3'],
-            'pages' => ['required', 'integer'],
+            'pages' => ['nullable', 'integer'],
             'genre' => ['required', 'string'],
             'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
@@ -77,7 +77,7 @@ class BookController extends Controller
         $validator = Validator::make($bookData, [
             'title' => ['required', 'string', 'max:255', 'min:3'],
             'author' => ['required', 'string', 'max:255', 'min:3'],
-            'pages' => ['required', 'integer'],
+            'pages' => ['nullable', 'integer'],
             'genre' => ['required', 'string',],
             'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
