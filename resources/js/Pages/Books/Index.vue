@@ -21,25 +21,17 @@ const deleteBook = (id) => {
 const search = ref(props.filters ? props.filters.search : "");
 const filteredBooks = computed(() => {
   if (!search.value) return props.books;
-  return props.books.filter((book) =>
-    book.title.toLowerCase().includes(search.value.toLowerCase())
+  return props.books.filter(
+    (book) =>
+      book.title.toLowerCase().includes(search.value.toLowerCase()) ||
+      book.author.toLowerCase().includes(search.value.toLowerCase()),
   );
 });
 const searchActive = computed(() => search.value !== "");
 
-watch(
-  search,
-  debounce(function (value) {
-    router.get(
-      "/books",
-      { search: value },
-      {
-        preserveState: true,
-        replace: true,
-      }
-    );
-  }, 300)
-);
+const updateSearch = debounce((value) => {
+  search.value = value;
+}, 300);
 </script>
 
 <template>
@@ -50,6 +42,7 @@ watch(
       <input
         id="search"
         v-model="search"
+        @input="updateSearch($event.target.value)"
         class="border-bronze rounded-md"
         placeholder="Search Books..."
         type="text"
