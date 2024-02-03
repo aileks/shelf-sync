@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from "vue";
+import { computed, ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 
@@ -148,9 +148,10 @@ const updateSearch = debounce((value) => {
 <style scoped>
 #search {
   position: relative;
-  padding-left: 40px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+  padding-left: 36px;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray" class="w-2 h-2"%3E%3Cpath fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /%3E%3C/svg%3E');
   background-repeat: no-repeat;
   background-position: left 10px center;
+  background-size: 20px 20px;
 }
 </style>
