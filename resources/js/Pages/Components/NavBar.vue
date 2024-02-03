@@ -1,5 +1,5 @@
 <script setup>
-import StyledButton from "@/Shared/StyledButton.vue";
+import StyledButton from "@/Components/StyledButton.vue";
 </script>
 
 <template>

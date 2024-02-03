@@ -1,7 +1,7 @@
 <script setup>
-import StyledButton from "@/Shared/StyledButton.vue";
-import Form from "@/Shared/Form.vue";
-import FormLayout from "@/Shared/FormLayout.vue";
+import StyledButton from "@/Components/StyledButton.vue";
+import Form from "@/Components/Form.vue";
+import FormLayout from "@/Layouts/FormLayout.vue";
 import genreData from "../../../data/genres.json";
 import { useForm } from "@inertiajs/vue3";
 
@@ -33,7 +33,6 @@ const submit = () => {
 <template>
   <Head title="Add a Book" />
 
-  <Layout>
     <FormLayout>
       <h1 id="box-text" class="text-3xl border-b border-bronze pb-1.5">
         Add Book
@@ -107,7 +106,7 @@ const submit = () => {
           >
             <option disabled value="">Please select a year</option>
             <option
-              v-for="year in new reversedYears()"
+              v-for="year in reversedYears"
               :key="year"
               :value="year"
             >
@@ -137,7 +136,6 @@ const submit = () => {
         </div>
       </form>
     </FormLayout>
-  </Layout>
 </template>
 
 <style scoped>

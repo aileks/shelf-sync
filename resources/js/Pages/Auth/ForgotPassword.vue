@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useForm } from "@inertiajs/inertia-vue3";
-import Form from "@/Shared/Form.vue";
-import StyledButton from "@/Shared/StyledButton.vue";
+import Form from "@/Components/Form.vue";
+import StyledButton from "@/Components/StyledButton.vue";
 
 defineProps({
   errors: Object,

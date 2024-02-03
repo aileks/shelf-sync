@@ -1,6 +1,6 @@
 <script setup>
-import Form from "@/Shared/Form.vue";
-import FormLayout from "@/Shared/FormLayout.vue";
+import Form from "@/Components/Form.vue";
+import FormLayout from "@/Layouts/FormLayout.vue";
 
 const formFields = [
   {
@@ -37,17 +37,15 @@ const formFields = [
 <template>
   <Head title="Register" />
 
-  <Layout>
-    <FormLayout>
-      <h2 class="text-2xl border-bronze border-b pb-1.5">Register</h2>
+  <FormLayout>
+    <h2 class="text-2xl border-bronze border-b pb-1.5">Register</h2>
 
-      <Form
-        :form-fields="formFields"
-        submit-text="Register"
-        cancelUrl="/"
-        postUrl="/register"
-        @submit="$emit('submit')"
-      />
-    </FormLayout>
-  </Layout>
+    <Form
+      :form-fields="formFields"
+      submit-text="Register"
+      cancelUrl="/"
+      postUrl="/register"
+      @submit="$emit('submit')"
+    />
+  </FormLayout>
 </template>

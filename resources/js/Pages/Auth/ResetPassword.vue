@@ -1,7 +1,7 @@
 <script setup>
-import Layout from "@/Shared/Layout.vue";
-import FormLayout from "@/Shared/FormLayout.vue";
-import StyledButton from "@/Shared/StyledButton.vue";
+import Layout from "@/Components/Layout.vue";
+import FormLayout from "@/Components/FormLayout.vue";
+import StyledButton from "@/Components/StyledButton.vue";
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -19,7 +20,7 @@ class User extends Authenticatable
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -14,7 +15,7 @@ class Book extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
