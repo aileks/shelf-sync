@@ -6,7 +6,7 @@ import NavBar from "@/Components/NavBar.vue";
   <NavBar />
 
   <main>
-    <div class="flex items-center justify-center mt-12">
+    <div class="flex items-center text-left justify-center mt-12">
       <div
         class="bg-sandy p-8 w-[400px] text-lg rounded-lg border border-bronze shadow-paper"
       >

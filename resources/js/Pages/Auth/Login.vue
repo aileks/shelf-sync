@@ -28,7 +28,7 @@ const formFields = [
   <Head title="Login" />
 
   <FormLayout>
-    <h2 class="text-2xl border-bronze border-b pb-1.5">Log In</h2>
+    <h2 class="text-3xl border-bronze border-b pb-1.5">Log In</h2>
 
     <div class="text-blue pt-2 mt-4 italic" v-show="status">
       {{ status }}

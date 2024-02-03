@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 const form = useForm(
-  Object.fromEntries(props.formFields.map((field) => [field.model, null]))
+  Object.fromEntries(props.formFields.map((field) => [field.model, null])),
 );
 
 const submit = () => {
@@ -25,7 +25,7 @@ const submit = () => {
     <div
       v-for="(field, index) in props.formFields"
       :key="index"
-      class="text-md flex flex-col text-left"
+      class="flex flex-col"
     >
       <label class="mt-3 mb-1 ml-1" :for="field.label"
         >{{ field.label }}:</label
@@ -33,7 +33,7 @@ const submit = () => {
 
       <input
         v-model="form[field.model]"
-        class="border-bronze text-left border rounded-md"
+        class="border-bronze border rounded-md"
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"
