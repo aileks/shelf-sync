@@ -1,0 +1,14 @@
+@import url(https://fonts.bunny.net/css?family=averia-serif-libre:300);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply font-serif;
+  min-width: 0;
+}
+
+body {
+  @apply text-neutral-800 bg-primary;
+}
