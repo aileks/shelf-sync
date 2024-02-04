@@ -22,8 +22,12 @@ class BookController extends Controller
             return Inertia::render('Login');
         }
 
-        // return all books from oldest to newest
-        $books = auth()->user()->books()->orderBy('created_at', 'asc')->get();
+        // make this more efficient
+        // return all books a user has from oldest to newest
+        $books = auth()->user()->books()
+            ->select( 'title', 'author', 'genre', 'read', 'pages')
+            ->orderBy('created_at', 'asc')
+            ->paginate(20);
 
         if ($books->isEmpty()) {
             return Inertia::render('Books/Index', ['books' => []]);

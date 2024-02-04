@@ -20,8 +20,8 @@ const deleteBook = (id) => {
 
 const search = ref(props.filters ? props.filters.search : "");
 const filteredBooks = computed(() => {
-  if (!search.value) return props.books;
-  return props.books.filter(
+  if (!search.value) return props.books.data;
+  return props.books.data.filter(
     (book) =>
       book.title.toLowerCase().includes(search.value.toLowerCase()) ||
       book.author.toLowerCase().includes(search.value.toLowerCase()),
@@ -32,13 +32,38 @@ const searchActive = computed(() => search.value !== "");
 const updateSearch = debounce((value) => {
   search.value = value;
 }, 300);
+
+const goToPage = (url) => {
+  router.replace(url);
+};
+
+const pageNumbers = computed(() => {
+  let numbers = [];
+
+  for (let i = 1; i <= props.books.last_page; i++) {
+    if (
+      i === 1 ||
+      i === 2 ||
+      i === props.books.last_page ||
+      i === props.books.last_page - 1 ||
+      i === props.books.last_page - 2 ||
+      (i >= props.books.current_page - 1 && i <= props.books.current_page + 1)
+    ) {
+      numbers.push(i);
+    } else if (i === 3 || i === props.books.last_page - 3) {
+      numbers.push(". . .");
+    }
+  }
+
+  return numbers;
+});
 </script>
 
 <template>
   <Head title="Books" />
 
   <Layout>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center mt-6">
       <input
         id="search"
         v-model="search"
@@ -49,14 +74,14 @@ const updateSearch = debounce((value) => {
       />
     </div>
 
-    <main class="flex justify-center mt-2">
+    <main class="flex justify-center mt-4">
       <div class="flex flex-col">
         <div class="md:-mx-6 lg:-mx-8 my-2 overflow-x-auto">
           <div
             class="md:px-6 lg:px-8 inline-block min-w-full py-2 align-middle"
           >
             <div
-              v-show="props.books.length > 0"
+              v-show="props.books.data.length > 0"
               class="shadow-paper md:rounded-lg overflow-hidden"
             >
               <h2 class="bg-bronze text-neutral-50 text-xl">Your Books</h2>
@@ -123,6 +148,69 @@ const updateSearch = debounce((value) => {
                   </tr>
                 </tbody>
               </table>
+
+              <div
+                class="flex items-center justify-center py-1 text-neutral-50 bg-bronze"
+              >
+                <!--Previous-->
+                <button
+                  :disabled="!books.prev_page_url"
+                  @click="goToPage(books.prev_page_url)"
+                  class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                <!--Page Numbers-->
+                <span
+                  class="mx-2 hover:text-brown"
+                  v-for="(number, index) in pageNumbers"
+                  :key="index"
+                >
+                  <button
+                    v-if="number !== '. . .'"
+                    :disabled="number === props.books.current_page"
+                    @click="goToPage(`/books?page=${number}`)"
+                  >
+                    {{ number }}
+                  </button>
+
+                  <span v-else>
+                    {{ number }}
+                  </span>
+                </span>
+
+                <!--Next-->
+                <button
+                  :disabled="!books.next_page_url"
+                  @click="goToPage(books.next_page_url)"
+                  class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             <div
