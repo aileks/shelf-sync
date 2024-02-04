@@ -123,7 +123,7 @@ const submit = () => {
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
-      <div class="mt-6 space-x-10">
+      <div class="flex justify-center mt-6 space-x-8">
         <StyledButton type="submit">Add</StyledButton>
 
         <StyledButton>

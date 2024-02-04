@@ -42,14 +42,14 @@ const saveBook = () => {
 
   <FormLayout>
     <header class="border-bronze pb-1 mb-1 border-b">
-      <h2 id="box-text" class="text-xl">
+      <h2 id="box-text" class="text-2xl">
         Editing:
         <span class="italic font-bold underline">
           {{ title }}
         </span>
       </h2>
 
-      <h2 id="box-text" class="text-xl">
+      <h2 id="box-text" class="mt-2 text-xl">
         By:
         <span class="font-bold">{{ author }}</span>
       </h2>
@@ -138,7 +138,7 @@ const saveBook = () => {
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
-      <div class="mt-6 space-x-10">
+      <div class="flex justify-center mt-6 space-x-8">
         <StyledButton type="submit"> Save</StyledButton>
 
         <StyledButton>

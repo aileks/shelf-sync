@@ -26,8 +26,7 @@ export default {
         'red': '#9e442e'
       },
       fontFamily: {
-        sans: ["Figtree", ...defaultTheme.fontFamily.sans],
-        serif: ["Averia Serif Libre", ...defaultTheme.fontFamily.serif],
+        serif: ["Neuton", ...defaultTheme.fontFamily.serif],
       },
     },
   },

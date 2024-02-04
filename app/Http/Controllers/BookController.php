@@ -25,7 +25,7 @@ class BookController extends Controller
         // make this more efficient
         // return all books a user has from oldest to newest
         $books = auth()->user()->books()
-            ->select( 'title', 'author', 'genre', 'read', 'pages')
+            ->select( 'id', 'title', 'author', 'genre', 'read', 'pages')
             ->orderBy('created_at', 'asc')
             ->paginate(20);
 

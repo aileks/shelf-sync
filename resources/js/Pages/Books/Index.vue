@@ -47,10 +47,13 @@ const pageNumbers = computed(() => {
       i === props.books.last_page ||
       i === props.books.last_page - 1 ||
       i === props.books.last_page - 2 ||
-      (i >= props.books.current_page - 1 && i <= props.books.current_page + 1)
+      (i >= props.books.current_page - 2 && i <= props.books.current_page + 2) // Include two pages before and after the current page
     ) {
       numbers.push(i);
-    } else if (i === 3 || i === props.books.last_page - 3) {
+    } else if (
+      (i === 3 || i === props.books.last_page - 3) &&
+      !numbers.includes(". . .")
+    ) {
       numbers.push(". . .");
     }
   }
@@ -63,44 +66,41 @@ const pageNumbers = computed(() => {
   <Head title="Books" />
 
   <Layout>
-    <div class="flex flex-col items-center mt-6">
+    <div class="flex flex-col items-center">
       <input
         id="search"
         v-model="search"
         @input="updateSearch($event.target.value)"
-        class="border-bronze rounded-md"
+        class="border-bronze font-lg rounded-md"
         placeholder="Search Books..."
         type="text"
       />
     </div>
 
-    <main class="flex justify-center mt-4">
-      <div class="flex flex-col">
-        <div class="md:-mx-6 lg:-mx-8 my-2 overflow-x-auto">
-          <div
-            class="md:px-6 lg:px-8 inline-block min-w-full py-2 align-middle"
-          >
+    <main class="flex text-lg flex-col items-center mt-4">
+      <div class="w-full max-w-screen-xl">
+        <div class="overflow-x-auto">
+          <div class="inline-block min-w-full py-2 align-middle">
             <div
-              v-show="props.books.data.length > 0"
-              class="shadow-paper md:rounded-lg overflow-hidden"
+              v-if="props.books.data"
+              class="shadow-paper flex-1 rounded-md overflow-hidden"
             >
-              <h2 class="bg-bronze text-neutral-50 text-xl">Your Books</h2>
+              <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
 
-              <div
-                v-if="filteredBooks.length === 0 && searchActive"
-                class="w-[600px]"
-              >
-                <h2 class="p-2 text-xl bg-white">No books found.</h2>
+              <div v-if="filteredBooks.length === 0 && searchActive">
+                <h2 class="text-xl bg-white">No books found.</h2>
               </div>
 
-              <table v-else>
-                <thead class="bg-sandy text-lg underline divide-x">
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Genre</th>
-                  <th class="px-3">Read Status</th>
-                  <th class="px-3">Pages</th>
-                  <th>Modify</th>
+              <table class="w-full sm:w-auto table-auto md:w-full" v-else>
+                <thead
+                  class="bg-bronze text-neutral-50 text-lg sm:text-base divide-x"
+                >
+                  <th class="sm:w-auto md:w-auto">Title</th>
+                  <th class="sm:w-auto md:w-auto">Author</th>
+                  <th class="sm:w-auto md:w-auto">Genre</th>
+                  <th class="px-2 sm:w-auto md:w-auto">Read?</th>
+                  <th class="px-2 sm:w-auto md:w-auto">Pages</th>
+                  <th class="sm:w-auto md:w-auto">Modify</th>
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -109,8 +109,8 @@ const pageNumbers = computed(() => {
                     :key="filteredBooks.id"
                     class="divide-x"
                   >
-                    <td class="py-m px-3">
-                      <div class="text-md">
+                    <td class="py-m px-3 book-start">
+                      <div class="italic book-title">
                         {{ book.title }}
                       </div>
                     </td>
@@ -127,7 +127,7 @@ const pageNumbers = computed(() => {
                     <td>
                       {{ book.pages }}
                     </td>
-                    <td class="px-2">
+                    <td class="px-2 book-end">
                       <Link
                         :href="`/books/edit/${book.id}`"
                         class="text-blue hover:underline inline-block"
@@ -174,7 +174,7 @@ const pageNumbers = computed(() => {
 
                 <!--Page Numbers-->
                 <span
-                  class="mx-2 hover:text-brown"
+                  class="mx-2 text-lg"
                   v-for="(number, index) in pageNumbers"
                   :key="index"
                 >
@@ -182,6 +182,7 @@ const pageNumbers = computed(() => {
                     v-if="number !== '. . .'"
                     :disabled="number === props.books.current_page"
                     @click="goToPage(`/books?page=${number}`)"
+                    class="hover:text-brown"
                   >
                     {{ number }}
                   </button>
@@ -214,8 +215,8 @@ const pageNumbers = computed(() => {
             </div>
 
             <div
-              v-show="books.length <= 0"
-              class="bg-sandy shadow-paper p-8 rounded-md"
+              v-else
+              class="bg-sandy mx-auto max-w-md shadow-paper p-8 rounded-md"
             >
               <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
 
@@ -236,10 +237,48 @@ const pageNumbers = computed(() => {
 <style scoped>
 #search {
   position: relative;
-  padding-left: 36px;
+  padding-left: 32px;
+  padding-top: 4px;
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray" class="w-2 h-2"%3E%3Cpath fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /%3E%3C/svg%3E');
   background-repeat: no-repeat;
   background-position: left 10px center;
-  background-size: 20px 20px;
+  background-size: 18px 18px;
+  max-width: 600px;
+}
+
+@media (max-width: 640px) {
+  .table-auto thead {
+    display: none;
+  }
+
+  .table-auto tr {
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .table-auto td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #cfbda6;
+    padding: 0.8rem 0;
+  }
+
+  .table-auto td:before {
+    content: attr(data-label);
+    flex-basis: 0;
+  }
+
+  .book-title {
+    font-weight: bold;
+  }
+
+  .book-start {
+    border-top: 2px solid #cfbda6;
+  }
+
+  .book-end {
+    border-bottom: 2px solid #cfbda6;
+  }
 }
 </style>

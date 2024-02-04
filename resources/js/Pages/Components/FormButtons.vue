@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="mt-8 space-x-12">
+  <div class="flex justify-center mt-6 space-x-8">
     <StyledButton class="bg-brown text-neutral-100" type="submit">
       {{ submitText }}
     </StyledButton>
