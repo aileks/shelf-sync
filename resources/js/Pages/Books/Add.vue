@@ -20,8 +20,8 @@ const form = useForm({
 
 const genres = genreData.genres;
 const reversedYears = Array.from(
-  { length: new Date().getFullYear() - 1900 + 1 },
-  (_, i) => i + 1900,
+  { length: new Date().getFullYear() - 1800 + 1 },
+  (_, i) => i + 1800,
 ).reverse();
 
 const submit = () => {
