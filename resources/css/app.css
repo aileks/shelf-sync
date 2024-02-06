@@ -25,5 +25,5 @@ select {
 }
 
 .parallax {
-  background-image: url("/Images/library.jpeg");
+  background-image: url("/public/images/library.jpeg");
 }
