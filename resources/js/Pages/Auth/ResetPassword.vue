@@ -26,6 +26,9 @@ const form = useForm({
 });
 
 const submit = () => {
+  console.log("submitting");
+  console.log(form.data);
+  console.log('route:', route("password.store", { email: form.email }));
   form.post(route("password.store"), {
     onFinish: () => form.reset("password", "password_confirmation"),
   });
@@ -38,7 +41,7 @@ const submit = () => {
   <FormLayout>
     <h2 class="text-2xl border-bronze border-b pb-1.5">Reset Password</h2>
 
-    <form @submit.prevent="submit">
+    <form method="post" @submit.prevent="submit">
       <div class="text-md flex flex-col mt-4 space-y-2 text-left">
         <label class="ml-1" for="password">New Password</label>
         <input
@@ -66,7 +69,7 @@ const submit = () => {
         </div>
       </div>
 
-      <div class="mt-4 space-x-10">
+      <div class="flex items-center justify-between mx-4 mt-6">
         <StyledButton type="submit">Reset</StyledButton>
 
         <StyledButton type="button">

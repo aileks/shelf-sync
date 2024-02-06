@@ -30,33 +30,33 @@ class NewPasswordController extends Controller
     /**
      * Handle an incoming new password request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): Response
     {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-           'password' => ['required', 'confirmed', function ($attribute, $value, $fail) {
-               $passwordRule = Rules\Password::min(8)
-                   ->mixedCase()
-                   ->letters()
-                   ->numbers()
-                   ->symbols(1);
+            'password' => ['required', 'confirmed', function ($attribute, $value, $fail) {
+                $passwordRule = Rules\Password::min(8)
+                    ->mixedCase()
+                    ->letters()
+                    ->numbers()
+                    ->symbols(1);
 
-               $validator = validator([$attribute => $value], [$attribute => $passwordRule]);
+                $validator = validator([$attribute => $value], [$attribute => $passwordRule]);
 
-               if ($validator->fails()) {
-                   $fail('Passwords must consist of at least 8 characters, including an uppercase letter, a number, and a symbol.');
-               }
-           }],
+                if ($validator->fails()) {
+                    $fail('Passwords must consist of at least 8 characters, including an uppercase letter, a number, and a symbol.');
+                }
+            }],
         ], [
-           'password.confirmed' => 'The password confirmation does not match.',
+            'password.confirmed' => 'The password confirmation does not match.',
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
+        // database. Otherwise, we will parse the error and return the response.
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
@@ -80,7 +80,7 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         if ($status == Password::PASSWORD_RESET) {
-            return redirect()->route('login')->with('status', __($status));
+            return Inertia::render('Auth/Login', ['status' => __($status)]);
         }
 
         throw ValidationException::withMessages([

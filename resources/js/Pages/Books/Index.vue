@@ -1,10 +1,21 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 
 const props = defineProps({
   books: Object,
+  success: String,
+});
+
+let success = ref(props.success);
+
+watch(success, (newStatus) => {
+  if (newStatus) {
+    setTimeout(() => {
+      success = null;
+    }, 3000);
+  }
 });
 
 const deleteBook = (id) => {
@@ -197,6 +208,17 @@ const pageNumbers = computed(() => {
       </div>
     </main>
   </Layout>
+  <Transition
+    enter-active-class="transition duration-300 ease-out"
+    enter-from-class="transform opacity-0 -translate-x-2"
+    enter-to-class="transform opacity-100 translate-x-0"
+  >
+    <div class="fixed bottom-0 right-0 m-6 bg-emerald-600 text-neutral-50 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="success" @click="success=null">
+      <div class="p-4">
+        <p class="text-white">{{ success }}</p>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>

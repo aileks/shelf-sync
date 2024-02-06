@@ -12,6 +12,7 @@ use Inertia\Response;
 
 class PasswordResetLinkController extends Controller
 {
+
     /**
      * Display the password reset link request view.
      */
@@ -25,7 +26,7 @@ class PasswordResetLinkController extends Controller
     /**
      * Handle an incoming password reset link request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
