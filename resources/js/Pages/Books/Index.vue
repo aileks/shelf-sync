@@ -157,7 +157,7 @@ const pageNumbers = computed(() => {
             <button
               :disabled="number === props.books.current_page"
               @click="goToPage(`/books?page=${number}`)"
-              class="hover:text-brown"
+              class="hover:text-brown text-sm"
             >
               {{ number }}
             </button>
@@ -200,10 +200,6 @@ const pageNumbers = computed(() => {
 </template>
 
 <style scoped>
-tbody {
-  font-size: 15px;
-}
-
 #search {
   position: relative;
   padding-left: 32px;
