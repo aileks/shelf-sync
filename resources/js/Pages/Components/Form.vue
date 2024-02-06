@@ -1,19 +1,17 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import FormButtons from "./FormButtons.vue";
 
 const props = defineProps({
   formFields: Array,
-  submitText: String,
-  cancelUrl: String,
   postUrl: String,
 });
 
 const form = useForm(
-  Object.fromEntries(props.formFields.map((field) => [field.model, null]))
+  Object.fromEntries(props.formFields.map((field) => [field.model, null])),
 );
 
 const submit = () => {
+  console.log("submitting form");
   form.post(props.postUrl, {
     preserveState: true,
   });
@@ -25,24 +23,34 @@ const submit = () => {
     <div
       v-for="(field, index) in props.formFields"
       :key="index"
-      class="flex flex-col mt-4 space-y-2 text-md"
+      class="flex flex-col"
     >
-      <label :for="field.label">{{ field.label }}</label>
+      <label class="mt-3 mb-1 ml-1" :for="field.label"
+        >{{ field.label }}:</label
+      >
 
       <input
         v-model="form[field.model]"
-        class="text-center border border-[#9d8461] rounded-md"
+        class="border-bronze border rounded-md"
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"
         required
       />
-      <div v-if="form.errors[field.model]" class="text-red-500">
+
+      <div class="error mt-4" v-if="form.errors[field.model]">
         {{ form.errors[field.model] }}
       </div>
     </div>
 
-    <FormButtons :submit-text="props.submitText" :cancelUrl="props.cancelUrl" />
     <slot />
   </form>
 </template>
+
+<style scoped>
+.error {
+  color: darkred;
+  font-size: 14px;
+  font-style: italic;
+}
+</style>

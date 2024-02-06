@@ -1,22 +1,29 @@
-@import url(https://fonts.bunny.net/css?family=averia-serif-libre:300);
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700;1,9..144,800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Colors:
-* #69442e
-* #9d8461
-* #f8ead6
-* #cfdba6
-* #ceb68b
-*/
-
 * {
   @apply font-serif;
+  @apply antialiased;
+  font-smooth: auto;
   min-width: 0;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
-  @apply text-neutral-800 bg-[#f8ead6];
+  @apply text-neutral-800 bg-primary;
+}
+
+select {
+  @apply text-lg;
+}
+
+.parallax {
+  background-image: url("/public/img/library.jpeg");
 }

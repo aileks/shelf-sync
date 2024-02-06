@@ -1,21 +1,18 @@
 <script setup>
-import StyledButton from "@/Shared/StyledButton.vue";
-// import { ref } from "vue";
-
-// const auth = ref($page.props.auth);
+import StyledButton from "@/Components/StyledButton.vue";
 </script>
 
 <template>
   <nav
-    class="flex mx-2 mt-2 py-2 px-1 bg-[#cfbda6] rounded-md space-x-4 shadow-[0_1px_1px_rgba(0,0,0,0.4)]"
+    class="bg-sandy shadow-paper flex px-1 py-2 mx-4 mt-2 space-x-4 rounded-md"
   >
     <div class="mr-auto">
       <StyledButton v-show="!$page.props.auth.user">
-        <Link href="/register"> Register </Link>
+        <Link href="/register">Register</Link>
       </StyledButton>
 
       <StyledButton v-show="!$page.props.auth.user">
-        <Link href="/login"> Log In </Link>
+        <Link href="/login">Log In</Link>
       </StyledButton>
 
       <StyledButton v-show="$page.props.auth.user">
@@ -27,15 +24,11 @@ import StyledButton from "@/Shared/StyledButton.vue";
 
     <div class="ml-auto">
       <StyledButton v-show="$page.props.auth.user">
-        <Link href="/books/add"> Add Book </Link>
+        <Link href="/books/add">Add Book</Link>
       </StyledButton>
 
       <StyledButton v-show="$page.props.auth.user">
-        <Link href="/books"> View Books </Link>
-      </StyledButton>
-
-      <StyledButton v-show="$page.props.auth.user">
-        <Link href="/profile"> Profile </Link>
+        <Link href="/books">View Books</Link>
       </StyledButton>
     </div>
   </nav>
