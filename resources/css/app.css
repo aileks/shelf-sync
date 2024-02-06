@@ -19,3 +19,7 @@ html {
 body {
     @apply text-neutral-800 bg-primary;
 }
+
+select {
+    @apply text-lg
+}

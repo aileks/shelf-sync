@@ -79,7 +79,7 @@ const pageNumbers = computed(() => {
             <th class="sm:w-auto md:w-auto">Modify</th>
           </thead>
 
-          <tbody class="bg-white flex-1 divide-y text-md divide-gray-200">
+          <tbody class="bg-white flex-1 divide-y divide-gray-200">
             <tr
               v-for="book in props.books.data"
               :key="props.books.data.id"
@@ -200,6 +200,10 @@ const pageNumbers = computed(() => {
 </template>
 
 <style scoped>
+tbody {
+  font-size: 15px;
+}
+
 #search {
   position: relative;
   padding-left: 32px;
@@ -212,6 +216,10 @@ const pageNumbers = computed(() => {
 }
 
 @media (max-width: 640px) {
+  #search {
+    width: 80%;
+  }
+
   .table-container {
     width: 100%;
   }
