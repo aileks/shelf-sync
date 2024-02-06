@@ -14,12 +14,15 @@ use Inertia\Inertia;
 Route::get('/', fn () => Inertia::render('Home'))->name('home');
 
 // Books stuff
-Route::get('/books', [BookController::class, 'index'])->name('books');
-Route::get('/books/add', [BookController::class, 'create']);
-Route::post('/books/add', [BookController::class, 'store']);
-Route::get('/books/edit/{book}', [BookController::class, 'edit']);
-Route::patch('/books/edit/{book}', [BookController::class, 'update']);
-Route::delete('/books/{book}', [BookController::class, 'destroy']);
+Route::middleware('auth')->group(function () {
+    Route::get('/books', [BookController::class, 'index'])->name('books');
+    Route::get('/books/add', [BookController::class, 'create']);
+    Route::post('/books/add', [BookController::class, 'store']);
+    Route::get('/books/edit/{book}', [BookController::class, 'edit']);
+    Route::patch('/books/edit/{book}', [BookController::class, 'update']);
+    Route::delete('/books/{book}', [BookController::class, 'destroy']);
+});
+
 
 // Profile stuff
 // Route::get('/profile/stats', fn () => Inertia::render('Profile/Stats'));

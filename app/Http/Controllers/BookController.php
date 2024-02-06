@@ -12,17 +12,8 @@ use Validator;
 
 class BookController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request): Response
     {
-        if (!auth()->check()) {
-            return Inertia::render('Login');
-        }
-
         if (!auth()->user()->books()->exists()) {
             return Inertia::render('Books/Index', ['books' => []]);
         }
@@ -45,6 +36,7 @@ class BookController extends Controller
 
         return Inertia::render('Books/Index', [
             'books' => $books,
+            'success' => $request->session()->get('success'),
         ]);
     }
 
@@ -59,10 +51,6 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        if (!auth()->check()) {
-            return Inertia::location(route('/login'));
-        }
-
         $user = auth()->id();
 
         $validator = Validator::make($request->all(), [
@@ -85,15 +73,13 @@ class BookController extends Controller
 
         $request->user()->books()->create($validated);
 
+        $request->session()->flash('success', 'Book added! Your collection grows...');
+
         return Inertia::location(route('books'));
     }
 
     public function edit(Book $book): Response
     {
-        if (!auth()->check()) {
-            return Inertia::render('Login');
-        }
-
         return Inertia::render('Books/Edit', [
             'book' => $book,
         ]);
@@ -121,12 +107,16 @@ class BookController extends Controller
         $book = Book::find($bookData['id']);
         $book->update($validator->validated());
 
+        $request->session()->flash('success', 'Book successfully updated.');
+
         return Inertia::location(route('books'));
     }
 
-    public function destroy(Book $book)
+    public function destroy(Request $request, Book $book)
     {
         $book->delete();
+
+        $request->session()->flash('success', 'Book successfully deleted.');
 
         return Inertia::location(route('books'));
     }
