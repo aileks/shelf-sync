@@ -13,7 +13,7 @@ onMounted(() => {
 
   <Layout>
     <div
-      class="parallax relative h-[800px] w-auto rounded-md bg-fixed bg-center bg-no-repeat bg-cover h-64"
+      class="bg-[url('images/library.jpeg')] relative h-[800px] w-auto rounded-md bg-fixed bg-center bg-no-repeat bg-cover"
     >
       <Transition
         enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -50,5 +50,3 @@ onMounted(() => {
     </div>
   </Layout>
 </template>
-
-<style scoped></style>

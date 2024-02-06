@@ -23,7 +23,3 @@ body {
 select {
   @apply text-lg;
 }
-
-.parallax {
-  background-image: url("/public/images/library.jpeg");
-}
