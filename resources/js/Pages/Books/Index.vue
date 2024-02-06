@@ -5,7 +5,6 @@ import debounce from "lodash/debounce";
 
 const props = defineProps({
   books: Object,
-  filters: Object,
 });
 
 const deleteBook = (id) => {
@@ -18,19 +17,11 @@ const deleteBook = (id) => {
   });
 };
 
-const search = ref(props.filters ? props.filters.search : "");
-const filteredBooks = computed(() => {
-  if (!search.value) return props.books.data;
-  return props.books.data.filter(
-    (book) =>
-      book.title.toLowerCase().includes(search.value.toLowerCase()) ||
-      book.author.toLowerCase().includes(search.value.toLowerCase()),
-  );
-});
-const searchActive = computed(() => search.value !== "");
+const isSearchActive = ref(false);
 
 const updateSearch = debounce((value) => {
-  search.value = value;
+  isSearchActive.value = true;
+  router.replace(`/books?search=${value}`);
 }, 300);
 
 const goToPage = (url) => {
@@ -41,21 +32,7 @@ const pageNumbers = computed(() => {
   let numbers = [];
 
   for (let i = 1; i <= props.books.last_page; i++) {
-    if (
-      i === 1 ||
-      i === 2 ||
-      i === props.books.last_page ||
-      i === props.books.last_page - 1 ||
-      i === props.books.last_page - 2 ||
-      (i >= props.books.current_page - 2 && i <= props.books.current_page + 2) // Include two pages before and after the current page
-    ) {
-      numbers.push(i);
-    } else if (
-      (i === 3 || i === props.books.last_page - 3) &&
-      !numbers.includes(". . .")
-    ) {
-      numbers.push(". . .");
-    }
+    numbers.push(i);
   }
 
   return numbers;
@@ -69,7 +46,6 @@ const pageNumbers = computed(() => {
     <div class="flex flex-col items-center">
       <input
         id="search"
-        v-model="search"
         @input="updateSearch($event.target.value)"
         class="border-bronze font-lg rounded-md"
         placeholder="Search Books..."
@@ -87,11 +63,14 @@ const pageNumbers = computed(() => {
             >
               <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
 
-              <div v-if="filteredBooks.length === 0 && searchActive">
-                <h2 class="text-xl bg-white">No books found.</h2>
-              </div>
+              <!-- <div -->
+              <!-- v-show="isSearchActive && props.books.data.length === 0" -->
+              <!-- class="bg-white mx-auto shadow-paper p-8" -->
+              <!-- > -->
+              <!--<h2 class="mb-4 text-2xl">No books found.</h2> -->
+              <!-- </div> -->
 
-              <table class="w-full sm:w-auto table-auto md:w-full" v-else>
+              <table class="w-full sm:w-auto table-auto md:w-full">
                 <thead
                   class="bg-bronze text-neutral-50 text-lg sm:text-base divide-x"
                 >
@@ -105,8 +84,8 @@ const pageNumbers = computed(() => {
 
                 <tbody class="bg-white divide-y divide-gray-200">
                   <tr
-                    v-for="book in filteredBooks"
-                    :key="filteredBooks.id"
+                    v-for="book in props.books.data"
+                    :key="props.books.data.id"
                     class="divide-x"
                   >
                     <td class="py-m px-3 book-start">
@@ -179,17 +158,12 @@ const pageNumbers = computed(() => {
                   :key="index"
                 >
                   <button
-                    v-if="number !== '. . .'"
                     :disabled="number === props.books.current_page"
                     @click="goToPage(`/books?page=${number}`)"
                     class="hover:text-brown"
                   >
                     {{ number }}
                   </button>
-
-                  <span v-else>
-                    {{ number }}
-                  </span>
                 </span>
 
                 <!--Next-->
@@ -215,7 +189,7 @@ const pageNumbers = computed(() => {
             </div>
 
             <div
-              v-else
+              v-else-if="!props.books.data && !isSearchActive"
               class="bg-sandy mx-auto max-w-md shadow-paper p-8 rounded-md"
             >
               <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>

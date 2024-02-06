@@ -16,18 +16,27 @@ class BookController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
         if (!auth()->check()) {
             return Inertia::render('Login');
         }
 
-        // make this more efficient
-        // return all books a user has from oldest to newest
-        $books = auth()->user()->books()
-            ->select( 'id', 'title', 'author', 'genre', 'read', 'pages')
-            ->orderBy('created_at', 'asc')
-            ->paginate(20);
+        $search = $request->query('search');
+
+        if ($search) {
+            $books = auth()->user()->books()
+                ->select('id', 'title', 'author', 'genre', 'read', 'pages')
+                ->where('title', 'like', '%' . $search . '%')
+                ->orWhere('author', 'like', '%' . $search . '%')
+                ->orderBy('created_at', 'asc')
+                ->paginate(20);
+        } else {
+            $books = auth()->user()->books()
+                ->select('id', 'title', 'author', 'genre', 'read', 'pages')
+                ->orderBy('created_at', 'asc')
+                ->paginate(20);
+        }
 
         if ($books->isEmpty()) {
             return Inertia::render('Books/Index', ['books' => []]);
@@ -35,8 +44,7 @@ class BookController extends Controller
 
         return Inertia::render('Books/Index', [
             'books' => $books,
-            // not needed anymore but keeping just in case
-            // 'filters' => $request->only(['search'])
+            'hasBooks' => auth()->user()->books()->exists(),
         ]);
     }
 
