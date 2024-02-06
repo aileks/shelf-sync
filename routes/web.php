@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Http\Controllers\Auth\LoginController;
@@ -33,15 +34,15 @@ Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 // reset
-Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
-                ->middleware('guest')
-                ->name('password.request');
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-                ->middleware('guest')
-                ->name('password.email');
-Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
-                ->middleware('guest')
-                ->name('password.reset');
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-                ->middleware('guest')
-                ->name('password.store');
+// Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+//                 ->middleware('guest')
+//                 ->name('password.request');
+// Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+//                 ->middleware('guest')
+//                 ->name('password.email');
+// Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+//                 ->middleware('guest')
+//                 ->name('password.reset');
+// Route::post('/reset-password', [NewPasswordController::class, 'store'])
+//                 ->middleware('guest')
+//                 ->name('password.store');

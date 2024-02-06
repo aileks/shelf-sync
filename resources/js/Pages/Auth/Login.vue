@@ -43,12 +43,12 @@ const formFields = [
       @submit="$emit('submit')"
     >
       <div class="flex items-center justify-between mx-4 mt-6">
-        <Link
-          href="/forgot-password"
-          class="text-blue text-sm italic hover:underline"
-        >
-          Forgot Password?
-        </Link>
+        <!-- <Link -->
+        <!--   href="/forgot-password" -->
+        <!--   class="text-blue text-sm italic hover:underline" -->
+        <!-- > -->
+        <!--   Forgot Password? -->
+        <!-- </Link> -->
 
         <StyledButton type="submit">Login</StyledButton>
       </div>
