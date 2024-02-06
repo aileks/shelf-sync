@@ -53,156 +53,147 @@ const pageNumbers = computed(() => {
       />
     </div>
 
-    <main class="flex text-lg flex-col items-center mt-4">
-      <div class="w-full max-w-screen-xl">
-        <div class="overflow-x-auto">
-          <div class="inline-block min-w-full py-2 align-middle">
-            <div
-              v-if="props.books.data"
-              class="shadow-paper flex-1 rounded-md overflow-hidden"
-            >
-              <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
+    <main class="flex flex-col items-center mt-4">
+      <div
+        v-if="props.books.data"
+        class="table-container shadow-paper rounded-md overflow-x-auto"
+      >
+        <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
 
-              <div
-                v-if="isSearchActive && props.books.data.length === 0"
-                class="bg-white mx-auto shadow-paper p-8"
-              >
-                <h2 class="mb-4 text-xl">No books found.</h2>
-              </div>
-
-              <table v-else class="w-full sm:w-auto table-auto md:w-full">
-                <thead
-                  class="bg-bronze text-neutral-50 font-bold md:text-lg sm:text-base divide-x"
-                >
-                  <th class="sm:w-auto md:w-auto">Title</th>
-                  <th class="sm:w-auto md:w-auto">Author</th>
-                  <th class="sm:w-auto md:w-auto">Genre</th>
-                  <th class="px-2 sm:w-auto md:w-auto">Read?</th>
-                  <th class="px-2 sm:w-auto md:w-auto">Pages</th>
-                  <th class="sm:w-auto md:w-auto">Modify</th>
-                </thead>
-
-                <tbody class="bg-white divide-y text-base divide-gray-200">
-                  <tr
-                    v-for="book in props.books.data"
-                    :key="props.books.data.id"
-                    class="divide-x"
-                  >
-                    <td class="py-m px-3 book-start">
-                      <div class="italic book-title">
-                        {{ book.title }}
-                      </div>
-                    </td>
-
-                    <td class="">
-                      {{ book.author }}
-                    </td>
-                    <td class="px-4">
-                      {{ book.genre }}
-                    </td>
-                    <td>
-                      <span v-if="book.read">✔️</span>
-                    </td>
-                    <td>
-                      {{ book.pages }}
-                    </td>
-                    <td class="px-2 book-end">
-                      <Link
-                        :href="`/books/edit/${book.id}`"
-                        class="text-blue hover:underline inline-block"
-                      >
-                        Edit
-                      </Link>
-
-                      <p class="inline-block mx-1 px-0.5">|</p>
-
-                      <Link
-                        href="#"
-                        class="text-red hover:underline inline-block"
-                        @click.prevent="deleteBook(book.id)"
-                      >
-                        Delete
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div
-                class="flex items-center justify-center py-1 text-neutral-50 bg-bronze"
-              >
-                <!--Previous-->
-                <button
-                  :disabled="!books.prev_page_url"
-                  @click="goToPage(books.prev_page_url)"
-                  class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="w-5 h-5"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-
-                <!--Page Numbers-->
-                <span
-                  class="mx-2 text-lg"
-                  v-for="(number, index) in pageNumbers"
-                  :key="index"
-                >
-                  <button
-                    :disabled="number === props.books.current_page"
-                    @click="goToPage(`/books?page=${number}`)"
-                    class="hover:text-brown"
-                  >
-                    {{ number }}
-                  </button>
-                </span>
-
-                <!--Next-->
-                <button
-                  :disabled="!books.next_page_url"
-                  @click="goToPage(books.next_page_url)"
-                  class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="w-5 h-5"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div
-              v-else-if="!props.books.data && !isSearchActive"
-              class="bg-sandy mx-auto max-w-md shadow-paper p-8 rounded-md"
-            >
-              <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
-
-              <Link
-                class="hover:underline text-brown mt-4 text-xl"
-                href="/books/add"
-              >
-                Add a book!
-              </Link>
-            </div>
-          </div>
+        <div
+          v-if="isSearchActive && props.books.data.length === 0"
+          class="bg-white mx-auto shadow-paper p-8"
+        >
+          <h2 class="mb-4 text-xl">No books found.</h2>
         </div>
+
+        <table v-else class="table-auto w-full">
+          <thead
+            class="bg-bronze text-neutral-50 font-bold md:text-lg sm:text-base divide-x"
+          >
+            <th class="sm:w-auto md:w-auto">Title</th>
+            <th class="sm:w-auto md:w-auto">Author</th>
+            <th class="sm:w-auto md:w-auto">Genre</th>
+            <th class="px-2 sm:w-auto md:w-auto">Read?</th>
+            <th class="px-2 sm:w-auto md:w-auto">Pages</th>
+            <th class="sm:w-auto md:w-auto">Modify</th>
+          </thead>
+
+          <tbody class="bg-white flex-1 divide-y text-md divide-gray-200">
+            <tr
+              v-for="book in props.books.data"
+              :key="props.books.data.id"
+              class="divide-x"
+            >
+              <td class="title px-2 sm:w-auto md:w-auto" data-label="Title">
+                <div class="italic">
+                  {{ book.title }}
+                </div>
+              </td>
+
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Author">
+                {{ book.author }}
+              </td>
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Genre">
+                {{ book.genre }}
+              </td>
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
+                <span v-if="book.read">✔️</span>
+              </td>
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Pages">
+                {{ book.pages }}
+              </td>
+              <td class="px-2" data-label="Modify">
+                <Link
+                  :href="`/books/edit/${book.id}`"
+                  class="text-blue hover:underline inline-block"
+                >
+                  Edit
+                </Link>
+
+                <p class="inline-block mx-1 px-0.5">|</p>
+
+                <Link
+                  href="#"
+                  class="text-red hover:underline inline-block"
+                  @click.prevent="deleteBook(book.id)"
+                >
+                  Delete
+                </Link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div
+          class="flex items-center justify-center py-1 text-neutral-50 bg-bronze"
+        >
+          <!--Previous-->
+          <button
+            :disabled="!books.prev_page_url"
+            @click="goToPage(books.prev_page_url)"
+            class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+
+          <!--Page Numbers-->
+          <span
+            class="mx-2 text-lg"
+            v-for="(number, index) in pageNumbers"
+            :key="index"
+          >
+            <button
+              :disabled="number === props.books.current_page"
+              @click="goToPage(`/books?page=${number}`)"
+              class="hover:text-brown"
+            >
+              {{ number }}
+            </button>
+          </span>
+
+          <!--Next-->
+          <button
+            :disabled="!books.next_page_url"
+            @click="goToPage(books.next_page_url)"
+            class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        v-else-if="!props.books.data && !isSearchActive"
+        class="bg-sandy mx-auto max-w-md shadow-paper p-8 rounded-md"
+      >
+        <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
+
+        <Link class="hover:underline text-brown mt-4 text-xl" href="/books/add">
+          Add a book!
+        </Link>
       </div>
     </main>
   </Layout>
@@ -221,6 +212,10 @@ const pageNumbers = computed(() => {
 }
 
 @media (max-width: 640px) {
+  .table-container {
+    width: 100%;
+  }
+
   .table-auto thead {
     display: none;
   }
@@ -234,25 +229,16 @@ const pageNumbers = computed(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #cfbda6;
-    padding: 0.8rem 0;
+    padding: 0.8rem;
+    word-wrap: break-word;
   }
 
   .table-auto td:before {
-    content: attr(data-label);
     flex-basis: 0;
   }
 
-  .book-title {
+  .title {
     font-weight: bold;
-  }
-
-  .book-start {
-    border-top: 2px solid #cfbda6;
-  }
-
-  .book-end {
-    border-bottom: 2px solid #cfbda6;
   }
 }
 </style>

@@ -13,7 +13,7 @@ onMounted(() => {
 
   <Layout>
     <div
-      class="parallax overflow-hidden relative min-h-[600px] rounded-md bg-fixed bg-center bg-no-repeat bg-cover h-64"
+      class="parallax relative h-[800px] w-auto rounded-md bg-fixed bg-center bg-no-repeat bg-cover h-64"
     >
       <Transition
         enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -25,7 +25,9 @@ onMounted(() => {
           v-show="animate"
           class="flex flex-col justify-center text-neutral-50 items-center h-full"
         >
-          <div class="bg-black/50 rounded-md p-8 w-1/4">
+          <div
+            class="bg-black/50 rounded-md p-8 w-3/4 sm:w-1/2 md:1/3 lg:1/4 xl:w-1/5"
+          >
             <h1 class="text-3xl font-bold">Welcome to Quillify!</h1>
 
             <h2 class="mt-8 pt-8 text-xl font-semibold">
@@ -36,8 +38,8 @@ onMounted(() => {
       </Transition>
     </div>
 
-    <div class="flex items-center text-lg justify-center">
-      <footer class="absolute bottom-0 pb-1 mb-1">
+    <div class="flex justify-center">
+      <footer class="absolute text-sm left-0 right-0 bottom-0 pb-1 mb-1">
         Made with 👩‍💻 by
         <Link
           href="https://github.com/aileks/quillify"
