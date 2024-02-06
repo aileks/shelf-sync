@@ -37,7 +37,21 @@ class NewPasswordController extends Controller
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+           'password' => ['required', 'confirmed', function ($attribute, $value, $fail) {
+               $passwordRule = Rules\Password::min(8)
+                   ->mixedCase()
+                   ->letters()
+                   ->numbers()
+                   ->symbols(1);
+
+               $validator = validator([$attribute => $value], [$attribute => $passwordRule]);
+
+               if ($validator->fails()) {
+                   $fail('Passwords must consist of at least 8 characters, including an uppercase letter, a number, and a symbol.');
+               }
+           }],
+        ], [
+           'password.confirmed' => 'The password confirmation does not match.',
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we
@@ -46,6 +60,13 @@ class NewPasswordController extends Controller
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
+                // Check if the new password is the same as the old one
+                if (Hash::check($request->password, $user->password)) {
+                    throw ValidationException::withMessages([
+                        'password' => ['Your new password cannot be the same as the old one.'],
+                    ]);
+                }
+
                 $user->forceFill([
                     'password' => Hash::make($request->password),
                     'remember_token' => Str::random(60),

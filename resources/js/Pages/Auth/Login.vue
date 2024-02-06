@@ -1,6 +1,11 @@
 <script setup>
-import Form from "@/Shared/Form.vue";
-import FormLayout from "@/Shared/FormLayout.vue";
+import Form from "@/Components/Form.vue";
+import FormLayout from "@/Layouts/FormLayout.vue";
+import StyledButton from "@/Components/StyledButton.vue";
+
+defineProps({
+  status: String,
+});
 
 const formFields = [
   {
@@ -23,19 +28,32 @@ const formFields = [
 <template>
   <Head title="Login" />
 
-  <Layout>
-    <FormLayout>
-      <h2 class="text-xl border-[#9d8461] border-b pb-1.5">Login</h2>
+  <FormLayout>
+    <h2 class="text-3xl border-bronze border-b pb-1.5">Log In</h2>
 
-      <Form
-        :form-fields="formFields"
-        submit-text="Login"
-        cancel-url="/"
-        post-url="/login"
-        @submit="$emit('submit')"
-      />
-    </FormLayout>
-  </Layout>
+    <div class="text-blue pt-2 mt-4 italic" v-show="status">
+      {{ status }}
+    </div>
+
+    <Form
+      :form-fields="formFields"
+      submit-text="Login"
+      cancel-url="/"
+      post-url="/login"
+      @submit="$emit('submit')"
+    >
+      <div class="flex items-center justify-between mx-4 mt-6">
+        <Link
+          href="/forgot-password"
+          class="text-blue text-sm italic hover:underline"
+        >
+          Forgot Password?
+        </Link>
+
+        <StyledButton type="submit">Login</StyledButton>
+      </div>
+    </Form>
+  </FormLayout>
 </template>
 
 <style scoped></style>
