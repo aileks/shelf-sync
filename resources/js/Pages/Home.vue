@@ -14,7 +14,7 @@ onMounted(() => {
   <Layout>
     <div class="relative h-[80vh] sm:h-[60vh] md:h-[70vh] w-auto">
       <img
-        src="/static/images/library.jpeg"
+        src="/library.jpeg"
         class="absolute top-0 left-0 h-full w-full object-cover rounded-md"
       />
       <Transition

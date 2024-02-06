@@ -11,9 +11,7 @@
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
     @inertiaHead
     <link rel="icon"
-          type="image/x-icon"
-          sizes="32x32"
-          href="static/images/favicon.ico">
+          href="/favicon.ico" />
 </head>
 
 <body>
