@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -22,6 +23,10 @@ class BookController extends Controller
             return Inertia::render('Login');
         }
 
+        if (!auth()->user()->books()->exists()) {
+            return Inertia::render('Books/Index', ['books' => []]);
+        }
+
         $search = $request->query('search');
 
         if ($search) {
@@ -38,13 +43,8 @@ class BookController extends Controller
                 ->paginate(20);
         }
 
-        if ($books->isEmpty()) {
-            return Inertia::render('Books/Index', ['books' => []]);
-        }
-
         return Inertia::render('Books/Index', [
             'books' => $books,
-            'hasBooks' => auth()->user()->books()->exists(),
         ]);
     }
 
@@ -107,7 +107,7 @@ class BookController extends Controller
             'title' => ['required', 'string', 'max:255', 'min:3'],
             'author' => ['required', 'string', 'max:255', 'min:3'],
             'pages' => ['nullable', 'integer'],
-            'genre' => ['required', 'string',],
+            'genre' => ['required', 'string'],
             'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'read' => ['boolean'],
         ]);

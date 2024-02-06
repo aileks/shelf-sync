@@ -63,16 +63,16 @@ const pageNumbers = computed(() => {
             >
               <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
 
-              <!-- <div -->
-              <!-- v-show="isSearchActive && props.books.data.length === 0" -->
-              <!-- class="bg-white mx-auto shadow-paper p-8" -->
-              <!-- > -->
-              <!--<h2 class="mb-4 text-2xl">No books found.</h2> -->
-              <!-- </div> -->
+              <div
+                v-if="isSearchActive && props.books.data.length === 0"
+                class="bg-white mx-auto shadow-paper p-8"
+              >
+                <h2 class="mb-4 text-xl">No books found.</h2>
+              </div>
 
-              <table class="w-full sm:w-auto table-auto md:w-full">
+              <table v-else class="w-full sm:w-auto table-auto md:w-full">
                 <thead
-                  class="bg-bronze text-neutral-50 text-lg sm:text-base divide-x"
+                  class="bg-bronze text-neutral-50 font-bold md:text-lg sm:text-base divide-x"
                 >
                   <th class="sm:w-auto md:w-auto">Title</th>
                   <th class="sm:w-auto md:w-auto">Author</th>
@@ -82,7 +82,7 @@ const pageNumbers = computed(() => {
                   <th class="sm:w-auto md:w-auto">Modify</th>
                 </thead>
 
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y text-base divide-gray-200">
                   <tr
                     v-for="book in props.books.data"
                     :key="props.books.data.id"
@@ -94,7 +94,7 @@ const pageNumbers = computed(() => {
                       </div>
                     </td>
 
-                    <td class="text-md px-3">
+                    <td class="">
                       {{ book.author }}
                     </td>
                     <td class="px-4">
@@ -212,7 +212,7 @@ const pageNumbers = computed(() => {
 #search {
   position: relative;
   padding-left: 32px;
-  padding-top: 4px;
+  padding-top: 8px;
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray" class="w-2 h-2"%3E%3Cpath fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /%3E%3C/svg%3E');
   background-repeat: no-repeat;
   background-position: left 10px center;
