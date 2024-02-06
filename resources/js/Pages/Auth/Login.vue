@@ -42,7 +42,7 @@ const formFields = [
       post-url="/login"
       @submit="$emit('submit')"
     >
-      <div class="flex items-center justify-between mx-4 mt-6">
+      <div class="flex items-center justify-end mx-4 mt-6">
         <!-- <Link -->
         <!--   href="/forgot-password" -->
         <!--   class="text-blue text-sm italic hover:underline" -->

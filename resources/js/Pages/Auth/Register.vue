@@ -48,11 +48,7 @@ const formFields = [
       postUrl="/register"
       @submit="$emit('submit')"
     >
-      <div class="flex items-center justify-between mx-4 mt-6">
-        <Link href="/" class="text-blue text-sm hover:underline">
-          Change your mind?
-        </Link>
-
+      <div class="flex items-center justify-end mx-4 mt-6">
         <StyledButton type="submit">Register</StyledButton>
       </div>
     </Form>
