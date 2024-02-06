@@ -1,6 +1,7 @@
 <script setup>
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
+import StyledButton from "@/Components/StyledButton.vue";
 
 defineProps({
   status: String,
@@ -40,14 +41,19 @@ const formFields = [
       cancel-url="/"
       post-url="/login"
       @submit="$emit('submit')"
-    />
-  </FormLayout>
-
-  <div class="flex items-center justify-center mt-6">
-    <Link href="/forgot-password" class="text-blue hover:underline italic"
-      >Forgot Password?</Link
     >
-  </div>
+      <div class="flex items-center justify-between mx-4 mt-6">
+        <Link
+          href="/forgot-password"
+          class="text-blue text-sm italic hover:underline"
+        >
+          Forgot Password?
+        </Link>
+
+        <StyledButton type="submit">Login</StyledButton>
+      </div>
+    </Form>
+  </FormLayout>
 </template>
 
 <style scoped></style>

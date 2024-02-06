@@ -1,11 +1,8 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import FormButtons from "./FormButtons.vue";
 
 const props = defineProps({
   formFields: Array,
-  submitText: String,
-  cancelUrl: String,
   postUrl: String,
 });
 
@@ -14,6 +11,7 @@ const form = useForm(
 );
 
 const submit = () => {
+  console.log("submitting form");
   form.post(props.postUrl, {
     preserveState: true,
   });
@@ -45,7 +43,6 @@ const submit = () => {
       </div>
     </div>
 
-    <FormButtons :submit-text="props.submitText" :cancelUrl="props.cancelUrl" />
     <slot />
   </form>
 </template>

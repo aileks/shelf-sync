@@ -1,6 +1,7 @@
 <script setup>
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
+import StyledButton from "@/Components/StyledButton.vue";
 
 const formFields = [
   {
@@ -46,6 +47,14 @@ const formFields = [
       cancelUrl="/"
       postUrl="/register"
       @submit="$emit('submit')"
-    />
+    >
+      <div class="flex items-center justify-between mx-4 mt-6">
+        <Link href="/" class="text-blue text-sm hover:underline">
+          Change your mind?
+        </Link>
+
+        <StyledButton type="submit">Register</StyledButton>
+      </div>
+    </Form>
   </FormLayout>
 </template>
