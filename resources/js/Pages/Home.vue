@@ -12,18 +12,20 @@ onMounted(() => {
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div
-      class="bg-[url('/images/library.jpeg')] relative h-[800px] w-auto rounded-md bg-fixed bg-center bg-no-repeat bg-cover"
-    >
+    <div class="relative h-[80vh] sm:h-[60vh] md:h-[70vh] w-auto">
+      <img
+        src="/images/library.jpeg"
+        class="absolute top-0 left-0 h-full w-full object-cover rounded-md"
+      />
       <Transition
         enter-active-class="transition-opacity duration-1000 ease-in-out"
         enter-from-class="opacity-0"
         leave-active-class="transition-opacity duration-700 ease-in-out"
         leave-to-class="opacity-0"
       >
-        <header
+        <main
           v-show="animate"
-          class="flex flex-col justify-center text-neutral-50 items-center h-full"
+          class="absolute top-0 left-0 h-full w-full flex flex-col justify-center text-neutral-50 items-center"
         >
           <div
             class="bg-black/50 rounded-md p-8 w-3/4 sm:w-1/2 md:1/3 lg:1/4 xl:w-1/5"
@@ -34,7 +36,7 @@ onMounted(() => {
               Your personal library.
             </h2>
           </div>
-        </header>
+        </main>
       </Transition>
     </div>
 
@@ -44,7 +46,8 @@ onMounted(() => {
         <Link
           href="https://github.com/aileks/quillify"
           class="hover:underline font-bold text-blue"
-          >Aaliyah
+        >
+          Aaliyah
         </Link>
       </footer>
     </div>
