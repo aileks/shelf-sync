@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 
@@ -10,10 +10,10 @@ const props = defineProps({
 
 let success = ref(props.success);
 
-watch(success, (newStatus) => {
-  if (newStatus) {
+onMounted(() => {
+  if (success) {
     setTimeout(() => {
-      success = null;
+      success.value = null;
     }, 3000);
   }
 });
@@ -24,6 +24,12 @@ const deleteBook = (id) => {
       if (!confirm("Are you sure you want to delete this book?")) {
         return false;
       }
+    },
+    onSuccess: (page) => {
+      success.value = "Book successfully deleted.";
+      setTimeout(() => {
+        success.value = null;
+      }, 3000);
     },
   });
 };
@@ -48,6 +54,7 @@ const pageNumbers = computed(() => {
 
   return numbers;
 });
+
 </script>
 
 <template>
@@ -208,14 +215,15 @@ const pageNumbers = computed(() => {
       </div>
     </main>
   </Layout>
+
   <Transition
-    enter-active-class="transition duration-300 ease-out"
-    enter-from-class="transform opacity-0 -translate-x-2"
-    enter-to-class="transform opacity-100 translate-x-0"
+    enter-active-class="transition-opacity duration-700 ease-in-out"
+    enter-from-class="transform opacity-0"
+    enter-to-class="transform opacity-100"
   >
-    <div class="fixed bottom-0 right-0 m-6 bg-emerald-600 text-neutral-50 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="success" @click="success=null">
+    <div class="fixed bottom-0 right-0 m-6 bg-emerald-600 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="success" @click="success=null">
       <div class="p-4">
-        <p class="text-white">{{ success }}</p>
+        <p class="text-neutral-50">{{ success }}</p>
       </div>
     </div>
   </Transition>

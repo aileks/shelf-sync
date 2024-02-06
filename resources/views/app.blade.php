@@ -4,18 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
     >
     @routes
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
     @inertiaHead
-    <link rel="icon"
-          href="/favicon.ico" />
 </head>
 
-<body>
-@inertia
+<body class="font-sans antialiased">
+    @inertia
 </body>
 
 </html>

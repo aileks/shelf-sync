@@ -1,7 +1,6 @@
 # Quillify
 
 A simple app to log all the books you've read (or want to read).
-[View it here!](https://www.quillify-app.com/)
 
 ### Home Page
 

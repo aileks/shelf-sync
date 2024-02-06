@@ -50,13 +50,13 @@ watch(status, (newStatus) => {
       post-url="/login"
       @submit="$emit('submit')"
     >
-      <div class="flex items-center justify-end mx-4 mt-6">
-        <!-- <Link -->
-        <!--   href="/forgot-password" -->
-        <!--   class="text-blue text-sm italic hover:underline" -->
-        <!-- > -->
-        <!--   Forgot Password? -->
-        <!-- </Link> -->
+      <div class="flex items-center justify-between mx-4 mt-6">
+        <Link
+          href="/forgot-password"
+          class="text-blue text-sm italic hover:underline"
+        >
+          Forgot Password?
+        </Link>
 
         <StyledButton type="submit">Login</StyledButton>
       </div>
@@ -64,13 +64,15 @@ watch(status, (newStatus) => {
   </FormLayout>
 
   <Transition
-    enter-active-class="transition duration-300 ease-out"
-    enter-from-class="transform opacity-0 -translate-x-2"
-    enter-to-class="transform opacity-100 translate-x-0"
+    enter-active-class="transition-opacity duration-700 ease-in-out"
+    enter-from-class="transform opacity-0"
+    enter-to-class="transform opacity-100"
+    leave-from-class="transform opacity-100"
+    leave-to-class="transform opacity-0"
   >
-    <div class="fixed bottom-0 right-0 m-6 bg-emerald-600 text-neutral-50 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="status" @click="status = null">
+    <div class="fixed bottom-0 right-0 m-6 bg-emerald-700 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="status" @click="status = null">
       <div class="p-4">
-        <p class="text-white">{{ status }}</p>
+        <p class="text-neutral-50 ">{{ status }}</p>
       </div>
     </div>
   </Transition>

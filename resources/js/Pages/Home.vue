@@ -42,14 +42,15 @@ onMounted(() => {
 
     <div class="flex justify-center">
       <footer class="absolute text-sm left-0 right-0 bottom-0 pb-1 mb-1">
-        Made with <span class="text-base">❤</span> by
+        Made with 👩‍💻 by
         <Link
           href="https://github.com/aileks/quillify"
-          class="hover:underline font-bold text-blue"
-        >
-          Aaliyah
+          class="hover:underline font-medium text-blue"
+          >Aaliyah
         </Link>
       </footer>
     </div>
   </Layout>
 </template>
+
+<style scoped></style>
