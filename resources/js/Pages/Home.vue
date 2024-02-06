@@ -13,7 +13,7 @@ onMounted(() => {
 
   <Layout>
     <div
-      class="bg-[url('images/library.jpeg')] relative h-[800px] w-auto rounded-md bg-fixed bg-center bg-no-repeat bg-cover"
+      class="bg-[url('/images/library.jpeg')] relative h-[800px] w-auto rounded-md bg-fixed bg-center bg-no-repeat bg-cover"
     >
       <Transition
         enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -40,10 +40,10 @@ onMounted(() => {
 
     <div class="flex justify-center">
       <footer class="absolute text-sm left-0 right-0 bottom-0 pb-1 mb-1">
-        Made with 👩‍💻 by
+        Made with <span class="text-base">❤</span> by
         <Link
           href="https://github.com/aileks/quillify"
-          class="hover:underline font-medium text-blue"
+          class="hover:underline font-bold text-blue"
           >Aaliyah
         </Link>
       </footer>
