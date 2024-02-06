@@ -51,8 +51,4 @@ onMounted(() => {
   </Layout>
 </template>
 
-<style scoped>
-.parallax {
-  background-image: url("/img/library.jpeg");
-}
-</style>
+<style scoped></style>
