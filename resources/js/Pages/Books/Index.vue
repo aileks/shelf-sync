@@ -54,7 +54,6 @@ const pageNumbers = computed(() => {
 
   return numbers;
 });
-
 </script>
 
 <template>
@@ -67,7 +66,7 @@ const pageNumbers = computed(() => {
         @input="updateSearch($event.target.value)"
         class="border-bronze font-lg rounded-md"
         placeholder="Search Books..."
-        type="text"
+        type="search"
       />
     </div>
 
@@ -221,7 +220,11 @@ const pageNumbers = computed(() => {
     enter-from-class="transform opacity-0"
     enter-to-class="transform opacity-100"
   >
-    <div class="fixed bottom-0 right-0 m-6 bg-emerald-600 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="success" @click="success=null">
+    <div
+      class="fixed bottom-0 right-0 m-6 bg-emerald-600 rounded-lg shadow-lg overflow-hidden max-w-xs"
+      v-show="success"
+      @click="success = null"
+    >
       <div class="p-4">
         <p class="text-neutral-50">{{ success }}</p>
       </div>
