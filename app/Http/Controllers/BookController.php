@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Validator;
 
+// FIXME: "Inertia::location" should be replaced with "return to_route"
 class BookController extends Controller
 {
     public function index(Request $request): Response
@@ -20,6 +21,7 @@ class BookController extends Controller
 
         $search = $request->query('search');
 
+        // TODO: Re-do pagination
         if ($search) {
             $books = auth()->user()->books()
                 ->select('id', 'title', 'author', 'genre', 'read', 'pages')
@@ -42,10 +44,6 @@ class BookController extends Controller
 
     public function create()
     {
-        if (!auth()->check()) {
-            return Inertia::render('Login');
-        }
-
         return Inertia::render('Books/Add');
     }
 

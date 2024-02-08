@@ -15,15 +15,14 @@ Route::get('/', fn () => Inertia::render('Home'))->name('home');
 // Books stuff
 Route::middleware('auth')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('books');
-    Route::get('/books/add', [BookController::class, 'create']);
+    Route::get('/books/add', [BookController::class, 'create'])->name('books.add');
+    Route::get('/books/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::post('/books/add', [BookController::class, 'store']);
-    Route::get('/books/edit/{book}', [BookController::class, 'edit']);
     Route::patch('/books/edit/{book}', [BookController::class, 'update']);
     Route::delete('/books/{book}', [BookController::class, 'destroy']);
 });
 
-
-// Profile stuff
+// TODO: Implement
 // Route::get('/profile/stats', fn () => Inertia::render('Profile/Stats'));
 // Route::get('profile/settings', fn () => Inertia::render('Profile/Settings'));
 

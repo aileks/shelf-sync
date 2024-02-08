@@ -45,6 +45,7 @@ const goToPage = (url) => {
   router.replace(url);
 };
 
+// TODO: Re-do pagination
 const pageNumbers = computed(() => {
   let numbers = [];
 
@@ -86,14 +87,14 @@ const pageNumbers = computed(() => {
 
         <table v-else class="table-auto w-full">
           <thead
-            class="bg-bronze text-neutral-50 font-bold md:text-lg sm:text-base divide-x"
+            class="bg-bronze text-neutral-50 font-bold text-lg md:text-lg sm:text-base divide-x"
           >
-            <th class="sm:w-auto md:w-auto">Title</th>
-            <th class="sm:w-auto md:w-auto">Author</th>
-            <th class="sm:w-auto md:w-auto">Genre</th>
+            <th class="px-2 sm:w-auto md:w-auto">Title</th>
+            <th class="px-2 sm:w-auto md:w-auto">Author</th>
+            <th class="px-2 sm:w-auto md:w-auto">Genre</th>
             <th class="px-2 sm:w-auto md:w-auto">Read?</th>
             <th class="px-2 sm:w-auto md:w-auto">Pages</th>
-            <th class="sm:w-auto md:w-auto">Modify</th>
+            <th class="px-2 sm:w-auto md:w-auto">Modify</th>
           </thead>
 
           <tbody class="bg-white flex-1 divide-y divide-gray-200">
