@@ -100,28 +100,17 @@ onUnmounted(() => {
           <thead
             class="bg-bronze text-neutral-50 font-bold text-lg md:text-lg sm:text-base divide-x"
           >
+            <th class="px-2 sm:w-auto md:w-auto">Read?</th>
             <th class="px-2 sm:w-auto md:w-auto">Title</th>
             <th class="px-2 sm:w-auto md:w-auto">Author</th>
             <th class="px-2 sm:w-auto md:w-auto">Genre</th>
-            <th class="px-2 sm:w-auto md:w-auto">Read?</th>
             <th class="px-2 sm:w-auto md:w-auto">Pages</th>
+            <th class="px-2 sm:w-auto md:w-auto">Publish Year</th>
             <th class="px-2 sm:w-auto md:w-auto">Modify</th>
           </thead>
 
           <tbody class="bg-white flex-1 divide-y divide-gray-200">
             <tr v-for="book in books.data" :key="book.id" class="divide-x">
-              <td class="title px-2 sm:w-auto md:w-auto" data-label="Title">
-                <div class="italic">
-                  {{ book.title }}
-                </div>
-              </td>
-
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Author">
-                {{ book.author }}
-              </td>
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Genre">
-                {{ book.genre }}
-              </td>
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
                 <span v-if="isMobile && book.read" class="font-semibold"
                   >Read️</span
@@ -131,9 +120,29 @@ onUnmounted(() => {
                 </span>
                 <span v-else-if="book.read">✔️</span>
               </td>
+
+              <td class="title px-2 sm:w-auto md:w-auto" data-label="Title">
+                <div class="italic">
+                  {{ book.title }}
+                </div>
+              </td>
+
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Author">
+                {{ book.author }}
+              </td>
+
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Genre">
+                {{ book.genre }}
+              </td>
+
               <td class="px-2 sm:w-auto md:w-auto" data-label="Pages">
                 {{ book.pages }}
               </td>
+
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Publish Year">
+                {{ book.publishYear }}
+              </td>
+
               <td class="px-2" data-label="Modify">
                 <Link
                   :href="`/books/edit/${book.id}`"
