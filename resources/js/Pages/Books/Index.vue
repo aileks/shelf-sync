@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 
@@ -8,15 +8,14 @@ const props = defineProps({
   success: String,
 });
 
+let books = ref(props.books);
 let success = ref(props.success);
 
-onMounted(() => {
-  if (success) {
-    setTimeout(() => {
-      success.value = null;
-    }, 3000);
-  }
-});
+let isMobile = ref(window.innerWidth <= 640);
+
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth <= 640;
+};
 
 const deleteBook = (id) => {
   router.delete(`/books/${id}`, {
@@ -34,26 +33,38 @@ const deleteBook = (id) => {
   });
 };
 
-const isSearchActive = ref(false);
+// Search functionality
+let search = ref("");
+let isSearchActive = ref(false);
+watch(
+  search,
+  debounce((value) => {
+    router.get(
+      "/books",
+      { search: value },
+      {
+        preserveState: true,
+        onSuccess: (page) => {
+          books.value = page.props.books;
+          isSearchActive.value = true;
+        },
+      },
+    );
+  }, 300),
+);
 
-const updateSearch = debounce((value) => {
-  isSearchActive.value = true;
-  router.replace(`/books?search=${value}`);
-}, 300);
+onMounted(() => {
+  window.addEventListener("resize", updateIsMobile);
 
-const goToPage = (url) => {
-  router.replace(url);
-};
-
-// TODO: Re-do pagination
-const pageNumbers = computed(() => {
-  let numbers = [];
-
-  for (let i = 1; i <= props.books.last_page; i++) {
-    numbers.push(i);
+  if (success) {
+    setTimeout(() => {
+      success.value = null;
+    }, 3000);
   }
+});
 
-  return numbers;
+onUnmounted(() => {
+  window.removeEventListener("resize", updateIsMobile);
 });
 </script>
 
@@ -61,11 +72,11 @@ const pageNumbers = computed(() => {
   <Head title="Books" />
 
   <Layout>
-    <div class="flex flex-col items-center">
+    <div class="flex justify-center">
       <input
         id="search"
-        @input="updateSearch($event.target.value)"
-        class="border-bronze font-lg rounded-md"
+        v-model="search"
+        class="border-bronze rounded-md w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -73,13 +84,13 @@ const pageNumbers = computed(() => {
 
     <main class="flex flex-col items-center mt-4">
       <div
-        v-if="props.books.data"
+        v-if="books.data"
         class="table-container shadow-paper rounded-md overflow-x-auto"
       >
         <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
 
         <div
-          v-if="isSearchActive && props.books.data.length === 0"
+          v-if="isSearchActive && books.data.length === 0"
           class="bg-white mx-auto shadow-paper p-8"
         >
           <h2 class="mb-4 text-xl">No books found.</h2>
@@ -98,11 +109,7 @@ const pageNumbers = computed(() => {
           </thead>
 
           <tbody class="bg-white flex-1 divide-y divide-gray-200">
-            <tr
-              v-for="book in props.books.data"
-              :key="props.books.data.id"
-              class="divide-x"
-            >
+            <tr v-for="book in books.data" :key="book.id" class="divide-x">
               <td class="title px-2 sm:w-auto md:w-auto" data-label="Title">
                 <div class="italic">
                   {{ book.title }}
@@ -116,7 +123,13 @@ const pageNumbers = computed(() => {
                 {{ book.genre }}
               </td>
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
-                <span v-if="book.read">✔️</span>
+                <span v-if="isMobile && book.read" class="font-semibold"
+                  >Read️</span
+                >
+                <span v-else-if="isMobile && !book.read" class="font-semibold">
+                  Unread️
+                </span>
+                <span v-else-if="book.read">✔️</span>
               </td>
               <td class="px-2 sm:w-auto md:w-auto" data-label="Pages">
                 {{ book.pages }}
@@ -132,8 +145,8 @@ const pageNumbers = computed(() => {
                 <p class="inline-block mx-1 px-0.5">|</p>
 
                 <Link
-                  href="#"
                   class="text-red hover:underline inline-block"
+                  href="#"
                   @click.prevent="deleteBook(book.id)"
                 >
                   Delete
@@ -143,68 +156,80 @@ const pageNumbers = computed(() => {
           </tbody>
         </table>
 
+        <!-- Pagination  -->
+        <div v-if="!isMobile" class="py-2 bg-brown text-neutral-50">
+          <Component
+            :is="link.url ? 'Link' : 'span'"
+            v-for="link in books.links"
+            :class="
+              (link.url ? '' : 'opacity-50', link.active ? 'font-bold' : '')
+            "
+            :href="link.url"
+            class="px-2 mx-1 my-1 border border-neutral-50 rounded-full hover:bg-neutral-50 hover:text-black"
+            v-html="link.label"
+          />
+        </div>
+
         <div
-          class="flex items-center justify-center py-1 text-neutral-50 bg-bronze"
+          v-else
+          class="py-2 bg-brown flex text-center items-center justify-around"
         >
-          <!--Previous-->
-          <button
-            :disabled="!books.prev_page_url"
-            @click="goToPage(books.prev_page_url)"
-            class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          <Component
+            :is="books.prev_page_url ? 'Link' : 'span'"
+            :href="books.prev_page_url"
+            class="px-4 py-1 bg-neutral-50 text-center border rounded-full"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
+              class="bi bi-chevron-double-left"
               fill="currentColor"
-              class="w-5 h-5"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
+                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
                 fill-rule="evenodd"
-                d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
-                clip-rule="evenodd"
+              />
+              <path
+                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                fill-rule="evenodd"
               />
             </svg>
-          </button>
+          </Component>
 
-          <!--Page Numbers-->
-          <span
-            class="mx-2 text-lg"
-            v-for="(number, index) in pageNumbers"
-            :key="index"
-          >
-            <button
-              :disabled="number === props.books.current_page"
-              @click="goToPage(`/books?page=${number}`)"
-              class="hover:text-brown text-sm"
-            >
-              {{ number }}
-            </button>
+          <span class="px-3 py-1 bg-neutral-50 self-center border rounded-full">
+            {{ books.current_page }}
           </span>
 
-          <!--Next-->
-          <button
-            :disabled="!books.next_page_url"
-            @click="goToPage(books.next_page_url)"
-            class="hover:text-brown mx-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          <Component
+            :is="books.next_page_url ? 'Link' : 'span'"
+            :href="books.next_page_url"
+            class="px-4 py-1 bg-neutral-50 self-center border rounded-full"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
+              class="bi bi-chevron-double-right"
               fill="currentColor"
-              class="w-5 h-5"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
+                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"
                 fill-rule="evenodd"
-                d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                clip-rule="evenodd"
+              />
+              <path
+                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"
+                fill-rule="evenodd"
               />
             </svg>
-          </button>
+          </Component>
         </div>
       </div>
 
       <div
-        v-else-if="!props.books.data && !isSearchActive"
+        v-else-if="!books.data && !isSearchActive"
         class="bg-sandy mx-auto max-w-md shadow-paper p-8 rounded-md"
       >
         <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
@@ -217,13 +242,13 @@ const pageNumbers = computed(() => {
   </Layout>
 
   <Transition
-    enter-active-class="transition-opacity duration-700 ease-in-out"
+    enter-active-class="transition-opacity duration-200 ease-in-out"
     enter-from-class="transform opacity-0"
     enter-to-class="transform opacity-100"
   >
     <div
-      class="fixed bottom-0 right-0 m-6 bg-emerald-600 rounded-lg shadow-lg overflow-hidden max-w-xs"
       v-show="success"
+      class="fixed bottom-0 right-0 m-6 bg-emerald-600 rounded-lg shadow-lg overflow-hidden max-w-xs"
       @click="success = null"
     >
       <div class="p-4">

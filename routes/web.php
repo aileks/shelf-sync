@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Http\Controllers\Auth\LoginController;
@@ -10,13 +11,13 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Home
-Route::get('/', fn () => Inertia::render('Home'))->name('home');
+Route::get('/', fn() => Inertia::render('Home'))->name('home');
 
 // Books stuff
 Route::middleware('auth')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('books');
     Route::get('/books/add', [BookController::class, 'create'])->name('books.add');
-    Route::get('/books/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::get('/books/edit/{book}', [BookController::class, 'edit'])->name('books.edit');
     Route::post('/books/add', [BookController::class, 'store']);
     Route::patch('/books/edit/{book}', [BookController::class, 'update']);
     Route::delete('/books/{book}', [BookController::class, 'destroy']);

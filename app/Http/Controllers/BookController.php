@@ -10,7 +10,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Validator;
 
-// FIXME: "Inertia::location" should be replaced with "return to_route"
 class BookController extends Controller
 {
     public function index(Request $request): Response
@@ -19,32 +18,29 @@ class BookController extends Controller
             return Inertia::render('Books/Index', ['books' => []]);
         }
 
-        $search = $request->query('search');
+        $search = $request->input('search');
 
-        // TODO: Re-do pagination
-        if ($search) {
-            $books = auth()->user()->books()
-                ->select('id', 'title', 'author', 'genre', 'read', 'pages')
-                ->where('title', 'like', '%' . $search . '%')
-                ->orWhere('author', 'like', '%' . $search . '%')
-                ->orderBy('created_at', 'asc')
-                ->paginate(20);
-        } else {
-            $books = auth()->user()->books()
-                ->select('id', 'title', 'author', 'genre', 'read', 'pages')
-                ->orderBy('created_at', 'asc')
-                ->paginate(20);
-        }
+        $books = auth()->user()->books()
+            ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+            }))
+            ->paginate(25)
+            ->withQuerystring()
+            ->through(fn($book) => [
+                'id' => $book->id,
+                'title' => $book->title,
+                'author' => $book->author,
+                'pages' => $book->pages,
+                'genre' => $book->genre,
+                'publishYear' => $book->publishYear,
+                'read' => $book->read,
+            ]);
 
         return Inertia::render('Books/Index', [
             'books' => $books,
             'success' => $request->session()->get('success'),
         ]);
-    }
-
-    public function create()
-    {
-        return Inertia::render('Books/Add');
     }
 
     public function store(Request $request)
@@ -73,7 +69,12 @@ class BookController extends Controller
 
         $request->session()->flash('success', 'Book added! Your collection grows...');
 
-        return Inertia::location(route('books'));
+        return to_route('books');
+    }
+
+    public function create()
+    {
+        return Inertia::render('Books/Add');
     }
 
     public function edit(Book $book): Response
@@ -107,7 +108,7 @@ class BookController extends Controller
 
         $request->session()->flash('success', 'Book successfully updated.');
 
-        return Inertia::location(route('books'));
+        return to_route('books');
     }
 
     public function destroy(Request $request, Book $book)
@@ -115,7 +116,5 @@ class BookController extends Controller
         $book->delete();
 
         $request->session()->flash('success', 'Book successfully deleted.');
-
-        return Inertia::location(route('books'));
     }
 }
