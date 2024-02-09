@@ -35,7 +35,7 @@ class BookController extends Controller
                 'genre' => $book->genre,
                 'publishYear' => $book->publishYear,
                 'read' => $book->read,
-            ])->orderBy('created_at');
+            ]);
 
         return Inertia::render('Books/Index', [
             'books' => $books,

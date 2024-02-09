@@ -25,7 +25,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return Inertia::location(route('books'));
-        }
+        };
 
         return back()->withErrors([
             'password' => 'Incorrect email or password.',
