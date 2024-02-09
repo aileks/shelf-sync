@@ -25,6 +25,7 @@ class BookController extends Controller
                 $query->where('title', 'like', "%{$search}%")
                     ->orWhere('author', 'like', "%{$search}%");
             }))
+            ->orderBy('created_at', 'asc')
             ->paginate(25)
             ->withQuerystring()
             ->through(fn($book) => [
