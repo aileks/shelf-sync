@@ -4,24 +4,18 @@ import { useForm } from "@inertiajs/vue3";
 const props = defineProps({
   formFields: Array,
   postUrl: String,
-  remember: {
-    type: Boolean,
-    default: null
-  }
+  remember: Boolean
 });
 
-const form = useForm(
-  Object.fromEntries(props.formFields.map((field) => [field.model, null]))
-);
+const form = useForm({
+  ...Object.fromEntries(props.formFields.map((field) => [field.model, null])),
+  remember: props.remember
+});
 
 const submit = () => {
   const options = {
     preserveState: true
   };
-
-  if (props.remember !== null) {
-    options.remember = props.remember;
-  }
 
   form.post(props.postUrl, options);
 };

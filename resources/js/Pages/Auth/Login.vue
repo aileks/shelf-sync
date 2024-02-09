@@ -47,6 +47,7 @@ watch(status, (newStatus) => {
 
     <Form
       :form-fields="formFields"
+      :remember="remember"
       cancel-url="/"
       post-url="/login"
       submit-text="Login"
