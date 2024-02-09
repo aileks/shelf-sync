@@ -17,12 +17,12 @@ import {
   ListboxOptions,
   ListboxOption,
   TransitionRoot,
-  ComboboxLabel,
+  ComboboxLabel
 } from "@headlessui/vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 
 defineProps({
-  errors: Object,
+  errors: Object
 });
 
 const form = useForm({
@@ -31,7 +31,7 @@ const form = useForm({
   pages: null,
   genre: "",
   publishYear: null,
-  read: false,
+  read: false
 });
 
 // Genre data for ComboBox
@@ -41,18 +41,18 @@ const filteredGenres = computed(() =>
   genreQuery.value === ""
     ? genres
     : genres.filter((genre) => {
-        return genre.toLowerCase().includes(genreQuery.value.toLowerCase());
-      }),
+      return genre.toLowerCase().includes(genreQuery.value.toLowerCase());
+    })
 );
 
 // Reversed years for ListBox
 const reversedYears = Array.from(
   { length: new Date().getFullYear() - 1800 + 1 },
-  (_, i) => i + 1800,
+  (_, i) => i + 1800
 ).reverse();
 
 const submit = () => {
-  form.read = document.querySelector('input[name="read"]').checked;
+  form.read = document.querySelector("input[name=\"read\"]").checked;
   console.log(form);
   form.post("/books/add");
 };
@@ -62,13 +62,16 @@ const submit = () => {
   <Head title="Add a Book" />
 
   <FormLayout>
-    <h1 id="box-text" class="text-3xl border-b border-bronze pb-1.5">
+    <h1 id="box-text"
+        class="text-3xl border-b border-bronze pb-1.5">
       Add Book
     </h1>
 
-    <form method="POST" @submit.prevent="submit">
+    <form method="POST"
+          @submit.prevent="submit">
       <div class="text-md flex flex-col mt-4 space-y-1">
-        <label class="text-left" for="title">Title</label>
+        <label class="text-left"
+               for="title">Title</label>
         <input
           v-model="form.title"
           class="text-left border-none rounded-md"
@@ -77,11 +80,14 @@ const submit = () => {
           required
           type="text"
         />
-        <div v-if="errors.title" class="error">{{ errors.title }}</div>
+        <div v-if="errors.title"
+             class="error">{{ errors.title }}
+        </div>
       </div>
 
       <div class="text-md flex flex-col mt-4 space-y-1">
-        <label class="text-left" for="author">Author</label>
+        <label class="text-left"
+               for="author">Author</label>
         <input
           v-model="form.author"
           class="text-left border-none rounded-md"
@@ -90,11 +96,14 @@ const submit = () => {
           required
           type="text"
         />
-        <div v-if="errors.author" class="error">{{ errors.author }}</div>
+        <div v-if="errors.author"
+             class="error">{{ errors.author }}
+        </div>
       </div>
 
       <div class="text-md flex flex-col mt-4 space-y-2">
-        <label class="text-left" for="pages">Pages</label>
+        <label class="text-left"
+               for="pages">Pages</label>
         <input
           v-model="form.pages"
           class="text-left border-none rounded-md"
@@ -104,13 +113,17 @@ const submit = () => {
           placeholder="How many pages?"
           type="number"
         />
-        <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
+        <div v-if="errors.pages"
+             class="error">{{ errors.pages }}
+        </div>
       </div>
 
       <!--Genres-->
       <div class="mt-4">
         <Combobox v-model="form.genre">
-          <ComboboxLabel class="text-left" for="genre">Genre </ComboboxLabel>
+          <ComboboxLabel class="text-left"
+                         for="genre">Genre
+          </ComboboxLabel>
           <div class="relative mt-1">
             <div
               class="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-400 sm:text-sm"
@@ -177,7 +190,8 @@ const submit = () => {
                       }"
                       class="absolute inset-y-0 left-0 flex items-center pl-3"
                     >
-                      <CheckIcon aria-hidden="true" class="h-5 w-5" />
+                      <CheckIcon aria-hidden="true"
+                                 class="h-5 w-5" />
                     </span>
                   </li>
                 </ComboboxOption>
@@ -190,7 +204,8 @@ const submit = () => {
       <!--Publish Year-->
       <div class="mt-4">
         <Listbox v-model="form.publishYear">
-          <ListboxLabel class="text-left" for="publishYear">
+          <ListboxLabel class="text-left"
+                        for="publishYear">
             Publish Year
           </ListboxLabel>
           <div class="relative mt-1">
@@ -241,13 +256,15 @@ const submit = () => {
                         selected ? 'font-medium' : 'font-normal',
                         'block truncate',
                       ]"
-                      >{{ year }}</span
+                    >{{ year }}</span
                     >
                     <span
                       v-if="selected"
                       class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue"
                     >
-                      <CheckIcon aria-hidden="true" class="h-5 w-5" />
+                      <CheckIcon :class="{ 'text-neutral-50': active }"
+                                 aria-hidden="true"
+                                 class="h-5 w-5" />
                     </span>
                   </li>
                 </ListboxOption>
@@ -257,15 +274,18 @@ const submit = () => {
         </Listbox>
       </div>
 
-      <div class="flex items-center justify-center my-6 space-x-6 text-lg">
-        <label for="read">Read?</label>
+      <div class="flex items-center justify-center my-6 space-x-2 text-lg">
         <input
           v-model="form.read"
-          class="text-left rounded-md"
+          class="text-left rounded"
           name="read"
           type="checkbox"
         />
-        <div v-if="errors.read" class="error">{{ errors.read }}</div>
+        <label for="read">Read?</label>
+
+        <div v-if="errors.read"
+             class="error">{{ errors.read }}
+        </div>
       </div>
 
       <div class="flex justify-center mt-6 space-x-8">

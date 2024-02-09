@@ -24,8 +24,13 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return Inertia::location(route('books'));
-        };
+
+            if ($request->input('remember')) {
+                return to_route('books')->withCookie('remember', true, 60 * 24 * 90);
+            }
+
+            return to_route('books');
+        }
 
         return back()->withErrors([
             'password' => 'Incorrect email or password.',

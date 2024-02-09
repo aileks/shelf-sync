@@ -5,7 +5,7 @@ import StyledButton from "@/Components/StyledButton.vue";
 import { ref, watch } from "vue";
 
 const props = defineProps({
-  status: String,
+  status: String
 });
 
 const formFields = [
@@ -14,18 +14,20 @@ const formFields = [
     label: "Email",
     name: "email",
     type: "email",
-    placeholder: "Email",
+    placeholder: "Email"
   },
   {
     model: "password",
     label: "Password",
     name: "password",
     type: "password",
-    placeholder: "Password",
-  },
+    placeholder: "Password"
+  }
 ];
 
 const status = ref(props.status);
+
+const remember = ref(false);
 
 watch(status, (newStatus) => {
   if (newStatus) {
@@ -45,24 +47,35 @@ watch(status, (newStatus) => {
 
     <Form
       :form-fields="formFields"
-      submit-text="Login"
       cancel-url="/"
       post-url="/login"
+      submit-text="Login"
       @submit="$emit('submit')"
     >
-      <div class="flex items-center justify-between mx-4 mt-6">
-        <Link
-          href="/forgot-password"
-          class="text-blue text-sm italic hover:underline"
-        >
-          Forgot Password?
-        </Link>
+      {{ console.log(remember) }}
+      <div class="flex flex-1 items-center justify-between mx-4 mt-6">
+        <div class="flex items-center space-x-2">
+          <input v-model="remember"
+                 class="rounded"
+                 type="checkbox" />
+          <label class="text-blue text-base"
+                 for="remember">Remember Me</label>
+        </div>
 
-        <StyledButton type="submit">Login</StyledButton>
+        <StyledButton type="submit">Log In</StyledButton>
       </div>
     </Form>
+
   </FormLayout>
 
+  <div class="flex justify-center mt-4 mb-0 pb-0">
+    <Link
+      class="text-blue text-xs italic font-bold hover:underline"
+      href="/forgot-password"
+    >
+      Forgot Password?
+    </Link>
+  </div>
   <Transition
     enter-active-class="transition-opacity duration-700 ease-in-out"
     enter-from-class="transform opacity-0"
@@ -70,7 +83,9 @@ watch(status, (newStatus) => {
     leave-from-class="transform opacity-100"
     leave-to-class="transform opacity-0"
   >
-    <div class="fixed bottom-0 right-0 m-6 bg-emerald-700 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="status" @click="status = null">
+    <div v-show="status"
+         class="fixed bottom-0 right-0 m-6 bg-emerald-700 rounded-lg shadow-lg overflow-hidden max-w-xs"
+         @click="status = null">
       <div class="p-4">
         <p class="text-neutral-50 ">{{ status }}</p>
       </div>
