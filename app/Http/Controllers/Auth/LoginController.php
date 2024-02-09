@@ -24,9 +24,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
 
+            $request->session()->flash('success', "Welcome back, {$user->name}!");
             if ($request->input('remember')) {
-                return to_route('books')->withCookie('remember', true, 60 * 24 * 90);
+
+                return to_route('books')->withCookie('remember', true, 60 * 24 * 30);
             }
 
             return to_route('books');

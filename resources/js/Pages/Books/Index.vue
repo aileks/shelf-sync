@@ -5,7 +5,7 @@ import debounce from "lodash/debounce";
 
 const props = defineProps({
   books: Object,
-  success: String,
+  success: String
 });
 
 let books = ref(props.books);
@@ -29,7 +29,7 @@ const deleteBook = (id) => {
       setTimeout(() => {
         success.value = null;
       }, 3000);
-    },
+    }
   });
 };
 
@@ -47,10 +47,10 @@ watch(
         onSuccess: (page) => {
           books.value = page.props.books;
           isSearchActive.value = true;
-        },
-      },
+        }
+      }
     );
-  }, 300),
+  }, 300)
 );
 
 onMounted(() => {
@@ -59,7 +59,7 @@ onMounted(() => {
   if (success) {
     setTimeout(() => {
       success.value = null;
-    }, 3000);
+    }, 5000);
   }
 });
 
@@ -96,77 +96,90 @@ onUnmounted(() => {
           <h2 class="mb-4 text-xl">No books found.</h2>
         </div>
 
-        <table v-else class="table-auto w-full">
+        <table v-else
+               class="table-auto w-full">
           <thead
             class="bg-bronze text-neutral-50 font-bold text-lg md:text-lg sm:text-base divide-x"
           >
-            <th class="px-2 sm:w-auto md:w-auto">Read?</th>
-            <th class="px-2 sm:w-auto md:w-auto">Title</th>
-            <th class="px-2 sm:w-auto md:w-auto">Author</th>
-            <th class="px-2 sm:w-auto md:w-auto">Genre</th>
-            <th class="px-2 sm:w-auto md:w-auto">Pages</th>
-            <th class="px-2 sm:w-auto md:w-auto">Publish Year</th>
-            <th class="px-2 sm:w-auto md:w-auto">Modify</th>
+          <th class="px-2 sm:w-auto md:w-auto">Read?</th>
+          <th class="px-2 sm:w-auto md:w-auto">Title</th>
+          <th class="px-2 sm:w-auto md:w-auto">Author</th>
+          <th class="px-2 sm:w-auto md:w-auto">Genre</th>
+          <th class="px-2 sm:w-auto md:w-auto">Pages</th>
+          <th class="px-2 sm:w-auto md:w-auto">Publish Year</th>
+          <th class="px-2 sm:w-auto md:w-auto">Modify</th>
           </thead>
 
           <tbody class="bg-white flex-1 divide-y divide-gray-200">
-            <tr v-for="book in books.data" :key="book.id" class="divide-x">
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
-                <span v-if="isMobile && book.read" class="font-semibold"
-                  >Read️</span
+          <tr v-for="book in books.data"
+              :key="book.id"
+              class="divide-x">
+            <td class="px-2 sm:w-auto md:w-auto"
+                data-label="Read">
+                <span v-if="isMobile && book.read"
+                      class="font-semibold"
+                >Read️</span
                 >
-                <span v-else-if="isMobile && !book.read" class="font-semibold">
+              <span v-else-if="isMobile && !book.read"
+                    class="font-semibold">
                   Unread️
                 </span>
-                <span v-else-if="book.read">✔️</span>
-              </td>
+              <span v-else-if="book.read">✔️</span>
+            </td>
 
-              <td class="title px-2 sm:w-auto md:w-auto" data-label="Title">
-                <div class="italic">
-                  {{ book.title }}
-                </div>
-              </td>
+            <td class="title px-2 sm:w-auto md:w-auto"
+                data-label="Title">
+              <div class="italic">
+                {{ book.title }}
+              </div>
+            </td>
 
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Author">
-                {{ book.author }}
-              </td>
+            <td class="px-2 sm:w-auto md:w-auto"
+                data-label="Author">
+              {{ book.author }}
+            </td>
 
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Genre">
-                {{ book.genre }}
-              </td>
+            <td class="px-2 sm:w-auto md:w-auto"
+                data-label="Genre">
+              {{ book.genre }}
+            </td>
 
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Pages">
-                {{ book.pages }}
-              </td>
+            <td class="px-2 sm:w-auto md:w-auto"
+                data-label="Pages">
+              {{ book.pages }}
+            </td>
 
-              <td class="px-2 sm:w-auto md:w-auto" data-label="Publish Year">
-                {{ book.publishYear }}
-              </td>
+            <td class="px-2 sm:w-auto md:w-auto"
+                data-label="Publish Year">
+              {{ book.publishYear }}
+            </td>
 
-              <td class="px-2" data-label="Modify">
-                <Link
-                  :href="`/books/edit/${book.id}`"
-                  class="text-blue hover:underline inline-block"
-                >
-                  Edit
-                </Link>
+            <td class="px-2"
+                data-label="Modify">
+              <Link
+                :href="`/books/edit/${book.id}`"
+                class="text-blue hover:underline inline-block"
+              >
+                Edit
+              </Link>
 
-                <p class="inline-block mx-1 px-0.5">|</p>
+              <p class="inline-block mx-1 px-0.5">|</p>
 
-                <Link
-                  class="text-red hover:underline inline-block"
-                  href="#"
-                  @click.prevent="deleteBook(book.id)"
-                >
-                  Delete
-                </Link>
-              </td>
-            </tr>
+              <Link
+                class="text-red hover:underline inline-block"
+                href="#"
+                @click.prevent="deleteBook(book.id)"
+              >
+                Delete
+              </Link>
+            </td>
+          </tr>
           </tbody>
         </table>
 
         <!-- Pagination  -->
-        <div v-if="!isMobile" class="py-2 bg-brown text-neutral-50">
+        <div v-if="!isMobile"
+             class="py-2 bg-brown text-neutral-50">
           <Component
             :is="link.url ? 'Link' : 'span'"
             v-for="link in books.links"
@@ -243,7 +256,8 @@ onUnmounted(() => {
       >
         <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
 
-        <Link class="hover:underline text-brown mt-4 text-xl" href="/books/add">
+        <Link class="hover:underline text-brown mt-4 text-xl"
+              href="/books/add">
           Add a book!
         </Link>
       </div>
