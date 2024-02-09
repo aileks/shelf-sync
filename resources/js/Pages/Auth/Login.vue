@@ -52,7 +52,6 @@ watch(status, (newStatus) => {
       submit-text="Login"
       @submit="$emit('submit')"
     >
-      {{ console.log(remember) }}
       <div class="flex flex-1 items-center justify-between mx-4 mt-6">
         <div class="flex items-center space-x-2">
           <input v-model="remember"
