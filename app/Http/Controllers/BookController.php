@@ -80,11 +80,11 @@ class BookController extends Controller
         return to_route('books');
     }
 
-    public function destroy(Request $request, Book $book)
+    public function destroy(Book $book)
     {
         $book->delete();
 
-        return $this->index($request);
+        return to_route('books');
     }
 
     public function index(Request $request): Response
