@@ -26,8 +26,7 @@ class BookController extends Controller
           ->orWhere('author', 'like', "%{$search}%");
       }))
       ->orderBy('created_at', 'asc')
-      ->paginate(15)
-      ->withQuerystring()
+      ->paginate(20)
       ->through(fn($book) => [
         'id' => $book->id,
         'title' => $book->title,
@@ -36,7 +35,8 @@ class BookController extends Controller
         'genre' => $book->genre,
         'publishYear' => $book->publishYear,
         'read' => $book->read,
-      ]);
+      ])
+      ->withQuerystring();
 
     return Inertia::render('Books/Index', [
       'books' => $books,
@@ -94,7 +94,7 @@ class BookController extends Controller
       'author' => ['required', 'string', 'max:255', 'min:3'],
       'pages' => ['nullable', 'integer'],
       'genre' => ['required', 'string'],
-      'publishYear' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
+      'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
       'read' => ['boolean'],
     ]);
 
@@ -104,7 +104,11 @@ class BookController extends Controller
         ->withInput();
     }
 
-    $book = Book::find($bookData['id']);
+    $book = auth()->user()->books()->find($bookData['id']);
+    if (!$book) {
+      abort(403);
+    }
+
     $book->update($validator->validated());
 
     $request->session()->flash('success', 'Book successfully updated.');

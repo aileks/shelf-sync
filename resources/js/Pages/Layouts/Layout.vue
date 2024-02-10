@@ -4,7 +4,8 @@ import NavBar from "../Components/NavBar.vue";
 
 <template>
   <NavBar />
-  <div class="p-2 mt-4 text-center">
+
+  <div class="mt-4 bg-primary p-2 text-center">
     <slot />
   </div>
 </template>

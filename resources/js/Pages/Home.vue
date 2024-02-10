@@ -16,12 +16,23 @@ const isHovered = ref(false);
 
   <Layout>
     <div class="relative h-[60vh] w-auto sm:h-[40vh] md:h-[50vh]">
-      <img src="/library.jpeg" class="absolute left-0 top-0 h-full w-full rounded-md object-cover" />
-      <Transition enter-active-class="transition-opacity duration-1000 ease-in-out" enter-from-class="opacity-0"
-        leave-active-class="transition-opacity duration-700 ease-in-out" leave-to-class="opacity-0">
-        <header v-show="animate"
-          class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center text-neutral-50">
-          <div class="md:1/3 lg:1/4 w-3/4 rounded-md bg-black/50 p-8 sm:w-1/2 xl:w-1/5">
+      <img
+        src="/library.jpeg"
+        class="absolute left-0 top-0 h-full w-full rounded-md object-cover"
+      />
+      <Transition
+        enter-active-class="transition-opacity duration-1000 ease-in-out"
+        enter-from-class="opacity-0"
+        leave-active-class="transition-opacity duration-700 ease-in-out"
+        leave-to-class="opacity-0"
+      >
+        <header
+          v-show="animate"
+          class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center text-neutral-50"
+        >
+          <div
+            class="md:1/3 lg:1/4 w-3/4 rounded-md bg-black/50 p-8 sm:w-1/2 xl:w-1/5"
+          >
             <h1 class="text-3xl font-bold">Welcome to Quillify!</h1>
 
             <h2 class="mt-8 pt-8 text-xl font-semibold">
@@ -37,16 +48,25 @@ const isHovered = ref(false);
         Quillify is a simple and minimal way to keep track of your TBR list!
       </p>
 
-      <span class="mt-2 flex items-center justify-center text-center text-sm sm:flex-wrap">
+      <span
+        class="mt-2 flex items-center justify-center text-center text-sm sm:flex-wrap"
+      >
         <div class="flex flex-wrap justify-center">
           Currently in alpha. Please report any issues on&nbsp;
-          <Link @mouseover="isHovered = true" @mouseleave="isHovered = false"
-            class="flex items-center text-sm text-blue hover:underline" href="https://github.com/aileks/quillify/">
-          GitHub.
-          <ArrowUpRightIcon class="h-4 w-4" :class="{
-            '-translate-y-0.5 translate-x-0.5 transform transition-transform duration-150':
-              isHovered,
-          }" />
+          <Link
+            @mouseover="isHovered = true"
+            @mouseleave="isHovered = false"
+            class="flex items-center text-sm text-blue hover:underline"
+            href="https://github.com/aileks/quillify/"
+          >
+            GitHub.
+            <ArrowUpRightIcon
+              class="h-4 w-4"
+              :class="{
+                '-translate-y-0.5 translate-x-0.5 transform transition-transform duration-150':
+                  isHovered,
+              }"
+            />
           </Link>
         </div>
       </span>
@@ -54,7 +74,9 @@ const isHovered = ref(false);
 
     <div class="flex justify-center">
       <footer class="absolute bottom-0 mb-1 pb-1 text-xs">
-        <p class="text-center">&copy; 2024 Quillify. All rights reserved.</p>
+        <p class="text-center">
+          &copy; 2024 Aaliyah Harper. All rights reserved.
+        </p>
       </footer>
     </div>
   </Layout>
