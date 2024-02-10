@@ -6,10 +6,10 @@ import StyledButton from "@/Components/StyledButton.vue";
   <div class="drawer">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div
-      class="drawer-content m-1 flex flex-col rounded-md bg-lightbrown shadow-paper"
+      class="flex flex-col m-1 rounded-md drawer-content bg-tan shadow-paper"
     >
       <!-- Navbar -->
-      <div class="navbar w-full rounded-md">
+      <div class="w-full rounded-md navbar">
         <div class="flex-none lg:hidden">
           <label
             for="my-drawer-3"
@@ -20,7 +20,7 @@ import StyledButton from "@/Components/StyledButton.vue";
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              class="inline-block h-6 w-6 stroke-current text-neutral-800"
+              class="inline-block w-6 h-6 stroke-current text-neutral-800"
             >
               <path
                 stroke-linecap="round"
@@ -32,12 +32,12 @@ import StyledButton from "@/Components/StyledButton.vue";
           </label>
         </div>
         <div
-          class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
+          class="flex-1 px-2 mx-2 text-lg font-bold text-neutral-800 lg:text-xl"
         >
           Quillify
         </div>
-        <div class="hidden flex-none lg:block">
-          <ul class="menu menu-horizontal text-base">
+        <div class="flex-none hidden lg:block">
+          <ul class="text-base menu menu-horizontal">
             <!-- Navbar menu content here -->
             <StyledButton v-show="!$page.props.auth.user">
               <Link href="/register">Register</Link>
@@ -65,13 +65,13 @@ import StyledButton from "@/Components/StyledButton.vue";
       </div>
     </div>
 
-    <div class="drawer-side z-10">
+    <div class="z-10 drawer-side">
       <label
         for="my-drawer-3"
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <ul class="menu min-h-full w-60 space-y-4 px-4 py-6 text-lg">
+      <ul class="min-h-full px-4 py-6 space-y-4 text-lg menu w-60">
         <!-- Sidebar content here -->
         <StyledButton v-show="!$page.props.auth.user">
           <Link href="/register">Register</Link>

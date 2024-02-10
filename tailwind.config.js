@@ -22,7 +22,7 @@ export default {
         brown: "#69442e",
         bronze: "#9d8461",
         sandy: "#cfbda6",
-        lightbrown: "#ceb68b",
+        tan: "#ceb68b",
         blue: "#2e4269",
         red: "#9e442e",
       },
