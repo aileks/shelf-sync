@@ -16,7 +16,7 @@ import {
   ListboxOptions,
   ListboxOption,
   TransitionRoot,
-  ComboboxLabel
+  ComboboxLabel,
 } from "@headlessui/vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 
@@ -27,36 +27,36 @@ const filteredGenres = computed(() =>
   genreQuery.value === ""
     ? genres
     : genres.filter((genre) => {
-      return genre.toLowerCase().includes(genreQuery.value.toLowerCase());
-    })
+        return genre.toLowerCase().includes(genreQuery.value.toLowerCase());
+      }),
 );
 
 const props = defineProps({
   book: Object,
-  errors: Object
+  errors: Object,
 });
 const title = props.book.title;
 const author = props.book.author;
 
 const book = ref({
-  ...props.book
+  ...props.book,
 });
 
 const reversedYears = Array.from(
   { length: new Date().getFullYear() - 1800 + 1 },
-  (_, i) => i + 1800
+  (_, i) => i + 1800,
 ).reverse();
 
 const isRead = computed({
   get: () => Boolean(book.value.read),
-  set: (value) => (book.value.read = value)
+  set: (value) => (book.value.read = value),
 });
 
 const saveBook = () => {
-  book.value.read = document.querySelector("input[name=\"read\"]").checked;
+  book.value.read = document.querySelector('input[name="read"]').checked;
 
   router.patch(`/books/edit/${book.value.id}`, {
-    data: book.value
+    data: book.value,
   });
 };
 </script>
@@ -65,84 +65,71 @@ const saveBook = () => {
   <Head title="Edit Your Book" />
 
   <FormLayout>
-    <header class="border-bronze pb-1 mb-1 border-b">
-      <h2 id="box-text"
-          class="text-2xl">
+    <header class="mb-1 border-b border-bronze pb-1">
+      <h2 id="box-text" class="text-2xl">
         Editing:
-        <span class="italic font-bold underline">
+        <span class="font-bold italic underline">
           {{ title }}
         </span>
       </h2>
 
-      <h2 id="box-text"
-          class="mt-2 text-xl">
+      <h2 id="box-text" class="mt-2 text-xl">
         By:
         <span class="font-bold">{{ author }}</span>
       </h2>
     </header>
 
     <form @submit.prevent="saveBook">
-      <div class="flex flex-col mt-4 space-y-1 text-lg">
-        <label class="text-left"
-               for="title">Title</label>
+      <div class="mt-4 flex flex-col space-y-1 text-lg">
+        <label class="text-left" for="title">Title</label>
         <input
           v-model="book.title"
-          class="border-bronze text-left border rounded-md"
+          class="rounded-md border border-bronze text-left"
           name="title"
           placeholder="Title"
           required
           type="text"
         />
-        <div v-if="errors.title"
-             class="error">{{ errors.title }}
-        </div>
+        <div v-if="errors.title" class="error">{{ errors.title }}</div>
       </div>
 
-      <div class="flex flex-col mt-4 space-y-1 text-lg">
-        <label class="text-left"
-               for="author">Author</label>
+      <div class="mt-4 flex flex-col space-y-1 text-lg">
+        <label class="text-left" for="author">Author</label>
         <input
           v-model="book.author"
-          class="border-bronze text-left border rounded-md"
+          class="rounded-md border border-bronze text-left"
           name="author"
           placeholder="Author"
           required
           type="text"
         />
-        <div v-if="errors.author"
-             class="error">{{ errors.author }}
-        </div>
+        <div v-if="errors.author" class="error">{{ errors.author }}</div>
       </div>
 
-      <div class="flex flex-col mt-4 space-y-1 text-lg">
-        <label class="text-left"
-               for="pages">Pages</label>
+      <div class="mt-4 flex flex-col space-y-1 text-lg">
+        <label class="text-left" for="pages">Pages</label>
         <input
           v-model="book.pages"
-          class="border-bronze text-left border rounded-md"
+          class="rounded-md border border-bronze text-left"
           max="3000"
           min="1"
           name="pages"
           placeholder="Pages"
           type="number"
         />
-        <div v-if="errors.pages"
-             class="error">{{ errors.pages }}
-        </div>
+        <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
       </div>
 
       <!--Genres-->
       <div class="mt-4">
         <Combobox v-model="book.genre">
-          <ComboboxLabel class="text-left"
-                         for="genre">Genre
-          </ComboboxLabel>
+          <ComboboxLabel class="text-left" for="genre">Genre </ComboboxLabel>
           <div class="relative mt-1">
             <div
               class="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-400 sm:text-sm"
             >
               <ComboboxInput
-                class="w-full border-none py-2 pl-3 pr-10 text-md leading-5 focus:ring-0"
+                class="text-md w-full border-none py-2 pl-3 pr-10 leading-5 focus:ring-0"
                 placeholder="What genre is it?"
                 @change="genreQuery = $event.target.value"
               />
@@ -163,7 +150,7 @@ const saveBook = () => {
               @after-leave="genreQuery = ''"
             >
               <ComboboxOptions
-                class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-10"
+                class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
               >
                 <div
                   v-if="filteredGenres.length === 0 && genreQuery !== ''"
@@ -203,8 +190,7 @@ const saveBook = () => {
                       }"
                       class="absolute inset-y-0 left-0 flex items-center pl-3"
                     >
-                      <CheckIcon aria-hidden="true"
-                                 class="h-5 w-5" />
+                      <CheckIcon aria-hidden="true" class="h-5 w-5" />
                     </span>
                   </li>
                 </ComboboxOption>
@@ -217,8 +203,7 @@ const saveBook = () => {
       <!--Publish Year-->
       <div class="mt-4">
         <Listbox v-model="book.publishYear">
-          <ListboxLabel class="text-left"
-                        for="publishYear">
+          <ListboxLabel class="text-left" for="publishYear">
             Publish Year
           </ListboxLabel>
           <div class="relative mt-1">
@@ -227,7 +212,7 @@ const saveBook = () => {
             >
               <span
                 :class="{ 'text-gray-500': !book.publishYear }"
-                class="block text-base truncate"
+                class="block truncate text-base"
               >
                 {{
                   book.publishYear ? book.publishYear : "When was it published"
@@ -269,15 +254,17 @@ const saveBook = () => {
                         selected ? 'font-medium' : 'font-normal',
                         'block truncate',
                       ]"
-                    >{{ year }}</span
+                      >{{ year }}</span
                     >
                     <span
                       v-if="selected"
                       class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue"
                     >
-                      <CheckIcon :class="{ 'text-neutral-50': active }"
-                                 aria-hidden="true"
-                                 class="h-5 w-5" />
+                      <CheckIcon
+                        :class="{ 'text-neutral-50': active }"
+                        aria-hidden="true"
+                        class="h-5 w-5"
+                      />
                     </span>
                   </li>
                 </ListboxOption>
@@ -287,21 +274,19 @@ const saveBook = () => {
         </Listbox>
       </div>
 
-      <div class="flex items-center justify-center my-6 space-x-2 text-lg">
+      <div class="my-6 flex items-center justify-center space-x-2 text-lg">
         <input
           v-model="isRead"
-          class="border-bronze text-left border rounded"
+          class="rounded border border-bronze text-left"
           name="read"
           type="checkbox"
         />
         <label for="read">Read?</label>
 
-        <div v-if="errors.read"
-             class="error">{{ errors.read }}
-        </div>
+        <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
-      <div class="flex justify-center mt-6 space-x-8">
+      <div class="mt-6 flex justify-center space-x-8">
         <StyledButton type="submit"> Save</StyledButton>
 
         <StyledButton>

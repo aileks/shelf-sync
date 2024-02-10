@@ -5,7 +5,7 @@ import debounce from "lodash/debounce";
 
 const props = defineProps({
   books: Object,
-  success: String
+  success: String,
 });
 
 let books = ref(props.books);
@@ -29,7 +29,7 @@ const deleteBook = (id) => {
       setTimeout(() => {
         success.value = null;
       }, 3000);
-    }
+    },
   });
 };
 
@@ -47,10 +47,10 @@ watch(
         onSuccess: (page) => {
           books.value = page.props.books;
           isSearchActive.value = true;
-        }
-      }
+        },
+      },
     );
-  }, 300)
+  }, 300),
 );
 
 onMounted(() => {
@@ -95,22 +95,29 @@ onUnmounted(() => {
           :key="book.id"
           class="mx-2 flex items-center py-4"
         >
-          <div class="flex flex-grow flex-col space-y-1">
-            <div class="flex-grow font-bold italic">
+          <div class="flex w-full flex-grow flex-col space-y-1">
+            <div
+              class="flex flex-nowrap justify-center space-x-2 text-center font-bold italic"
+            >
+              <span v-show="book.read" class="mr-2">✔️</span>
               {{ book.title }}
             </div>
-            <div class="pt-2 text-sm font-semibold">
+
+            <div class="py-1 font-semibold">
               {{ book.author }}
             </div>
+
             <div
-              class="mt-2 flex items-center justify-center text-sm font-medium text-brown"
+              class="mt-2 flex items-center justify-around text-sm font-medium text-brown"
             >
-              <span class="mx-2">{{ book.read ? "Read" : "Unread" }}</span>
-              <span class="mx-2">{{ book.genre }}</span>
-              <span class="mx-2">{{ book.publishYear }}</span>
-              <span class="mx-2 whitespace-nowrap">{{ book.pages }} pgs</span>
+              <span class="mx-2 whitespace-nowrap px-2">
+                {{ book.pages }} pgs
+              </span>
+              <span class="mx-2 px-2">{{ book.publishYear }}</span>
+              <span class="mx-2 whitespace-nowrap px-2">{{ book.genre }}</span>
             </div>
           </div>
+
           <div class="flex w-1/2 items-center justify-end font-semibold">
             <Link
               :href="`/books/edit/${book.id}`"
@@ -159,8 +166,8 @@ onUnmounted(() => {
         </Component>
 
         <span class="self-center rounded-full border bg-neutral-50 px-3 py-1">
-            {{ books.current_page }}
-          </span>
+          {{ books.current_page }}
+        </span>
 
         <Component
           :is="books.next_page_url ? 'Link' : 'span'"
@@ -206,89 +213,72 @@ onUnmounted(() => {
           <h2 class="mb-4 text-xl">No books found.</h2>
         </div>
 
-        <table v-else
-               class="w-full table-auto">
+        <table v-else class="w-full table-auto">
           <thead
             class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
           >
-          <th class="px-2 sm:w-auto md:w-auto">Read?</th>
-          <th class="px-2 sm:w-auto md:w-auto">Title</th>
-          <th class="px-2 sm:w-auto md:w-auto">Author</th>
-          <th class="px-2 sm:w-auto md:w-auto">Genre</th>
-          <th class="px-2 sm:w-auto md:w-auto">Pages</th>
-          <th class="px-2 sm:w-auto md:w-auto">Publish Year</th>
-          <th class="px-2 sm:w-auto md:w-auto">Modify</th>
+            <th class="px-2 sm:w-auto md:w-auto">Read?</th>
+            <th class="px-2 sm:w-auto md:w-auto">Title</th>
+            <th class="px-2 sm:w-auto md:w-auto">Author</th>
+            <th class="px-2 sm:w-auto md:w-auto">Genre</th>
+            <th class="px-2 sm:w-auto md:w-auto">Pages</th>
+            <th class="px-2 sm:w-auto md:w-auto">Published</th>
+            <th class="px-2 sm:w-auto md:w-auto">Modify</th>
           </thead>
 
           <tbody class="flex-1 divide-y divide-gray-200 bg-white">
-          <tr v-for="book in books.data"
-              :key="book.id"
-              class="divide-x">
-            <td class="px-2 sm:w-auto md:w-auto"
-                data-label="Read">
-                <span v-if="isMobile && book.read"
-                      class="font-semibold"
-                >Read️</span
+            <tr v-for="book in books.data" :key="book.id" class="divide-x">
+              <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
+                <span v-if="isMobile && book.read" class="font-semibold"
+                  >Read️</span
                 >
-              <span v-else-if="isMobile && !book.read"
-                    class="font-semibold">
+                <span v-else-if="isMobile && !book.read" class="font-semibold">
                   Unread️
                 </span>
-              <span v-else-if="book.read">✔️</span>
-            </td>
+                <span v-else-if="book.read">✔️</span>
+              </td>
 
-            <td
-              class="title px-2 sm:w-auto sm:px-0 md:w-auto"
-              data-label="Title"
-            >
-              <div class="italic">
+              <td class="px-2 italic" data-label="Title">
                 {{ book.title }}
-              </div>
-            </td>
+              </td>
 
-            <td class="px-2 sm:w-auto sm:px-0 md:w-auto"
-                data-label="Author">
-              {{ book.author }}
-            </td>
+              <td class="px-2" data-label="Author">
+                {{ book.author }}
+              </td>
 
-            <td class="px-2 sm:w-auto sm:px-0 md:w-auto"
-                data-label="Genre">
-              {{ book.genre }}
-            </td>
+              <td class="px-2" data-label="Genre">
+                {{ book.genre }}
+              </td>
 
-            <td class="px-2 sm:w-auto sm:px-0 md:w-auto"
-                data-label="Pages">
-              {{ book.pages }}
-            </td>
+              <td data-label="Pages">
+                {{ book.pages }}
+              </td>
 
-            <td
-              class="px-2 sm:w-auto sm:px-0 md:w-auto"
-              data-label="Publish Year"
-            >
-              {{ book.publishYear }}
-            </td>
+              <td data-label="Publish Year">
+                {{ book.publishYear }}
+              </td>
 
-            <td
-              :class="!isMobile ? 'space-x-2' : ''"
-              class="px-2"
-              data-label="Modify"
-            >
-              <Link
-                :href="`/books/edit/${book.id}`"
-                class="inline-block text-blue hover:underline"
+              <td
+                :class="!isMobile ? 'space-x-2' : ''"
+                class="px-2"
+                data-label="Modify"
               >
-                Edit
-              </Link>
+                <Link
+                  :href="`/books/edit/${book.id}`"
+                  class="inline-block text-blue hover:underline"
+                >
+                  Edit
+                </Link>
 
-              <Link
-                class="inline-block text-red hover:underline"
-                href="#"
-                @click.prevent="deleteBook(book.id)"
-              >
-                Delete
-              </Link>
-            </td>
-          </tr>
+                <Link
+                  class="inline-block text-red hover:underline"
+                  href="#"
+                  @click.prevent="deleteBook(book.id)"
+                >
+                  Delete
+                </Link>
+              </td>
+            </tr>
           </tbody>
         </table>
 
@@ -313,8 +303,7 @@ onUnmounted(() => {
       >
         <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
 
-        <Link class="mt-4 text-xl text-brown hover:underline"
-              href="/books/add">
+        <Link class="mt-4 text-xl text-brown hover:underline" href="/books/add">
           Add a book!
         </Link>
       </div>
@@ -353,35 +342,6 @@ onUnmounted(() => {
 @media (max-width: 640px) {
   #search {
     width: 80%;
-  }
-
-  .table-container {
-    width: 100%;
-  }
-
-  .table-auto thead {
-    display: none;
-  }
-
-  .table-auto tr {
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .table-auto td {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.8rem;
-    word-wrap: break-word;
-  }
-
-  .table-auto td:before {
-    flex-basis: 0;
-  }
-
-  .title {
-    font-weight: bold;
   }
 }
 </style>
