@@ -31,13 +31,11 @@ const isHovered = ref(false);
           class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center text-neutral-50"
         >
           <div
-            class="md:1/3 lg:1/4 w-3/4 rounded-md bg-black/50 p-8 sm:w-1/2 xl:w-1/5"
+            class="rounded-md bg-black/50 p-8 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
           >
             <h1 class="text-3xl font-bold">Welcome to Quillify!</h1>
 
-            <h2 class="mt-8 pt-8 text-xl font-semibold">
-              Your personal library.
-            </h2>
+            <h2 class="mt-8 text-xl font-semibold">Your personal library.</h2>
           </div>
         </header>
       </Transition>
@@ -49,7 +47,7 @@ const isHovered = ref(false);
       </p>
 
       <span
-        class="mt-2 flex items-center justify-center text-center text-sm sm:flex-wrap"
+        class="mt-2 flex items-center justify-center text-center text-base sm:flex-wrap"
       >
         <div class="flex flex-wrap justify-center">
           Currently in alpha. Please report any issues on&nbsp;

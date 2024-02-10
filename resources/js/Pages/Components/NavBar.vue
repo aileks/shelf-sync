@@ -34,7 +34,7 @@ import StyledButton from "@/Components/StyledButton.vue";
         <div
           class="flex-1 px-2 mx-2 text-lg font-bold text-neutral-800 lg:text-xl"
         >
-          Quillify
+          <Link href="/">Quillify</Link>
         </div>
         <div class="flex-none hidden lg:block">
           <ul class="text-base menu menu-horizontal">
