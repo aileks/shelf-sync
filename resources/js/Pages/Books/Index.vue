@@ -11,10 +11,10 @@ const props = defineProps({
 let books = ref(props.books);
 let success = ref(props.success);
 
-let isMobile = ref(window.innerWidth <= 640);
+let isMobile = ref(window.innerWidth <= 800);
 
 const updateIsMobile = () => {
-  isMobile.value = window.innerWidth <= 640;
+  isMobile.value = window.innerWidth <= 800;
 };
 
 const deleteBook = (id) => {
@@ -76,30 +76,140 @@ onUnmounted(() => {
       <input
         id="search"
         v-model="search"
-        class="border-bronze rounded-md w-60"
+        class="w-60 rounded-md border-bronze"
         placeholder="Search Books..."
         type="search"
       />
     </div>
 
-    <main class="flex flex-col items-center mt-4">
+    <div
+      v-show="isMobile"
+      id="mobile-table"
+      class="mt-2 flex w-full flex-col items-center justify-center overflow-hidden rounded-md shadow-paper"
+    >
+      <h2 class="w-full bg-brown text-xl text-neutral-50">Your Books</h2>
+
+      <ul class="w-full space-y-1 divide-y divide-neutral-400 bg-white">
+        <li
+          v-for="book in books.data"
+          :key="book.id"
+          class="mx-2 flex items-center py-4"
+        >
+          <div class="flex flex-grow flex-col space-y-1">
+            <div class="flex-grow font-bold italic">
+              {{ book.title }}
+            </div>
+            <div class="pt-2 text-sm font-semibold">
+              {{ book.author }}
+            </div>
+            <div
+              class="mt-2 flex items-center justify-center text-sm font-medium text-brown"
+            >
+              <span class="mx-2">{{ book.read ? "Read" : "Unread" }}</span>
+              <span class="mx-2">{{ book.genre }}</span>
+              <span class="mx-2">{{ book.publishYear }}</span>
+              <span class="mx-2 whitespace-nowrap">{{ book.pages }} pgs</span>
+            </div>
+          </div>
+          <div class="flex w-1/2 items-center justify-end font-semibold">
+            <Link
+              :href="`/books/edit/${book.id}`"
+              class="mr-3 text-blue hover:underline"
+            >
+              Edit
+            </Link>
+
+            <Link
+              class="text-red hover:underline"
+              href="#"
+              @click.prevent="deleteBook(book.id)"
+            >
+              Delete
+            </Link>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Pagination  -->
+      <div
+        class="flex w-full items-center justify-around bg-brown py-2 text-center"
+      >
+        <Component
+          :is="books.prev_page_url ? 'Link' : 'span'"
+          :href="books.prev_page_url"
+          class="rounded-full border bg-neutral-50 px-4 py-1 text-center"
+        >
+          <svg
+            class="bi bi-chevron-double-left"
+            fill="currentColor"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+              fill-rule="evenodd"
+            />
+            <path
+              d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </Component>
+
+        <span class="self-center rounded-full border bg-neutral-50 px-3 py-1">
+            {{ books.current_page }}
+          </span>
+
+        <Component
+          :is="books.next_page_url ? 'Link' : 'span'"
+          :href="books.next_page_url"
+          class="self-center rounded-full border bg-neutral-50 px-4 py-1"
+        >
+          <svg
+            class="bi bi-chevron-double-right"
+            fill="currentColor"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"
+              fill-rule="evenodd"
+            />
+            <path
+              d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </Component>
+      </div>
+    </div>
+
+    <div
+      v-show="!isMobile"
+      id="desktop-table"
+      class="mt-4 flex flex-col items-center"
+    >
       <div
         v-if="books.data"
-        class="table-container shadow-paper rounded-md overflow-x-auto"
+        class="table-container overflow-x-auto rounded-md shadow-paper"
       >
-        <h2 class="bg-brown text-neutral-50 text-2xl">Your Books</h2>
+        <h2 class="bg-brown text-2xl text-neutral-50">Your Books</h2>
 
         <div
           v-if="isSearchActive && books.data.length === 0"
-          class="bg-white mx-auto shadow-paper p-8"
+          class="mx-auto bg-white p-8 shadow-paper"
         >
           <h2 class="mb-4 text-xl">No books found.</h2>
         </div>
 
         <table v-else
-               class="table-auto w-full">
+               class="w-full table-auto">
           <thead
-            class="bg-bronze text-neutral-50 font-bold text-lg md:text-lg sm:text-base divide-x"
+            class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
           >
           <th class="px-2 sm:w-auto md:w-auto">Read?</th>
           <th class="px-2 sm:w-auto md:w-auto">Title</th>
@@ -110,7 +220,7 @@ onUnmounted(() => {
           <th class="px-2 sm:w-auto md:w-auto">Modify</th>
           </thead>
 
-          <tbody class="bg-white flex-1 divide-y divide-gray-200">
+          <tbody class="flex-1 divide-y divide-gray-200 bg-white">
           <tr v-for="book in books.data"
               :key="book.id"
               class="divide-x">
@@ -127,46 +237,51 @@ onUnmounted(() => {
               <span v-else-if="book.read">✔️</span>
             </td>
 
-            <td class="title px-2 sm:w-auto md:w-auto"
-                data-label="Title">
+            <td
+              class="title px-2 sm:w-auto sm:px-0 md:w-auto"
+              data-label="Title"
+            >
               <div class="italic">
                 {{ book.title }}
               </div>
             </td>
 
-            <td class="px-2 sm:w-auto md:w-auto"
+            <td class="px-2 sm:w-auto sm:px-0 md:w-auto"
                 data-label="Author">
               {{ book.author }}
             </td>
 
-            <td class="px-2 sm:w-auto md:w-auto"
+            <td class="px-2 sm:w-auto sm:px-0 md:w-auto"
                 data-label="Genre">
               {{ book.genre }}
             </td>
 
-            <td class="px-2 sm:w-auto md:w-auto"
+            <td class="px-2 sm:w-auto sm:px-0 md:w-auto"
                 data-label="Pages">
               {{ book.pages }}
             </td>
 
-            <td class="px-2 sm:w-auto md:w-auto"
-                data-label="Publish Year">
+            <td
+              class="px-2 sm:w-auto sm:px-0 md:w-auto"
+              data-label="Publish Year"
+            >
               {{ book.publishYear }}
             </td>
 
-            <td class="px-2"
-                data-label="Modify">
+            <td
+              :class="!isMobile ? 'space-x-2' : ''"
+              class="px-2"
+              data-label="Modify"
+            >
               <Link
                 :href="`/books/edit/${book.id}`"
-                class="text-blue hover:underline inline-block"
+                class="inline-block text-blue hover:underline"
               >
                 Edit
               </Link>
 
-              <p class="inline-block mx-1 px-0.5">|</p>
-
               <Link
-                class="text-red hover:underline inline-block"
+                class="inline-block text-red hover:underline"
                 href="#"
                 @click.prevent="deleteBook(book.id)"
               >
@@ -178,8 +293,7 @@ onUnmounted(() => {
         </table>
 
         <!-- Pagination  -->
-        <div v-if="!isMobile"
-             class="py-2 bg-brown text-neutral-50">
+        <div class="bg-brown py-2 text-neutral-50">
           <Component
             :is="link.url ? 'Link' : 'span'"
             v-for="link in books.links"
@@ -187,81 +301,24 @@ onUnmounted(() => {
               (link.url ? '' : 'opacity-50', link.active ? 'font-bold' : '')
             "
             :href="link.url"
-            class="px-2 mx-1 my-1 border border-neutral-50 rounded-full hover:bg-neutral-50 hover:text-black"
+            class="mx-1 my-1 rounded-full border border-neutral-50 px-2 hover:bg-neutral-50 hover:text-black"
             v-html="link.label"
           />
-        </div>
-
-        <div
-          v-else
-          class="py-2 bg-brown flex text-center items-center justify-around"
-        >
-          <Component
-            :is="books.prev_page_url ? 'Link' : 'span'"
-            :href="books.prev_page_url"
-            class="px-4 py-1 bg-neutral-50 text-center border rounded-full"
-          >
-            <svg
-              class="bi bi-chevron-double-left"
-              fill="currentColor"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-                fill-rule="evenodd"
-              />
-              <path
-                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </Component>
-
-          <span class="px-3 py-1 bg-neutral-50 self-center border rounded-full">
-            {{ books.current_page }}
-          </span>
-
-          <Component
-            :is="books.next_page_url ? 'Link' : 'span'"
-            :href="books.next_page_url"
-            class="px-4 py-1 bg-neutral-50 self-center border rounded-full"
-          >
-            <svg
-              class="bi bi-chevron-double-right"
-              fill="currentColor"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"
-                fill-rule="evenodd"
-              />
-              <path
-                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </Component>
         </div>
       </div>
 
       <div
         v-else-if="!books.data && !isSearchActive"
-        class="bg-sandy mx-auto max-w-md shadow-paper p-8 rounded-md"
+        class="mx-auto max-w-md rounded-md bg-sandy p-8 shadow-paper"
       >
         <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
 
-        <Link class="hover:underline text-brown mt-4 text-xl"
+        <Link class="mt-4 text-xl text-brown hover:underline"
               href="/books/add">
           Add a book!
         </Link>
       </div>
-    </main>
+    </div>
   </Layout>
 
   <Transition
@@ -271,7 +328,7 @@ onUnmounted(() => {
   >
     <div
       v-show="success"
-      class="fixed bottom-0 right-0 m-6 bg-emerald-600 rounded-lg shadow-lg overflow-hidden max-w-xs"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-emerald-600 shadow-lg"
       @click="success = null"
     >
       <div class="p-4">

@@ -15,7 +15,7 @@ const isHovered = ref(false);
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div class="relative h-[70vh] w-auto sm:h-[60vh] md:h-[70vh]">
+    <div class="relative h-[60vh] w-auto sm:h-[40vh] md:h-[50vh]">
       <img
         src="/library.jpeg"
         class="absolute left-0 top-0 h-full w-full rounded-md object-cover"
@@ -48,42 +48,34 @@ const isHovered = ref(false);
         Quillify is a simple and minimal way to keep track of your TBR list!
       </p>
 
-      <span class="mt-2 flex items-center justify-center text-center text-sm">
-        Currently in alpha. Please report any issues on&nbsp;
-        <Link
-          @mouseover="isHovered = true"
-          @mouseleave="isHovered = false"
-          class="flex items-center font-medium text-blue hover:underline"
-          href="https://github.com/aileks/quillify/"
-        >
-          GitHub.
-          <ArrowUpRightIcon
-            class="icon-sm"
-            :class="{
-              '-translate-y-1 translate-x-1 transform transition-transform duration-150':
-                isHovered,
-            }"
-          />
-        </Link>
+      <span
+        class="mt-2 flex items-center justify-center text-center text-sm sm:flex-wrap"
+      >
+        <div class="flex flex-wrap justify-center">
+          Currently in alpha. Please report any issues on&nbsp;
+          <Link
+            @mouseover="isHovered = true"
+            @mouseleave="isHovered = false"
+            class="flex items-center text-sm text-blue hover:underline"
+            href="https://github.com/aileks/quillify/"
+          >
+            GitHub.
+            <ArrowUpRightIcon
+              class="h-4 w-4"
+              :class="{
+                '-translate-y-0.5 translate-x-0.5 transform transition-transform duration-150':
+                  isHovered,
+              }"
+            />
+          </Link>
+        </div>
       </span>
     </main>
 
     <div class="flex justify-center">
-      <footer class="absolute bottom-0 left-0 right-0 mb-1 pb-1 text-sm">
-        Made with 👩‍💻 by
-        <Link
-          href="https://github.com/aileks/quillify"
-          class="font-medium text-blue hover:underline"
-          >Aaliyah
-        </Link>
+      <footer class="absolute bottom-0 mb-1 pb-1 text-xs">
+        <p class="text-center">&copy; 2024 Quillify. All rights reserved.</p>
       </footer>
     </div>
   </Layout>
 </template>
-
-<style scoped>
-.icon-sm {
-  width: 1rem;
-  height: 1rem;
-}
-</style>

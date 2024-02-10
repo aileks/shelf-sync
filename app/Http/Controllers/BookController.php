@@ -12,38 +12,6 @@ use Validator;
 
 class BookController extends Controller
 {
-    public function index(Request $request): Response
-    {
-        if (!auth()->user()->books()->exists()) {
-            return Inertia::render('Books/Index', ['books' => []]);
-        }
-
-        $search = $request->input('search');
-
-        $books = auth()->user()->books()
-            ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhere('author', 'like', "%{$search}%");
-            }))
-            ->orderBy('created_at', 'asc')
-            ->paginate(25)
-            ->withQuerystring()
-            ->through(fn($book) => [
-                'id' => $book->id,
-                'title' => $book->title,
-                'author' => $book->author,
-                'pages' => $book->pages,
-                'genre' => $book->genre,
-                'publishYear' => $book->publishYear,
-                'read' => $book->read,
-            ]);
-
-        return Inertia::render('Books/Index', [
-            'books' => $books,
-            'success' => $request->session()->get('success'),
-        ]);
-    }
-
     public function store(Request $request)
     {
         $user = auth()->id();
@@ -116,6 +84,38 @@ class BookController extends Controller
     {
         $book->delete();
 
-        $request->session()->flash('success', 'Book successfully deleted.');
+        return $this->index($request);
+    }
+
+    public function index(Request $request): Response
+    {
+        if (!auth()->user()->books()->exists()) {
+            return Inertia::render('Books/Index', ['books' => []]);
+        }
+
+        $search = $request->input('search');
+
+        $books = auth()->user()->books()
+            ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+            }))
+            ->orderBy('created_at', 'asc')
+            ->paginate(15)
+            ->withQuerystring()
+            ->through(fn($book) => [
+                'id' => $book->id,
+                'title' => $book->title,
+                'author' => $book->author,
+                'pages' => $book->pages,
+                'genre' => $book->genre,
+                'publishYear' => $book->publishYear,
+                'read' => $book->read,
+            ]);
+
+        return Inertia::render('Books/Index', [
+            'books' => $books,
+            'success' => $request->session()->get('success'),
+        ]);
     }
 }
