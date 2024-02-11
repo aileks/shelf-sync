@@ -12,118 +12,123 @@ use Validator;
 
 class BookController extends Controller
 {
-  public function index(Request $request): Response
-  {
-    if (!auth()->user()->books()->exists()) {
-      return Inertia::render('Books/Index', ['books' => []]);
+    public function index(Request $request): Response
+    {
+        if (!auth()->user()->books()->exists()) {
+            return Inertia::render('Books/Index', ['books' => []]);
+        }
+
+        $search = $request->input('search');
+        $sortBy = $request->input('sort_by');
+        $sortDirection = $request->input('sort_direction');
+
+        if ($sortBy === null && $sortDirection === null) {
+            $sortBy = 'created_at';
+            $sortDirection = 'asc';
+        }
+
+        $books = auth()->user()->books()
+          ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
+              $query->where('title', 'like', "%{$search}%")
+                ->orWhere('author', 'like', "%{$search}%");
+          }))
+          ->orderBy($sortBy, $sortDirection)
+          ->paginate(20)
+          ->through(fn($book) => [
+            'id' => $book->id,
+            'title' => $book->title,
+            'author' => $book->author,
+            'pages' => $book->pages,
+            'genre' => $book->genre,
+            'publishYear' => $book->publishYear,
+            'read' => $book->read,
+            'created_at' => $book->updated_at,
+          ])
+          ->withQuerystring();
+
+        return Inertia::render('Books/Index', [
+          'books' => $books,
+          'success' => $request->session()->get('success'),
+        ]);
     }
 
-    $search = $request->input('search');
-    $sortOption = $request->input('sort', 'created_at');
-    $sortDirection = $request->input('direction', 'asc');
+    public function store(Request $request)
+    {
+        $user = auth()->id();
 
-    $books = auth()->user()->books()
-      ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
-        $query->where('title', 'like', "%{$search}%")
-          ->orWhere('author', 'like', "%{$search}%");
-      }))
-      ->orderBy($sortOption, $sortDirection)
-      ->paginate(20)
-      ->through(fn($book) => [
-        'id' => $book->id,
-        'title' => $book->title,
-        'author' => $book->author,
-        'pages' => $book->pages,
-        'genre' => $book->genre,
-        'publishYear' => $book->publishYear,
-        'read' => $book->read,
-        'created_at' => $book->updated_at,
-      ])
-      ->withQuerystring();
+        $validator = Validator::make($request->all(), [
+          'title' => ['required', 'string', 'max:255', 'min:3'],
+          'author' => ['required', 'string', 'max:255', 'min:3'],
+          'pages' => ['nullable', 'integer'],
+          'genre' => ['required', 'string'],
+          'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
+          'read' => ['boolean'],
+        ]);
 
-    return Inertia::render('Books/Index', [
-      'books' => $books,
-      'success' => $request->session()->get('success'),
-    ]);
-  }
+        if ($validator->fails()) {
+            return redirect()->back()
+              ->withErrors($validator)
+              ->withInput();
+        }
 
-  public function store(Request $request)
-  {
-    $user = auth()->id();
+        $validated = $validator->validated();
+        $validated['user_id'] = $user;
 
-    $validator = Validator::make($request->all(), [
-      'title' => ['required', 'string', 'max:255', 'min:3'],
-      'author' => ['required', 'string', 'max:255', 'min:3'],
-      'pages' => ['nullable', 'integer'],
-      'genre' => ['required', 'string'],
-      'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
-      'read' => ['boolean'],
-    ]);
+        $request->user()->books()->create($validated);
 
-    if ($validator->fails()) {
-      return redirect()->back()
-        ->withErrors($validator)
-        ->withInput();
+        $request->session()->flash('success', 'Book added! Your collection grows...');
+
+        return Inertia::location(route('books'));
     }
 
-    $validated = $validator->validated();
-    $validated['user_id'] = $user;
-
-    $request->user()->books()->create($validated);
-
-    $request->session()->flash('success', 'Book added! Your collection grows...');
-
-    return Inertia::location(route('books'));
-  }
-
-  public function create()
-  {
-    return Inertia::render('Books/Add');
-  }
-
-  public function edit(Book $book): Response
-  {
-    return Inertia::render('Books/Edit', [
-      'book' => $book,
-    ]);
-  }
-
-  public function update(Request $request)
-  {
-    $bookData = $request->input('data');
-
-    $validator = Validator::make($bookData, [
-      'title' => ['required', 'string', 'max:255', 'min:3'],
-      'author' => ['required', 'string', 'max:255', 'min:3'],
-      'pages' => ['nullable', 'integer'],
-      'genre' => ['required', 'string'],
-      'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
-      'read' => ['boolean'],
-    ]);
-
-    if ($validator->fails()) {
-      return redirect('/books/edit/' . $bookData['id'])
-        ->withErrors($validator)
-        ->withInput();
+    public function create()
+    {
+        return Inertia::render('Books/Add');
     }
 
-    $book = auth()->user()->books()->find($bookData['id']);
-    if (!$book) {
-      abort(403);
+    public function edit(Book $book): Response
+    {
+        return Inertia::render('Books/Edit', [
+          'book' => $book,
+        ]);
     }
 
-    $book->update($validator->validated());
+    public function update(Request $request)
+    {
+        $bookData = $request->input('data');
 
-    $request->session()->flash('success', 'Book successfully updated.');
+        $validator = Validator::make($bookData, [
+          'title' => ['required', 'string', 'max:255', 'min:3'],
+          'author' => ['required', 'string', 'max:255', 'min:3'],
+          'pages' => ['nullable', 'integer'],
+          'genre' => ['required', 'string'],
+          'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
+          'read' => ['boolean'],
+        ]);
 
-    return Inertia::location(route('books'));
-  }
+        if ($validator->fails()) {
+            return redirect('/books/edit/' . $bookData['id'])
+              ->withErrors($validator)
+              ->withInput();
+        }
 
-  public function destroy(Request $request, Book $book)
-  {
-    $book->delete();
+        $book = auth()->user()->books()->find($bookData['id']);
+        if (!$book) {
+            abort(403);
+        }
 
-    return Inertia::location(route('books'));
-  }
+        $book->update($validator->validated());
+
+        $request->session()->flash('success', 'Book successfully updated.');
+
+        return Inertia::location(route('books'));
+    }
+
+    public function destroy(Request $request, Book $book)
+    {
+        $book->delete();
+
+        return Inertia::location(route('books'));
+    }
 
 }

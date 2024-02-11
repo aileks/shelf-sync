@@ -12,43 +12,56 @@ const props = defineProps({
 const books = ref(props.books);
 const success = ref(props.success);
 const isMobile = ref(window.innerWidth <= 800);
+let clickCount = 0;
 
 const sortBy = ref("");
 const sortDirection = ref("asc");
 const changeSort = (column) => {
   if (sortBy.value === column) {
-    sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
+    clickCount++;
+    if (clickCount === 3) {
+      sortBy.value = null;
+      sortDirection.value = null;
+      clickCount = 0;
+    } else {
+      sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
+    }
   } else {
     sortBy.value = column;
     sortDirection.value = "asc";
+    clickCount = 1;
   }
 
-  router.get(
-    "/books",
-    {
-      sort_by: sortBy.value,
-      sort_direction: sortDirection.value,
-      page: books.value.current_page,
-    },
-    {
-      preserveState: true,
-      onSuccess: (page) => {
-        books.value = page.props.books;
+  if (sortBy.value !== null && sortDirection.value !== null) {
+    router.get(
+      "/books",
+      {
+        sort_by: sortBy.value,
+        sort_direction: sortDirection.value,
+        page: books.value.current_page,
       },
-    },
-  );
+      {
+        preserveState: true,
+        onSuccess: (page) => {
+          books.value = page.props.books;
+        },
+      },
+    );
+  } else {
+    router.get(
+      "/books",
+      {
+        page: books.value.current_page,
+      },
+      {
+        preserveState: true,
+        onSuccess: (page) => {
+          books.value = page.props.books;
+        },
+      },
+    );
+  }
 };
-const sortedData = computed(() => {
-  return books.value.data.sort((a, b) => {
-    if (a[sortBy.value] < b[sortBy.value]) {
-      return sortDirection.value === "asc" ? -1 : 1;
-    }
-    if (a[sortBy.value] > b[sortBy.value]) {
-      return sortDirection.value === "asc" ? 1 : -1;
-    }
-    return 0;
-  });
-});
 const sortIcon = (column) => {
   if (sortBy.value !== column) {
     return "";
@@ -67,7 +80,7 @@ const deleteBook = (id) => {
         return false;
       }
     },
-    onSuccess: (page) => {
+    onSuccess: () => {
       success.value = "Book successfully deleted.";
       setTimeout(() => {
         success.value = null;
@@ -136,7 +149,7 @@ onUnmounted(() => {
 
       <ul class="w-full space-y-1 divide-y divide-neutral-400 bg-white">
         <li
-          v-for="book in sortedData"
+          v-for="book in books.data"
           :key="book.id"
           class="mx-2 flex items-center py-4"
         >
@@ -258,7 +271,7 @@ onUnmounted(() => {
           <h2 class="text-xl">No books found.</h2>
         </div>
 
-        <table v-else class="w-full table-auto">
+        <table v-else class="w-full max-w-screen-xl table-auto">
           <thead
             class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
           >
