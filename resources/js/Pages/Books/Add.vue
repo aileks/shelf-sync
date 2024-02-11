@@ -187,6 +187,9 @@ const submit = () => {
             </TransitionRoot>
           </div>
         </Combobox>
+        <div v-if="errors.genre" class="error">
+          {{ errors.genre }}
+        </div>
       </div>
 
       <!--Publish Year-->
@@ -261,6 +264,9 @@ const submit = () => {
             </transition>
           </div>
         </Listbox>
+        <div v-if="errors.publishYear" class="error">
+          {{ errors.publishYear }}
+        </div>
       </div>
 
       <div class="my-6 flex items-center justify-center space-x-2 text-lg">
@@ -286,10 +292,4 @@ const submit = () => {
   </FormLayout>
 </template>
 
-<style scoped>
-.error {
-  color: darkred;
-  font-size: 14px;
-  font-style: italic;
-}
-</style>
+<style scoped></style>

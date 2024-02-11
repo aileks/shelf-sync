@@ -56,6 +56,16 @@ class BookController extends Controller
     {
         $user = auth()->id();
 
+        $existingBook = Book::where('title', $request->title)
+                               ->where('author', $request->author)
+                               ->first();
+
+        if ($existingBook) {
+            return redirect()->back()
+              ->withErrors(['title' => 'This book already exists in your collection.'])
+              ->withInput();
+        }
+
         $validator = Validator::make($request->all(), [
           'title' => ['required', 'string', 'max:255', 'min:3'],
           'author' => ['required', 'string', 'max:255', 'min:3'],

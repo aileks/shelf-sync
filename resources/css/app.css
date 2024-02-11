@@ -10,3 +10,10 @@
   font-smooth: auto;
   min-width: 0;
 }
+
+.error {
+  @apply text-red;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}
