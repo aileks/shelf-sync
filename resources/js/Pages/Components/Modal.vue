@@ -14,6 +14,7 @@ const sortOptions = {
   Genre: "genre",
   Pages: "pages",
   Published: "publishYear",
+  "Date Added": "updated_at",
 };
 </script>
 
@@ -35,8 +36,8 @@ const sortOptions = {
     <Transition
       enter-active-class="transition-all duration-200 ease-in-out transform"
       leave-active-class="transition-all duration-150 ease-in-out transform"
-      enter-from-class="scale-125 opacity-0"
-      leave-to-class="scale-125 opacity-0"
+      enter-from-class="scale-110 opacity-0"
+      leave-to-class="scale-110 opacity-0"
     >
       <div
         v-show="showModal"
@@ -45,13 +46,11 @@ const sortOptions = {
         role="dialog"
         aria-modal="true"
       >
-        <div
-          class="flex min-h-screen items-center justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0"
-        >
+        <div class="flex min-h-screen items-center justify-center px-4 pb-20">
           <div
             class="inline-block transform overflow-hidden rounded-lg text-left shadow-xl transition-all"
           >
-            <div class="bg-primary px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="bg-primary px-4 pb-4 pt-5">
               <h3
                 class="text-xl font-medium leading-6 text-gray-900"
                 id="modal-title"
@@ -59,12 +58,12 @@ const sortOptions = {
                 Sort Books By:
               </h3>
 
-              <div class="mt-2 space-x-2 space-y-2">
+              <div class="mt-2">
                 <button
                   v-for="(value, key) in sortOptions"
                   :key="value"
                   @click="changeSort(value), (showModal = false)"
-                  class="rounded-md bg-brown px-3 py-1 text-neutral-50 shadow-paper"
+                  class="m-2 rounded-md bg-brown px-3 py-1 text-neutral-50 shadow-paper"
                 >
                   {{ key }}
                 </button>

@@ -35,6 +35,7 @@ class BookController extends Controller
         'genre' => $book->genre,
         'publishYear' => $book->publishYear,
         'read' => $book->read,
+        'updated_at' => $book->updated_at,
       ])
       ->withQuerystring();
 
