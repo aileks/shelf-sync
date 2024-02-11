@@ -1,6 +1,6 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import { router } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 import FormLayout from "@/Layouts/FormLayout.vue";
 import StyledButton from "@/Components/StyledButton.vue";
 import genreData from "../../../data/genres.json";
@@ -20,8 +20,6 @@ import {
 } from "@headlessui/vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 
-const isLoading = ref(false);
-
 // Genre data for ComboBox
 const genres = genreData.genres;
 const genreQuery = ref("");
@@ -37,11 +35,13 @@ const props = defineProps({
   book: Object,
   errors: Object,
 });
-const title = props.book.title;
-const author = props.book.author;
 
-const book = ref({
+const title = ref(props.book.title);
+const author = ref(props.book.author);
+
+const form = useForm({
   ...props.book,
+  read: Boolean(props.book.read),
 });
 
 const reversedYears = Array.from(
@@ -49,17 +49,8 @@ const reversedYears = Array.from(
   (_, i) => i + 1800,
 ).reverse();
 
-const isRead = computed({
-  get: () => Boolean(book.value.read),
-  set: (value) => (book.value.read = value),
-});
-
 const saveBook = () => {
-  book.value.read = document.querySelector('input[name="read"]').checked;
-  isLoading.value = true;
-  router.patch(`/books/edit/${book.value.id}`, {
-    data: book.value,
-  });
+  form.patch(`/books/edit/${form.id}`);
 };
 </script>
 
@@ -85,7 +76,7 @@ const saveBook = () => {
       <div class="mt-4 flex flex-col space-y-1 text-lg">
         <label class="text-left" for="title">Title</label>
         <input
-          v-model="book.title"
+          v-model="form.title"
           class="rounded-md border border-bronze text-left"
           name="title"
           placeholder="Title"
@@ -98,7 +89,7 @@ const saveBook = () => {
       <div class="mt-4 flex flex-col space-y-1 text-lg">
         <label class="text-left" for="author">Author</label>
         <input
-          v-model="book.author"
+          v-model="form.author"
           class="rounded-md border border-bronze text-left"
           name="author"
           placeholder="Author"
@@ -111,7 +102,7 @@ const saveBook = () => {
       <div class="mt-4 flex flex-col space-y-1 text-lg">
         <label class="text-left" for="pages">Pages</label>
         <input
-          v-model="book.pages"
+          v-model="form.pages"
           class="rounded-md border border-bronze text-left"
           max="3000"
           min="1"
@@ -124,7 +115,7 @@ const saveBook = () => {
 
       <!--Genres-->
       <div class="mt-4">
-        <Combobox v-model="book.genre">
+        <Combobox v-model="form.genre">
           <ComboboxLabel class="text-left" for="genre">Genre </ComboboxLabel>
           <div class="relative mt-1">
             <div
@@ -204,7 +195,7 @@ const saveBook = () => {
 
       <!--Publish Year-->
       <div class="mt-4">
-        <Listbox v-model="book.publishYear">
+        <Listbox v-model="form.publishYear">
           <ListboxLabel class="text-left" for="publishYear">
             Publish Year
           </ListboxLabel>
@@ -213,11 +204,11 @@ const saveBook = () => {
               class="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-400 sm:text-sm"
             >
               <span
-                :class="{ 'text-gray-500': !book.publishYear }"
+                :class="{ 'text-gray-500': !form.publishYear }"
                 class="block truncate text-base"
               >
                 {{
-                  book.publishYear ? book.publishYear : "When was it published"
+                  form.publishYear ? form.publishYear : "When was it published"
                 }}
               </span>
               <span
@@ -278,7 +269,7 @@ const saveBook = () => {
 
       <div class="my-6 flex items-center justify-center space-x-2 text-lg">
         <input
-          v-model="isRead"
+          v-model="form.read"
           class="rounded border border-bronze text-left"
           name="read"
           type="checkbox"
@@ -289,7 +280,7 @@ const saveBook = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit" :isLoading="isLoading">Save</StyledButton>
+        <StyledButton type="submit">Save</StyledButton>
 
         <StyledButton>
           <Link href="/books">Cancel</Link>

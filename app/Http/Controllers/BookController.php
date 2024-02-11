@@ -8,7 +8,6 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Validator;
 
 class BookController extends Controller
 {
@@ -91,25 +90,18 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Book $book)
     {
-        $bookData = $request->input('data');
-
-        $validator = Validator::make($bookData, [
-            'title' => ['required', 'string', 'max:255', 'min:3'],
-            'author' => ['required', 'string', 'max:255', 'min:3'],
+        $data = $request->validate([
+            'title' => ['string', 'max:255', 'min:3'],
+            'author' => ['string', 'max:255', 'min:3'],
             'pages' => ['nullable', 'integer'],
             'genre' => ['required', 'string'],
             'publishYear' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
             'read' => ['boolean'],
         ]);
 
-        $book = auth()->user()->books()->find($bookData['id']);
-        if (! $book) {
-            abort(403);
-        }
-
-        $book->update($validator->validated());
+        $book->update($data);
 
         $request->session()->flash('success', 'Book successfully updated.');
 
