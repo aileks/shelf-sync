@@ -20,6 +20,8 @@ import {
 } from "@headlessui/vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 
+const isLoading = ref(false);
+
 // Genre data for ComboBox
 const genres = genreData.genres;
 const genreQuery = ref("");
@@ -54,7 +56,7 @@ const isRead = computed({
 
 const saveBook = () => {
   book.value.read = document.querySelector('input[name="read"]').checked;
-
+  isLoading.value = true;
   router.patch(`/books/edit/${book.value.id}`, {
     data: book.value,
   });
@@ -287,10 +289,10 @@ const saveBook = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit"> Save</StyledButton>
+        <StyledButton type="submit" :isLoading="isLoading">Save</StyledButton>
 
         <StyledButton>
-          <Link href="/books"> Cancel</Link>
+          <Link href="/books">Cancel</Link>
         </StyledButton>
       </div>
     </form>

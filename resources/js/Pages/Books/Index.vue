@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, computed, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 
@@ -8,10 +8,37 @@ const props = defineProps({
   success: String,
 });
 
-let books = ref(props.books);
-let success = ref(props.success);
+const books = ref(props.books);
+const success = ref(props.success);
+const isMobile = ref(window.innerWidth <= 800);
 
-let isMobile = ref(window.innerWidth <= 800);
+const sortBy = ref("");
+const sortDirection = ref("asc");
+const changeSort = (column) => {
+  if (sortBy.value === column) {
+    sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
+  } else {
+    sortBy.value = column;
+    sortDirection.value = "asc";
+  }
+};
+const sortedData = computed(() => {
+  return books.value.data.sort((a, b) => {
+    if (a[sortBy.value] < b[sortBy.value]) {
+      return sortDirection.value === "asc" ? -1 : 1;
+    }
+    if (a[sortBy.value] > b[sortBy.value]) {
+      return sortDirection.value === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
+});
+const sortIcon = (column) => {
+  if (sortBy.value !== column) {
+    return "";
+  }
+  return sortDirection.value === "asc" ? "▲" : "▼";
+};
 
 const updateIsMobile = () => {
   isMobile.value = window.innerWidth <= 800;
@@ -82,6 +109,7 @@ onUnmounted(() => {
       />
     </div>
 
+    <!-- Mobile View -->
     <div
       v-show="isMobile"
       id="mobile-table"
@@ -91,7 +119,7 @@ onUnmounted(() => {
 
       <ul class="w-full space-y-1 divide-y divide-neutral-400 bg-white">
         <li
-          v-for="book in books.data"
+          v-for="book in sortedData"
           :key="book.id"
           class="mx-2 flex items-center py-4"
         >
@@ -195,6 +223,7 @@ onUnmounted(() => {
       </div>
     </div>
 
+    <!-- Desktop View -->
     <div
       v-show="!isMobile"
       id="desktop-table"
@@ -202,40 +231,70 @@ onUnmounted(() => {
     >
       <div
         v-if="books.data"
-        class="table-container overflow-x-auto rounded-md shadow-paper"
+        class="table-container overflow-hidden rounded-md shadow-paper"
       >
         <h2 class="bg-brown text-2xl text-neutral-50">Your Books</h2>
 
         <div
           v-if="isSearchActive && books.data.length === 0"
-          class="mx-auto bg-white p-8 shadow-paper"
+          class="bg-white p-8 shadow-paper"
         >
-          <h2 class="mb-4 text-xl">No books found.</h2>
+          <h2 class="text-xl">No books found.</h2>
         </div>
 
         <table v-else class="w-full table-auto">
           <thead
             class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
           >
-            <th class="px-2 sm:w-auto md:w-auto">Read?</th>
-            <th class="px-2 sm:w-auto md:w-auto">Title</th>
-            <th class="px-2 sm:w-auto md:w-auto">Author</th>
-            <th class="px-2 sm:w-auto md:w-auto">Genre</th>
-            <th class="px-2 sm:w-auto md:w-auto">Pages</th>
-            <th class="px-2 sm:w-auto md:w-auto">Published</th>
+            <th
+              @click="changeSort('read')"
+              class="cursor-pointer px-2 sm:w-auto md:w-auto"
+            >
+              <span>{{ sortIcon("read") }}</span>
+              Read?
+            </th>
+            <th
+              @click="changeSort('title')"
+              class="cursor-pointer px-2 sm:w-auto md:w-auto"
+            >
+              <span>{{ sortIcon("title") }}</span>
+              Title
+            </th>
+            <th
+              @click="changeSort('author')"
+              class="cursor-pointer px-2 sm:w-auto md:w-auto"
+            >
+              <span>{{ sortIcon("author") }}</span>
+              Author
+            </th>
+            <th
+              @click="changeSort('genre')"
+              class="cursor-pointer px-2 sm:w-auto md:w-auto"
+            >
+              <span>{{ sortIcon("genre") }}</span>
+              Genre
+            </th>
+            <th
+              @click="changeSort('pages')"
+              class="cursor-pointer px-2 sm:w-auto md:w-auto"
+            >
+              <span>{{ sortIcon("pages") }}</span>
+              Pages
+            </th>
+            <th
+              @click="changeSort('publishYear')"
+              class="px-2 sm:w-auto md:w-auto"
+            >
+              <span>{{ sortIcon("publishYear") }}</span>
+              Published
+            </th>
             <th class="px-2 sm:w-auto md:w-auto">Modify</th>
           </thead>
 
           <tbody class="flex-1 divide-y divide-gray-200 bg-white">
             <tr v-for="book in books.data" :key="book.id" class="divide-x">
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
-                <span v-if="isMobile && book.read" class="font-semibold"
-                  >Read️</span
-                >
-                <span v-else-if="isMobile && !book.read" class="font-semibold">
-                  Unread️
-                </span>
-                <span v-else-if="book.read">✔️</span>
+                <span v-if="book.read">✔️</span>
               </td>
 
               <td class="px-2 italic" data-label="Title">

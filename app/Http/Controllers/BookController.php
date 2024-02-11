@@ -120,7 +120,7 @@ class BookController extends Controller
   {
     $book->delete();
 
-    return Inertia::location($request->header('Referer'));
+    return Inertia::location(route('books'));
   }
 
 }

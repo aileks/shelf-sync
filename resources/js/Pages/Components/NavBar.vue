@@ -71,31 +71,39 @@ import StyledButton from "@/Components/StyledButton.vue";
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <ul
-        class="menu min-h-full w-60 space-y-4 bg-neutral-800/95 px-4 py-6 text-lg"
-      >
+      <ul class="menu min-h-full w-60 bg-neutral-800/95 text-lg">
         <!-- Sidebar content here -->
-        <StyledButton v-show="!$page.props.auth.user">
-          <Link href="/register">Register</Link>
-        </StyledButton>
+        <div
+          class="flex flex-col space-y-6 px-4 py-8"
+          v-show="!$page.props.auth.user"
+        >
+          <StyledButton>
+            <Link href="/register">Register</Link>
+          </StyledButton>
 
-        <StyledButton v-show="!$page.props.auth.user">
-          <Link href="/login">Log In</Link>
-        </StyledButton>
+          <StyledButton>
+            <Link href="/login">Log In</Link>
+          </StyledButton>
+        </div>
 
-        <StyledButton v-show="$page.props.auth.user">
-          <Link as="button" href="/logout" method="post" type="button">
-            Log Out
-          </Link>
-        </StyledButton>
+        <div
+          class="flex flex-col space-y-6 px-4 py-8"
+          v-show="$page.props.auth.user"
+        >
+          <StyledButton>
+            <Link as="button" href="/logout" method="post" type="button">
+              Log Out
+            </Link>
+          </StyledButton>
 
-        <StyledButton v-show="$page.props.auth.user">
-          <Link href="/books/add">Add Book</Link>
-        </StyledButton>
+          <StyledButton>
+            <Link href="/books/add">Add Book</Link>
+          </StyledButton>
 
-        <StyledButton v-show="$page.props.auth.user">
-          <Link href="/books">View Books</Link>
-        </StyledButton>
+          <StyledButton>
+            <Link href="/books">View Books</Link>
+          </StyledButton>
+        </div>
       </ul>
     </div>
   </div>

@@ -1,20 +1,21 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { inject } from "vue";
 
 const props = defineProps({
   formFields: Array,
   postUrl: String,
-  remember: Boolean
+  remember: Boolean,
 });
 
 const form = useForm({
   ...Object.fromEntries(props.formFields.map((field) => [field.model, null])),
-  remember: props.remember
+  remember: props.remember,
 });
 
 const submit = () => {
   const options = {
-    preserveState: true
+    preserveState: true,
   };
 
   form.post(props.postUrl, options);
@@ -28,9 +29,8 @@ const submit = () => {
       :key="index"
       class="flex flex-col"
     >
-      <label :for="field.label"
-             class="mt-3 mb-1 ml-1"
-      >{{ field.label }}:</label
+      <label :for="field.label" class="mb-1 ml-1 mt-3"
+        >{{ field.label }}:</label
       >
 
       <input
@@ -38,12 +38,14 @@ const submit = () => {
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"
-        class="border-bronze border rounded-md"
+        class="rounded-md border border-bronze"
         required
       />
 
-      <div v-if="form.errors[field.model]"
-           class="error italic text-sm text-red mt-3 text-center">
+      <div
+        v-if="form.errors[field.model]"
+        class="error mt-3 text-center text-sm italic text-red"
+      >
         {{ form.errors[field.model] }}
       </div>
     </div>

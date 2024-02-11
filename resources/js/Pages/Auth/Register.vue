@@ -2,6 +2,7 @@
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
 import StyledButton from "@/Components/StyledButton.vue";
+import { defineEmits } from "vue";
 
 const formFields = [
   {
@@ -33,22 +34,27 @@ const formFields = [
     placeholder: "Confirm Password",
   },
 ];
+
+const emit = defineEmits(["submit"]);
+const handleSubmit = throttle(() => {
+  emit("submit");
+}, 1000);
 </script>
 
 <template>
   <Head title="Register" />
 
   <FormLayout>
-    <h2 class="text-2xl border-bronze border-b pb-1.5">Register</h2>
+    <h2 class="border-b border-bronze pb-1.5 text-2xl">Register</h2>
 
     <Form
       :form-fields="formFields"
       submit-text="Register"
       cancelUrl="/"
       postUrl="/register"
-      @submit="$emit('submit')"
+      @submit="handleSubmit"
     >
-      <div class="flex items-center justify-end mx-4 mt-6">
+      <div class="mx-4 mt-6 flex items-center justify-end">
         <StyledButton type="submit">Register</StyledButton>
       </div>
     </Form>
