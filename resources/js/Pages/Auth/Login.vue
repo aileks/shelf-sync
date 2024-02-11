@@ -3,11 +3,12 @@ import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
 import StyledButton from "@/Components/StyledButton.vue";
 import { ref, watch, defineEmits } from "vue";
-import { throttle } from "lodash";
 
 const props = defineProps({
   status: String,
 });
+
+let isProcessing = ref(false);
 
 const formFields = [
   {
@@ -39,9 +40,11 @@ watch(status, (newStatus) => {
 });
 
 const emit = defineEmits(["submit"]);
-const handleSubmit = throttle(() => {
+const handleSubmit = () => {
+  isProcessing.value = true;
   emit("submit");
-}, 1000);
+  isProcessing.value = false;
+};
 </script>
 
 <template>
@@ -64,7 +67,9 @@ const handleSubmit = throttle(() => {
           <label class="text-base text-blue" for="remember">Remember Me</label>
         </div>
 
-        <StyledButton type="submit">Log In</StyledButton>
+        <StyledButton type="submit" :isProcessing="isProcessing"
+          >Log In</StyledButton
+        >
       </div>
     </Form>
   </FormLayout>

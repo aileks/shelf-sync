@@ -34,6 +34,8 @@ const form = useForm({
   read: false,
 });
 
+let isProcessing = ref(false);
+
 // Genre data for ComboBox
 const genres = genreData.genres;
 const genreQuery = ref("");
@@ -52,7 +54,9 @@ const reversedYears = Array.from(
 ).reverse();
 
 const submit = () => {
+  isProcessing.value = true;
   form.post("/books/add");
+  isProcessing.value = false;
 };
 </script>
 
@@ -278,7 +282,9 @@ const submit = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit">Add</StyledButton>
+        <StyledButton type="submit" :isProcessing="isProcessing"
+          >Add</StyledButton
+        >
 
         <StyledButton>
           <Link href="/books">Go Back</Link>

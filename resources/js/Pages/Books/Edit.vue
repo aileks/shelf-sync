@@ -20,6 +20,8 @@ import {
 } from "@headlessui/vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 
+let isProcessing = ref(false);
+
 // Genre data for ComboBox
 const genres = genreData.genres;
 const genreQuery = ref("");
@@ -50,7 +52,9 @@ const reversedYears = Array.from(
 ).reverse();
 
 const saveBook = () => {
+  isProcessing.value = true;
   form.patch(`/books/edit/${form.id}`);
+  isProcessing.value = false;
 };
 </script>
 
@@ -280,7 +284,9 @@ const saveBook = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit">Save</StyledButton>
+        <StyledButton type="submit" isProcessing="isProcessing"
+          >Save</StyledButton
+        >
 
         <StyledButton>
           <Link href="/books">Cancel</Link>
