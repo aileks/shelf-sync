@@ -71,7 +71,9 @@ import StyledButton from "@/Components/StyledButton.vue";
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <ul class="menu min-h-full w-60 space-y-4 px-4 py-6 text-lg">
+      <ul
+        class="menu min-h-full w-60 space-y-4 bg-neutral-800/95 px-4 py-6 text-lg"
+      >
         <!-- Sidebar content here -->
         <StyledButton v-show="!$page.props.auth.user">
           <Link href="/register">Register</Link>
