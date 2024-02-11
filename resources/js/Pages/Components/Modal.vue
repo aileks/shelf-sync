@@ -14,7 +14,7 @@ const sortOptions = {
   Genre: "genre",
   Pages: "pages",
   Published: "publishYear",
-  "Date Added": "updated_at",
+  "Date Added": "created_at",
 };
 </script>
 

@@ -22,6 +22,21 @@ const changeSort = (column) => {
     sortBy.value = column;
     sortDirection.value = "asc";
   }
+
+  router.get(
+    "/books",
+    {
+      sort_by: sortBy.value,
+      sort_direction: sortDirection.value,
+      page: books.value.current_page,
+    },
+    {
+      preserveState: true,
+      onSuccess: (page) => {
+        books.value = page.props.books;
+      },
+    },
+  );
 };
 const sortedData = computed(() => {
   return books.value.data.sort((a, b) => {

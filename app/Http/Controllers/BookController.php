@@ -19,13 +19,15 @@ class BookController extends Controller
     }
 
     $search = $request->input('search');
+    $sortOption = $request->input('sort', 'created_at');
+    $sortDirection = $request->input('direction', 'asc');
 
     $books = auth()->user()->books()
       ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
         $query->where('title', 'like', "%{$search}%")
           ->orWhere('author', 'like', "%{$search}%");
       }))
-      ->orderBy('created_at', 'asc')
+      ->orderBy($sortOption, $sortDirection)
       ->paginate(20)
       ->through(fn($book) => [
         'id' => $book->id,
@@ -35,7 +37,7 @@ class BookController extends Controller
         'genre' => $book->genre,
         'publishYear' => $book->publishYear,
         'read' => $book->read,
-        'updated_at' => $book->updated_at,
+        'created_at' => $book->updated_at,
       ])
       ->withQuerystring();
 
