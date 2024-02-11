@@ -299,10 +299,4 @@ const saveBook = () => {
   </FormLayout>
 </template>
 
-<style scoped>
-.error {
-  color: darkred;
-  font-size: 14px;
-  font-style: italic;
-}
-</style>
+<style scoped></style>

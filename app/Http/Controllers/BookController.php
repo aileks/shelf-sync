@@ -14,7 +14,7 @@ class BookController extends Controller
 {
     public function index(Request $request): Response
     {
-        if (!auth()->user()->books()->exists()) {
+        if (! auth()->user()->books()->exists()) {
             return Inertia::render('Books/Index', ['books' => []]);
         }
 
@@ -28,67 +28,55 @@ class BookController extends Controller
         }
 
         $books = auth()->user()->books()
-          ->when($search, fn($query, $search) => $query->where(function ($query) use ($search) {
-              $query->where('title', 'like', "%{$search}%")
-                ->orWhere('author', 'like', "%{$search}%");
-          }))
-          ->orderBy($sortBy, $sortDirection)
-          ->paginate(20)
-          ->through(fn($book) => [
-            'id' => $book->id,
-            'title' => $book->title,
-            'author' => $book->author,
-            'pages' => $book->pages,
-            'genre' => $book->genre,
-            'publishYear' => $book->publishYear,
-            'read' => $book->read,
-            'created_at' => $book->updated_at,
-          ])
-          ->withQuerystring();
+            ->when($search, fn ($query, $search) => $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+            }))
+            ->orderBy($sortBy, $sortDirection)
+            ->paginate(20)
+            ->through(fn ($book) => [
+                'id' => $book->id,
+                'title' => $book->title,
+                'author' => $book->author,
+                'pages' => $book->pages,
+                'genre' => $book->genre,
+                'publishYear' => $book->publishYear,
+                'read' => $book->read,
+                'created_at' => $book->updated_at,
+            ])
+            ->withQuerystring();
 
         return Inertia::render('Books/Index', [
-          'books' => $books,
-          'success' => $request->session()->get('success'),
+            'books' => $books,
+            'success' => $request->session()->get('success'),
         ]);
     }
 
     public function store(Request $request)
     {
-        $user = auth()->id();
-
-        $existingBook = Book::where('title', $request->title)
-                               ->where('author', $request->author)
-                               ->first();
-
-        if ($existingBook) {
-            return redirect()->back()
-              ->withErrors(['title' => 'This book already exists in your collection.'])
-              ->withInput();
+        // Check if book already exists
+        $bookExists = auth()->user()->books()
+            ->where('title', $request->input('title'))
+            ->where('author', $request->input('author'))
+            ->exists();
+        if ($bookExists) {
+            return back()->withErrors(['title' => 'Book already exists in your collection.']);
         }
 
-        $validator = Validator::make($request->all(), [
-          'title' => ['required', 'string', 'max:255', 'min:3'],
-          'author' => ['required', 'string', 'max:255', 'min:3'],
-          'pages' => ['nullable', 'integer'],
-          'genre' => ['required', 'string'],
-          'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
-          'read' => ['boolean'],
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255', 'min:3'],
+            'author' => ['required', 'string', 'max:255', 'min:3'],
+            'pages' => ['nullable', 'integer'],
+            'genre' => ['required', 'string'],
+            'publishYear' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
+            'read' => ['boolean'],
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-              ->withErrors($validator)
-              ->withInput();
-        }
-
-        $validated = $validator->validated();
-        $validated['user_id'] = $user;
-
-        $request->user()->books()->create($validated);
+        $request->user()->books()->create($data);
 
         $request->session()->flash('success', 'Book added! Your collection grows...');
 
-        return Inertia::location(route('books'));
+        return to_route('books');
     }
 
     public function create()
@@ -99,7 +87,7 @@ class BookController extends Controller
     public function edit(Book $book): Response
     {
         return Inertia::render('Books/Edit', [
-          'book' => $book,
+            'book' => $book,
         ]);
     }
 
@@ -108,22 +96,16 @@ class BookController extends Controller
         $bookData = $request->input('data');
 
         $validator = Validator::make($bookData, [
-          'title' => ['required', 'string', 'max:255', 'min:3'],
-          'author' => ['required', 'string', 'max:255', 'min:3'],
-          'pages' => ['nullable', 'integer'],
-          'genre' => ['required', 'string'],
-          'publishYear' => ['required', 'integer', 'min:1800', 'max:' . date('Y')],
-          'read' => ['boolean'],
+            'title' => ['required', 'string', 'max:255', 'min:3'],
+            'author' => ['required', 'string', 'max:255', 'min:3'],
+            'pages' => ['nullable', 'integer'],
+            'genre' => ['required', 'string'],
+            'publishYear' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
+            'read' => ['boolean'],
         ]);
 
-        if ($validator->fails()) {
-            return redirect('/books/edit/' . $bookData['id'])
-              ->withErrors($validator)
-              ->withInput();
-        }
-
         $book = auth()->user()->books()->find($bookData['id']);
-        if (!$book) {
+        if (! $book) {
             abort(403);
         }
 
@@ -131,14 +113,13 @@ class BookController extends Controller
 
         $request->session()->flash('success', 'Book successfully updated.');
 
-        return Inertia::location(route('books'));
+        return to_route('books');
     }
 
     public function destroy(Request $request, Book $book)
     {
         $book->delete();
 
-        return Inertia::location(route('books'));
+        return to_route('books');
     }
-
 }

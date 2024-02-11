@@ -1,6 +1,6 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, ref, reactive } from "vue";
 import StyledButton from "@/Components/StyledButton.vue";
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
@@ -54,8 +54,10 @@ const reversedYears = Array.from(
 ).reverse();
 
 const submit = () => {
-  form.read = document.querySelector('input[name="read"]').checked;
   isLoading.value = true;
+  if (form.hasErrors()) {
+    isLoading.value = false;
+  }
   form.post("/books/add");
 };
 </script>

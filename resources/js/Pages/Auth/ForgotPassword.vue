@@ -28,11 +28,11 @@ const submit = () => {
   <Head title="Password Reset" />
 
   <Layout>
-    <div class="max-w-[60vh] flex items-center justify-center mx-auto mt-8">
+    <div class="mx-auto mt-8 flex max-w-[60vh] items-center justify-center">
       <div
-        class="bg-sandy border-bronze shadow-paper p-8 text-lg border rounded-lg"
+        class="rounded-lg border border-bronze bg-sandy p-8 text-lg shadow-paper"
       >
-        <h2 class="text-2xl border-bronze border-b pb-1.5">
+        <h2 class="border-b border-bronze pb-1.5 text-2xl">
           Reset Your Password
         </h2>
 
@@ -42,10 +42,10 @@ const submit = () => {
         </p>
 
         <form @submit.prevent="submit">
-          <div class="text-md flex flex-col w-64 mx-auto mt-4">
+          <div class="text-md mx-auto mt-4 flex w-64 flex-col">
             <input
               v-model="form.email"
-              class="border-bronze text-left border rounded-md"
+              class="rounded-md border border-bronze text-left"
               name="email"
               placeholder="Email"
               type="email"
@@ -65,7 +65,7 @@ const submit = () => {
           </div>
         </form>
 
-        <div class="text-blue pt-2 mt-4 italic" v-show="status">
+        <div class="mt-4 pt-2 italic text-blue" v-show="status">
           {{ status }}
         </div>
       </div>
@@ -73,10 +73,4 @@ const submit = () => {
   </Layout>
 </template>
 
-<style scoped>
-.error {
-  color: darkred;
-  font-size: 14px;
-  font-style: italic;
-}
-</style>
+<style scoped></style>

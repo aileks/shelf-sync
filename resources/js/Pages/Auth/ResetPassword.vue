@@ -77,11 +77,4 @@ const submit = () => {
   </FormLayout>
 </template>
 
-<style scoped>
-.error {
-  text-align: center;
-  color: darkred;
-  font-size: 14px;
-  font-style: italic;
-}
-</style>
+<style scoped></style>
