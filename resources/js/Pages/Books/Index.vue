@@ -1,4 +1,5 @@
 <script setup>
+import Modal from "@/Components/Modal.vue";
 import { onMounted, onUnmounted, ref, computed, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
@@ -99,7 +100,7 @@ onUnmounted(() => {
   <Head title="Books" />
 
   <Layout>
-    <div class="flex justify-center">
+    <div class="flex items-center justify-around">
       <input
         id="search"
         v-model="search"
@@ -107,6 +108,7 @@ onUnmounted(() => {
         placeholder="Search Books..."
         type="search"
       />
+      <Modal :isMobile="isMobile" :changeSort="changeSort" />
     </div>
 
     <!-- Mobile View -->
@@ -164,7 +166,6 @@ onUnmounted(() => {
           </div>
         </li>
       </ul>
-
       <!-- Pagination  -->
       <div
         class="flex w-full items-center justify-around bg-brown py-2 text-center"
