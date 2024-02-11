@@ -25,8 +25,6 @@ defineProps({
   errors: Object,
 });
 
-const isLoading = ref(false);
-
 const form = useForm({
   title: null,
   author: null,
@@ -54,10 +52,6 @@ const reversedYears = Array.from(
 ).reverse();
 
 const submit = () => {
-  isLoading.value = true;
-  if (form.hasErrors()) {
-    isLoading.value = false;
-  }
   form.post("/books/add");
 };
 </script>
@@ -284,7 +278,7 @@ const submit = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit" :isLoading="isLoading">Add</StyledButton>
+        <StyledButton type="submit">Add</StyledButton>
 
         <StyledButton>
           <Link href="/books">Go Back</Link>
