@@ -1,3 +1,11 @@
+
+🌼   daisyUI 4.6.2
+├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+🌼 daisyUI 4.6.2 ├─ ✔︎ 1 theme added https://daisyui.com/docs/themes ╰─ ★ Star
+daisyUI on GitHub https://github.com/saadeghi/daisyui
+
 <script setup>
 import Modal from "@/Components/Modal.vue";
 import { onMounted, onUnmounted, ref, computed, watch } from "vue";
@@ -411,7 +419,7 @@ onUnmounted(() => {
   >
     <div
       v-show="success"
-      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-emerald-600 shadow-lg"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
       @click="success = null"
     >
       <div class="p-4">

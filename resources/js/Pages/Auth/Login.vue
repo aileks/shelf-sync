@@ -1,3 +1,15 @@
+
+🌼   daisyUI 4.6.2
+├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
+╰─ ❤�� Star daisyUI on GitHub	https://github.com/saadeghi/daisyui
+
+🌼 daisyUI 4.6.2 ├─ ✔︎ 1 theme added https://daisyui.com/docs/themes ╰─ ❤︎
+Support daisyUI project: https://opencollective.com/daisyui 🌼 daisyUI 4.6.2 ├─
+✔︎ 1 theme added https://daisyui.com/docs/themes ╰─ ❤︎ Support daisyUI
+project: https://opencollective.com/daisyui 🌼 daisyUI 4.6.2 ├─ ✔︎ 1 theme
+added https://daisyui.com/docs/themes ╰─ ★ Star daisyUI on GitHub
+https://github.com/saadeghi/daisyui
+
 <script setup>
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
@@ -92,7 +104,7 @@ const handleSubmit = () => {
   >
     <div
       v-show="status"
-      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-emerald-700 shadow-lg"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
       @click="status = null"
     >
       <div class="p-4">
