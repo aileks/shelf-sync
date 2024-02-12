@@ -17,8 +17,9 @@ class BookFactory extends Factory
             'author' => fake()->name(),
             'pages' => fake()->numberBetween(50, 500),
             'genre' => fake()->word(),
-            'publishYear' => fake()->year(),
+            'publish_year' => fake()->year(),
             'read' => fake()->boolean(),
+            'date_read' => fake()->date(),
         ];
     }
 }

@@ -39,8 +39,9 @@ class BookController extends Controller
                 'author' => $book->author,
                 'pages' => $book->pages,
                 'genre' => $book->genre,
-                'publishYear' => $book->publishYear,
+                'publish_year' => $book->publish_year,
                 'read' => $book->read,
+                'date_read' => $book->date_read,
                 'created_at' => $book->updated_at,
             ])
             ->withQuerystring();
@@ -67,8 +68,9 @@ class BookController extends Controller
             'author' => ['required', 'string', 'max:255', 'min:3'],
             'pages' => ['nullable', 'integer'],
             'genre' => ['required', 'string'],
-            'publishYear' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
+            'publish_year' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
             'read' => ['boolean'],
+            'date_read' => ['nullable', 'date'],
         ]);
 
         $request->user()->books()->create($data);
@@ -97,8 +99,9 @@ class BookController extends Controller
             'author' => ['string', 'max:255', 'min:3'],
             'pages' => ['nullable', 'integer'],
             'genre' => ['required', 'string'],
-            'publishYear' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
+            'publish_year' => ['required', 'integer', 'min:1800', 'max:'.date('Y')],
             'read' => ['boolean'],
+            'date_read' => ['nullable', 'date'],
         ]);
 
         $book->update($data);

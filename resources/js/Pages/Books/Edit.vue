@@ -105,9 +105,9 @@ const saveBook = () => {
       <!-- TODO: Extract component -->
       <!--Publish Year-->
       <div class="mt-4">
-        <YearSelector v-model="form.publishYear" />
-        <div v-if="errors.publishYear" class="error">
-          {{ errors.publishYear }}
+        <YearSelector v-model="form.publish_year" />
+        <div v-if="errors.publish_year" class="error">
+          {{ errors.publish_year }}
         </div>
       </div>
 
@@ -121,6 +121,21 @@ const saveBook = () => {
         <label for="read">Read?</label>
 
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
+      </div>
+
+      <!-- Conditional based on read status -->
+      <div v-show="form.read" class="flex flex-col items-center justify-center">
+        <label class="mb-2 text-center" for="date_read">
+          When did you read it?
+        </label>
+        <input
+          v-model="form.date_read"
+          class="mb-4 w-60 rounded-md border-none"
+          name="date_read"
+          type="date"
+        />
+
+        <div v-if="errors.date_read" class="error">{{ errors.dateRead }}</div>
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">

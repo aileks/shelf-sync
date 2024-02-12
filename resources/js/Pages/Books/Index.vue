@@ -1,5 +1,5 @@
 <script setup>
-import Modal from "@/Components/Modal.vue";
+import MobileModal from "@/Components/MobileModal.vue";
 import { onMounted, onUnmounted, ref, computed, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
@@ -135,7 +135,7 @@ onUnmounted(() => {
         placeholder="Search Books..."
         type="search"
       />
-      <Modal :isMobile="isMobile" :changeSort="changeSort" />
+      <MobileModal :isMobile="isMobile" :changeSort="changeSort" />
     </div>
 
     <!-- TODO: Extract mobile and desktop views into separate components -->
@@ -157,7 +157,6 @@ onUnmounted(() => {
             <div
               class="flex flex-nowrap justify-center space-x-2 text-center font-bold italic"
             >
-              <span v-show="book.read" class="mr-2">✔️</span>
               {{ book.title }}
             </div>
 
@@ -166,12 +165,28 @@ onUnmounted(() => {
             </div>
 
             <div
+              v-show="book.read && book.date_read"
+              class="pb-2 text-sm font-medium"
+            >
+              Finished on
+              <span class="text-green font-bold">
+                {{
+                  new Date(book.date_read).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                }}
+              </span>
+            </div>
+
+            <div
               class="mt-2 flex items-center justify-around text-sm font-medium text-brown"
             >
               <span class="mx-2 whitespace-nowrap px-2">
                 {{ book.pages }} pgs
               </span>
-              <span class="mx-2 px-2">{{ book.publishYear }}</span>
+              <span class="mx-2 px-2">{{ book.publish_year }}</span>
               <span class="mx-2 whitespace-nowrap px-2">{{ book.genre }}</span>
             </div>
           </div>
@@ -281,7 +296,7 @@ onUnmounted(() => {
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
             >
               <span>{{ sortIcon("read") }}</span>
-              Read?
+              Finished
             </th>
             <th
               @click="changeSort('title')"
@@ -312,10 +327,10 @@ onUnmounted(() => {
               Pages
             </th>
             <th
-              @click="changeSort('publishYear')"
+              @click="changeSort('publish_year')"
               class="px-2 sm:w-auto md:w-auto"
             >
-              <span>{{ sortIcon("publishYear") }}</span>
+              <span>{{ sortIcon("publish_year") }}</span>
               Published
             </th>
             <th class="px-2 sm:w-auto md:w-auto">Modify</th>
@@ -324,7 +339,19 @@ onUnmounted(() => {
           <tbody class="flex-1 divide-y divide-gray-200 bg-white">
             <tr v-for="book in books.data" :key="book.id" class="divide-x">
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
-                <span v-if="book.read">✔️</span>
+                <span class="mx-2" v-if="book.read">✔️</span>
+                <span
+                  class="text-green font-bold"
+                  v-if="book.read && book.date_read"
+                >
+                  {{
+                    new Date(book.date_read).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }}
+                </span>
               </td>
 
               <td class="px-2 italic" data-label="Title">
@@ -344,7 +371,7 @@ onUnmounted(() => {
               </td>
 
               <td data-label="Publish Year">
-                {{ book.publishYear }}
+                {{ book.publish_year }}
               </td>
 
               <td

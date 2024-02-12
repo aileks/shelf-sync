@@ -6,14 +6,14 @@ defineProps({
   changeSort: Function,
 });
 
-const showModal = ref(false);
+const showMobileModal = ref(false);
 const sortOptions = {
   Read: "read",
   Title: "title",
   Author: "author",
   Genre: "genre",
   Pages: "pages",
-  Published: "publishYear",
+  Published: "publish_year",
   "Date Added": "created_at",
 };
 </script>
@@ -21,14 +21,14 @@ const sortOptions = {
 <template>
   <div v-show="isMobile">
     <button
-      @click="showModal = true"
+      @click="showMobileModal = true"
       class="rounded-md bg-brown px-3 py-1 text-neutral-50 shadow-paper"
     >
       Sort
     </button>
 
     <div
-      v-show="showModal"
+      v-show="showMobileModal"
       class="fixed inset-0 bg-neutral-800/80"
       aria-hidden="true"
     ></div>
@@ -40,11 +40,11 @@ const sortOptions = {
       leave-to-class="scale-110 opacity-0"
     >
       <div
-        v-show="showModal"
+        v-show="showMobileModal"
         class="fixed inset-0 z-10 overflow-y-auto"
-        aria-labelledby="modal-title"
+        aria-labelledby="MobileModal-title"
         role="dialog"
-        aria-modal="true"
+        aria-MobileModal="true"
       >
         <div class="flex min-h-screen items-center justify-center px-4 pb-20">
           <div
@@ -53,7 +53,7 @@ const sortOptions = {
             <div class="bg-primary px-4 pb-4 pt-5">
               <h3
                 class="text-xl font-medium leading-6 text-gray-900"
-                id="modal-title"
+                id="MobileModal-title"
               >
                 Sort Books By:
               </h3>
@@ -62,7 +62,7 @@ const sortOptions = {
                 <button
                   v-for="(value, key) in sortOptions"
                   :key="value"
-                  @click="changeSort(value), (showModal = false)"
+                  @click="changeSort(value), (showMobileModal = false)"
                   class="m-2 rounded-md bg-brown px-3 py-1 text-neutral-50 shadow-paper"
                 >
                   {{ key }}
@@ -72,7 +72,7 @@ const sortOptions = {
 
             <div class="flex justify-end bg-primary p-4">
               <button
-                @click="showModal = false"
+                @click="showMobileModal = false"
                 class="rounded-md bg-brown px-3 py-1 text-lg text-neutral-50 shadow-paper"
               >
                 Close

@@ -16,8 +16,9 @@ const form = useForm({
   author: null,
   pages: null,
   genre: "",
-  publishYear: null,
+  publish_year: null,
   read: false,
+  date_read: null,
 });
 
 let isProcessing = ref(false);
@@ -25,6 +26,9 @@ let isProcessing = ref(false);
 const submit = () => {
   // TODO: Find a better way to handle isProcessing value change
   isProcessing.value = true;
+  // if (form.date_read) {
+  //   form.date_read = new Date(form.date_read).toISOString().split("T")[0];
+  // }
   form.post("/books/add");
   isProcessing.value = false;
 };
@@ -41,6 +45,7 @@ const submit = () => {
     </h1>
 
     <form method="POST" @submit.prevent="submit">
+      <!-- Title -->
       <div class="text-md mt-4 flex flex-col space-y-1">
         <label class="text-left" for="title">Title</label>
         <input
@@ -54,6 +59,7 @@ const submit = () => {
         <div v-if="errors.title" class="error">{{ errors.title }}</div>
       </div>
 
+      <!-- Author -->
       <div class="text-md mt-4 flex flex-col space-y-1">
         <label class="text-left" for="author">Author</label>
         <input
@@ -67,6 +73,7 @@ const submit = () => {
         <div v-if="errors.author" class="error">{{ errors.author }}</div>
       </div>
 
+      <!-- Number of Pages -->
       <div class="text-md mt-4 flex flex-col space-y-2">
         <label class="text-left" for="pages">Pages</label>
         <input
@@ -91,13 +98,14 @@ const submit = () => {
 
       <!--Publish Year-->
       <div class="mt-4">
-        <YearSelector v-model="form.publishYear" />
-        <div v-if="errors.publishYear" class="error">
-          {{ errors.publishYear }}
+        <YearSelector v-model="form.publish_year" />
+        <div v-if="errors.publish_year" class="error">
+          {{ errors.publish_year }}
         </div>
       </div>
 
-      <div class="my-6 flex items-center justify-center space-x-2 text-lg">
+      <!-- Read Status -->
+      <div class="mb-4 mt-6 flex items-center justify-center space-x-2 text-lg">
         <input
           v-model="form.read"
           class="rounded text-left"
@@ -109,14 +117,41 @@ const submit = () => {
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
-      <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit" :isProcessing="isProcessing"
-          >Add</StyledButton
-        >
+      <!-- Conditional based on read status -->
+      <div v-show="form.read" class="flex flex-col items-center justify-center">
+        <label class="mb-2 text-center" for="date_read">
+          When did you read it?
+        </label>
+        <input
+          v-model="form.date_read"
+          class="mb-4 w-60 rounded-md border-none"
+          name="date_read"
+          type="date"
+        />
 
-        <StyledButton>
-          <Link href="/books">Go Back</Link>
+        <div v-if="errors.date_read" class="error">{{ errors.dateRead }}</div>
+      </div>
+
+      <div class="mt-6 flex justify-center space-x-8">
+        <StyledButton type="submit" :isProcessing="isProcessing">
+          <span
+            v-if="isProcessing"
+            class="loading loading-spinner loading-sm"
+          ></span>
+          <span v-else>Add</span>
         </StyledButton>
+
+        <Link
+          :disabled="isProcessing"
+          class="mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none disabled:bg-brown/50"
+          href="/books"
+        >
+          <span
+            v-if="isProcessing"
+            class="loading loading-spinner loading-sm"
+          ></span>
+          <span v-else>Go Back</span>
+        </Link>
       </div>
     </form>
   </FormLayout>

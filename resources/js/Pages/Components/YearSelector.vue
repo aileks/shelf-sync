@@ -30,7 +30,7 @@ watch(selectedYear, (newYear) => {
 
 <template>
   <Listbox v-model="selectedYear">
-    <ListboxLabel class="text-left" for="publishYear">
+    <ListboxLabel class="text-left" for="publish_year">
       Publish Year
     </ListboxLabel>
     <div class="relative mt-1">

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -13,6 +14,7 @@ class Book extends Model
     use HasFactory;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected static function boot(): void
@@ -30,8 +32,9 @@ class Book extends Model
         'author',
         'pages',
         'genre',
-        'publishYear',
+        'publish_year',
         'read',
+        'date_read',
     ];
 
     public function user(): BelongsTo
