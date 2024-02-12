@@ -1,15 +1,3 @@
-
-ðŸŒ¼   daisyUI 4.6.2
-â”œâ”€ âœ”ï¸Ž 1 theme added		https://daisyui.com/docs/themes
-â•°â”€ â¤˜… Star daisyUI on GitHub	https://github.com/saadeghi/daisyui
-
-ðŸŒ¼ daisyUI 4.6.2 â”œâ”€ âœ”ï¸Ž 1 theme added https://daisyui.com/docs/themes â•°â”€ â¤ï¸Ž
-Support daisyUI project: https://opencollective.com/daisyui ðŸŒ¼ daisyUI 4.6.2 â”œâ”€
-âœ”ï¸Ž 1 theme added https://daisyui.com/docs/themes â•°â”€ â¤ï¸Ž Support daisyUI
-project: https://opencollective.com/daisyui ðŸŒ¼ daisyUI 4.6.2 â”œâ”€ âœ”ï¸Ž 1 theme
-added https://daisyui.com/docs/themes â•°â”€ â˜… Star daisyUI on GitHub
-https://github.com/saadeghi/daisyui
-
 <script setup>
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
@@ -73,7 +61,7 @@ const handleSubmit = () => {
       submit-text="Login"
       @submit="handleSubmit"
     >
-      <div class="flex items-center justify-between flex-1 mx-4 mt-6">
+      <div class="mx-4 mt-6 flex flex-1 items-center justify-between">
         <div class="flex items-center space-x-2">
           <input v-model="remember" class="rounded" type="checkbox" />
           <label class="text-base text-blue" for="remember">Remember Me</label>
@@ -86,9 +74,9 @@ const handleSubmit = () => {
     </Form>
   </FormLayout>
 
-  <div class="flex justify-center pb-0 mt-4 mb-0">
+  <div class="mb-0 mt-4 flex justify-center pb-0">
     <Link
-      class="text-sm italic font-bold text-blue hover:underline"
+      class="text-sm font-bold italic text-blue hover:underline"
       href="/forgot-password"
     >
       Forgot Password?
@@ -104,7 +92,7 @@ const handleSubmit = () => {
   >
     <div
       v-show="status"
-      class="fixed bottom-0 right-0 max-w-xs m-6 overflow-hidden rounded-lg shadow-lg bg-green"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
       @click="status = null"
     >
       <div class="p-4">

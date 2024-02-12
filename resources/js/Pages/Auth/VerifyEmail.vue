@@ -1,11 +1,3 @@
-
-🌼   daisyUI 4.6.2
-├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
-╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
-
-🌼 daisyUI 4.6.2 ├─ ✔︎ 1 theme added https://daisyui.com/docs/themes ╰─ ★ Star
-daisyUI on GitHub https://github.com/saadeghi/daisyui
-
 <script setup>
 import { computed } from "vue";
 import { useForm } from "@inertiajs/vue3";
