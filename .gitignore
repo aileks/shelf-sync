@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /storage/debugbar
+/storage/logs
 /vendor
 .env
 .env.backup
@@ -18,5 +19,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-.vercel
-.nova
+/.vercel
+/.nova
