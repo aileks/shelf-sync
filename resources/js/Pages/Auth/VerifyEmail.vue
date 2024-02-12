@@ -1,3 +1,11 @@
+
+🌼   daisyUI 4.6.2
+├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+🌼 daisyUI 4.6.2 ├─ ✔︎ 1 theme added https://daisyui.com/docs/themes ╰─ ★ Star
+daisyUI on GitHub https://github.com/saadeghi/daisyui
+
 <script setup>
 import { computed } from "vue";
 import { useForm } from "@inertiajs/vue3";
@@ -30,7 +38,7 @@ const verificationLinkSent = computed(
     </div>
 
     <div
-      class="mb-4 text-sm font-medium text-green-600"
+      class="mb-4 text-sm font-medium text-green"
       v-if="verificationLinkSent"
     >
       A new verification link has been sent to the email address you provided

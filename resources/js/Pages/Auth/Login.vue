@@ -1,3 +1,15 @@
+
+ðŸŒ¼   daisyUI 4.6.2
+â”œâ”€ âœ”ï¸Ž 1 theme added		https://daisyui.com/docs/themes
+â•°â”€ â¤˜… Star daisyUI on GitHub	https://github.com/saadeghi/daisyui
+
+ðŸŒ¼ daisyUI 4.6.2 â”œâ”€ âœ”ï¸Ž 1 theme added https://daisyui.com/docs/themes â•°â”€ â¤ï¸Ž
+Support daisyUI project: https://opencollective.com/daisyui ðŸŒ¼ daisyUI 4.6.2 â”œâ”€
+âœ”ï¸Ž 1 theme added https://daisyui.com/docs/themes â•°â”€ â¤ï¸Ž Support daisyUI
+project: https://opencollective.com/daisyui ðŸŒ¼ daisyUI 4.6.2 â”œâ”€ âœ”ï¸Ž 1 theme
+added https://daisyui.com/docs/themes â•°â”€ â˜… Star daisyUI on GitHub
+https://github.com/saadeghi/daisyui
+
 <script setup>
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";

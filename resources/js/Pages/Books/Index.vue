@@ -1,3 +1,11 @@
+
+🌼   daisyUI 4.6.2
+├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+🌼 daisyUI 4.6.2 ├─ ✔︎ 1 theme added https://daisyui.com/docs/themes ╰─ ★ Star
+daisyUI on GitHub https://github.com/saadeghi/daisyui
+
 <script setup>
 import MobileModal from "@/Components/MobileModal.vue";
 import { onMounted, onUnmounted, ref, computed, watch } from "vue";
