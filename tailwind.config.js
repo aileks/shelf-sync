@@ -1,5 +1,6 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 import forms from "@tailwindcss/forms";
+import daisyui from "daisyui";
 
 /** @type {import("tailwindcss").Config} */
 export default {
@@ -21,7 +22,7 @@ export default {
         brown: "#69442e",
         bronze: "#9d8461",
         sandy: "#cfbda6",
-        "light-brown": "#ceb68b",
+        tan: "#ceb68b",
         blue: "#2e4269",
         red: "#9e442e",
       },
@@ -30,6 +31,9 @@ export default {
       },
     },
   },
-
-  plugins: [forms],
+  plugins: [forms, daisyui],
+  daisyui : {
+    styled: true,
+    themes: ['light']
+  }
 };

@@ -1,12 +1,13 @@
 <script setup>
 defineProps({
-  show: Boolean,
+  isProcessing: Boolean,
 });
 </script>
 
 <template>
   <button
-    class="bg-brown hover:bg-brown/80 hover:shadow-none shadow-paper transition-all duration-300 text-neutral-50 py-1 px-2.5 mx-1 rounded-md"
+    :disabled="isProcessing"
+    class="mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none disabled:bg-brown/50"
   >
     <slot />
   </button>

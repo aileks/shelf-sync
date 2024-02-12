@@ -2,11 +2,13 @@
 import Form from "@/Components/Form.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
 import StyledButton from "@/Components/StyledButton.vue";
-import { ref, watch } from "vue";
+import { ref, watch, defineEmits } from "vue";
 
 const props = defineProps({
   status: String,
 });
+
+let isProcessing = ref(false);
 
 const formFields = [
   {
@@ -27,6 +29,8 @@ const formFields = [
 
 const status = ref(props.status);
 
+const remember = ref(false);
+
 watch(status, (newStatus) => {
   if (newStatus) {
     setTimeout(() => {
@@ -34,34 +38,50 @@ watch(status, (newStatus) => {
     }, 3000);
   }
 });
+
+const emit = defineEmits(["submit"]);
+const handleSubmit = () => {
+  isProcessing.value = true;
+  emit("submit");
+  isProcessing.value = false;
+};
 </script>
 
 <template>
   <Head title="Login" />
 
   <FormLayout>
-    <h2 class="text-3xl border-bronze border-b pb-1.5">Log In</h2>
-
+    <h2 class="border-b border-bronze pb-1.5 text-3xl">Log In</h2>
 
     <Form
       :form-fields="formFields"
-      submit-text="Login"
+      :remember="remember"
       cancel-url="/"
       post-url="/login"
-      @submit="$emit('submit')"
+      submit-text="Login"
+      @submit="handleSubmit"
     >
-      <div class="flex items-center justify-between mx-4 mt-6">
-        <Link
-          href="/forgot-password"
-          class="text-blue text-sm italic hover:underline"
-        >
-          Forgot Password?
-        </Link>
+      <div class="mx-4 mt-6 flex flex-1 items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <input v-model="remember" class="rounded" type="checkbox" />
+          <label class="text-base text-blue" for="remember">Remember Me</label>
+        </div>
 
-        <StyledButton type="submit">Login</StyledButton>
+        <StyledButton type="submit" :isProcessing="isProcessing"
+          >Log In</StyledButton
+        >
       </div>
     </Form>
   </FormLayout>
+
+  <div class="mb-0 mt-4 flex justify-center pb-0">
+    <Link
+      class="text-sm font-bold italic text-blue hover:underline"
+      href="/forgot-password"
+    >
+      Forgot Password?
+    </Link>
+  </div>
 
   <Transition
     enter-active-class="transition-opacity duration-700 ease-in-out"
@@ -70,9 +90,13 @@ watch(status, (newStatus) => {
     leave-from-class="transform opacity-100"
     leave-to-class="transform opacity-0"
   >
-    <div class="fixed bottom-0 right-0 m-6 bg-emerald-700 rounded-lg shadow-lg overflow-hidden max-w-xs" v-show="status" @click="status = null">
+    <div
+      v-show="status"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-emerald-700 shadow-lg"
+      @click="status = null"
+    >
       <div class="p-4">
-        <p class="text-neutral-50 ">{{ status }}</p>
+        <p class="text-neutral-50">{{ status }}</p>
       </div>
     </div>
   </Transition>

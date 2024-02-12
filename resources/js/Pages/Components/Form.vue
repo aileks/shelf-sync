@@ -1,20 +1,24 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { inject } from "vue";
 
 const props = defineProps({
   formFields: Array,
   postUrl: String,
+  remember: Boolean,
 });
 
-const form = useForm(
-  Object.fromEntries(props.formFields.map((field) => [field.model, null])),
-);
+const form = useForm({
+  ...Object.fromEntries(props.formFields.map((field) => [field.model, null])),
+  remember: props.remember,
+});
 
 const submit = () => {
-  console.log("submitting form");
-  form.post(props.postUrl, {
+  const options = {
     preserveState: true,
-  });
+  };
+
+  form.post(props.postUrl, options);
 };
 </script>
 
@@ -25,20 +29,23 @@ const submit = () => {
       :key="index"
       class="flex flex-col"
     >
-      <label class="mt-3 mb-1 ml-1" :for="field.label"
+      <label :for="field.label" class="mb-1 ml-1 mt-3"
         >{{ field.label }}:</label
       >
 
       <input
         v-model="form[field.model]"
-        class="border-bronze border rounded-md"
         :name="field.name"
         :placeholder="field.placeholder"
         :type="field.type"
+        class="rounded-md border border-bronze"
         required
       />
 
-      <div class="error mt-4" v-if="form.errors[field.model]">
+      <div
+        v-if="form.errors[field.model]"
+        class="error mt-3 text-center text-sm italic text-red"
+      >
         {{ form.errors[field.model] }}
       </div>
     </div>
@@ -46,11 +53,3 @@ const submit = () => {
     <slot />
   </form>
 </template>
-
-<style scoped>
-.error {
-  color: darkred;
-  font-size: 14px;
-  font-style: italic;
-}
-</style>

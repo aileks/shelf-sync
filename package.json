@@ -8,19 +8,25 @@
   "devDependencies": {
     "@inertiajs/vue3": "^1.0.14",
     "@tailwindcss/forms": "^0.5.3",
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^20.11.17",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.12",
     "axios": "^1.6.4",
     "laravel-vite-plugin": "^1.0.0",
     "postcss": "^8.4.31",
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.2.1",
+    "typescript": "^5.3.3",
     "vite": "^5.0.0",
     "vue": "^3.4.0"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.19",
+    "@heroicons/vue": "^2.1.1",
     "@inertiajs/inertia-vue3": "^0.6.0",
+    "daisyui": "latest",
     "install": "^0.13.0",
     "lodash": "^4.17.21"
   }

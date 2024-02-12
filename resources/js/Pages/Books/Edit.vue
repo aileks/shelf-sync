@@ -1,21 +1,49 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import { router } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 import FormLayout from "@/Layouts/FormLayout.vue";
 import StyledButton from "@/Components/StyledButton.vue";
 import genreData from "../../../data/genres.json";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxButton,
+  ComboboxOptions,
+  ComboboxOption,
+  Listbox,
+  ListboxLabel,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+  TransitionRoot,
+  ComboboxLabel,
+} from "@headlessui/vue";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 
+let isProcessing = ref(false);
+
+// Genre data for ComboBox
 const genres = genreData.genres;
+const genreQuery = ref("");
+const filteredGenres = computed(() =>
+  genreQuery.value === ""
+    ? genres
+    : genres.filter((genre) => {
+        return genre.toLowerCase().includes(genreQuery.value.toLowerCase());
+      }),
+);
 
 const props = defineProps({
   book: Object,
   errors: Object,
 });
-const title = props.book.title;
-const author = props.book.author;
 
-const book = ref({
+const title = ref(props.book.title);
+const author = ref(props.book.author);
+
+const form = useForm({
   ...props.book,
+  read: Boolean(props.book.read),
 });
 
 const reversedYears = Array.from(
@@ -23,54 +51,24 @@ const reversedYears = Array.from(
   (_, i) => i + 1800,
 ).reverse();
 
-const isRead = computed({
-  get: () => Boolean(book.value.read),
-  set: (value) => (book.value.read = value),
-});
-
-const showGenresDropdown = ref(false);
-const showYearDropdown = ref(false);
-const genresContainer = ref(null);
-const publishYearContainer = ref(null);
-
-const closeDropdowns = (event) => {
-  if (genresContainer.value && !genresContainer.value.contains(event.target)) {
-    showGenresDropdown.value = false;
-  }
-
-  if (
-    publishYearContainer.value &&
-    !publishYearContainer.value.contains(event.target)
-  ) {
-    showYearDropdown.value = false;
-  }
-};
-
-onMounted(() => {
-  document.addEventListener("click", closeDropdowns);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("click", closeDropdowns);
-});
-
 const saveBook = () => {
-  book.value.read = document.querySelector('input[name="read"]').checked;
-
-  router.patch(`/books/edit/${book.value.id}`, {
-    data: book.value,
-  });
+  // TODO: Find a better way to handle isProcessing value change
+  isProcessing.value = true;
+  form.patch(`/books/edit/${form.id}`);
+  isProcessing.value = false;
 };
 </script>
 
 <template>
+  <!-- TODO: Clean up file -->
+
   <Head title="Edit Your Book" />
 
   <FormLayout>
-    <header class="border-bronze pb-1 mb-1 border-b">
+    <header class="mb-1 border-b border-bronze pb-1">
       <h2 id="box-text" class="text-2xl">
         Editing:
-        <span class="italic font-bold underline">
+        <span class="font-bold italic underline">
           {{ title }}
         </span>
       </h2>
@@ -82,11 +80,11 @@ const saveBook = () => {
     </header>
 
     <form @submit.prevent="saveBook">
-      <div class="flex flex-col mt-4 space-y-1 text-lg">
+      <div class="mt-4 flex flex-col space-y-1 text-lg">
         <label class="text-left" for="title">Title</label>
         <input
-          v-model="book.title"
-          class="border-bronze text-left border rounded-md"
+          v-model="form.title"
+          class="rounded-md border border-bronze text-left"
           name="title"
           placeholder="Title"
           required
@@ -95,11 +93,11 @@ const saveBook = () => {
         <div v-if="errors.title" class="error">{{ errors.title }}</div>
       </div>
 
-      <div class="flex flex-col mt-4 space-y-1 text-lg">
+      <div class="mt-4 flex flex-col space-y-1 text-lg">
         <label class="text-left" for="author">Author</label>
         <input
-          v-model="book.author"
-          class="border-bronze text-left border rounded-md"
+          v-model="form.author"
+          class="rounded-md border border-bronze text-left"
           name="author"
           placeholder="Author"
           required
@@ -108,150 +106,199 @@ const saveBook = () => {
         <div v-if="errors.author" class="error">{{ errors.author }}</div>
       </div>
 
-      <div class="flex flex-col mt-4 space-y-1 text-lg">
+      <div class="mt-4 flex flex-col space-y-1 text-lg">
         <label class="text-left" for="pages">Pages</label>
         <input
-          v-model="book.pages"
-          class="border-bronze text-left border rounded-md"
+          v-model="form.pages"
+          class="rounded-md border border-bronze text-left"
+          max="3000"
+          min="1"
           name="pages"
           placeholder="Pages"
           type="number"
-          min="1"
-          max="3000"
         />
         <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
       </div>
 
+      <!-- TODO: Extract component -->
       <!--Genres-->
-      <div class="flex flex-col mt-4 space-y-2" ref="genresContainer">
-        <label class="text-left" for="genre">Genre</label>
-        <div class="relative mt-2">
-          <button
-            @click="showGenresDropdown = !showGenresDropdown"
-            type="button"
-            class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-neutral-800 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
-            aria-haspopup="listbox"
-            aria-expanded="true"
-            aria-labelledby="listbox-label"
-          >
-            <span class="flex items-center">
-              <span class="ml-3 block truncate text-base">
-                {{ book.genre || "Whats the genre?" }}
-              </span>
-            </span>
-            <span
-              class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2"
+      <div class="mt-4">
+        <Combobox v-model="form.genre">
+          <ComboboxLabel class="text-left" for="genre">Genre </ComboboxLabel>
+          <div class="relative mt-1">
+            <div
+              class="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-400 sm:text-sm"
             >
-            </span>
-          </button>
-          <ul
-            v-show="showGenresDropdown"
-            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-            tabindex="-1"
-            role="listbox"
-            aria-labelledby="listbox-label"
-          >
-            <li
-              v-for="genre in genres"
-              :key="genre"
-              class="text-neutral-800 relative cursor-default select-none py-2 pl-3 pr-9"
-              role="option"
-              @click="
-                book.genre = genre;
-                showGenresDropdown = false;
-              "
-            >
-              <div class="flex items-center rounded-md py-1 hover:bg-primary">
-                <span class="font-normal ml-3 block truncate">{{ genre }}</span>
-              </div>
-              <span
-                v-if="book.genre === genre"
-                class="text-neutral-600 absolute inset-y-0 right-0 flex items-center pr-4"
+              <ComboboxInput
+                class="text-md w-full border-none py-2 pl-3 pr-10 leading-5 focus:ring-0"
+                placeholder="What genre is it?"
+                @change="genreQuery = $event.target.value"
+              />
+              <ComboboxButton
+                class="absolute inset-y-0 right-0 flex items-center pr-2"
               >
-              </span>
-            </li>
-          </ul>
-        </div>
+                <ChevronUpDownIcon
+                  aria-hidden="true"
+                  class="h-5 w-5 text-gray-400"
+                />
+              </ComboboxButton>
+            </div>
+
+            <TransitionRoot
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+              @after-leave="genreQuery = ''"
+            >
+              <ComboboxOptions
+                class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+              >
+                <div
+                  v-if="filteredGenres.length === 0 && genreQuery !== ''"
+                  class="relative cursor-default select-none px-4 py-2 text-gray-700"
+                >
+                  Nothing found.
+                </div>
+
+                <ComboboxOption
+                  v-for="genre in filteredGenres"
+                  :key="genre.id"
+                  v-slot="{ selected, active }"
+                  :value="genre"
+                  as="template"
+                >
+                  <li
+                    :class="{
+                      'bg-brown text-white': active,
+                      'text-black': !active,
+                    }"
+                    class="relative cursor-default select-none py-2 pl-10 pr-4"
+                  >
+                    <span
+                      :class="{
+                        'font-medium': selected,
+                        'font-normal': !selected,
+                      }"
+                      class="block truncate"
+                    >
+                      {{ genre }}
+                    </span>
+                    <span
+                      v-if="selected"
+                      :class="{
+                        'text-white': active,
+                        'text-blue': !active,
+                      }"
+                      class="absolute inset-y-0 left-0 flex items-center pl-3"
+                    >
+                      <CheckIcon aria-hidden="true" class="h-5 w-5" />
+                    </span>
+                  </li>
+                </ComboboxOption>
+              </ComboboxOptions>
+            </TransitionRoot>
+          </div>
+        </Combobox>
       </div>
 
+      <!-- TODO: Extract component -->
       <!--Publish Year-->
-      <div class="flex flex-col mt-4 space-y-2" ref="publishYearContainer">
-        <label class="text-left" for="publishYear">Publish Year</label>
-        <div class="relative mt-2">
-          <button
-            @click="showYearDropdown = !showYearDropdown"
-            type="button"
-            class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-neutral-800 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
-            aria-haspopup="listbox"
-            aria-expanded="true"
-            aria-labelledby="listbox-label"
-          >
-            <span class="flex items-center">
-              <span class="ml-3 block truncate text-base">
-                {{ book.publishYear || "When was it published?" }}
-              </span>
-            </span>
-            <span
-              class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2"
+      <div class="mt-4">
+        <Listbox v-model="form.publishYear">
+          <ListboxLabel class="text-left" for="publishYear">
+            Publish Year
+          </ListboxLabel>
+          <div class="relative mt-1">
+            <ListboxButton
+              class="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-400 sm:text-sm"
             >
-            </span>
-          </button>
-          <ul
-            v-show="showYearDropdown"
-            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-            tabindex="-1"
-            role="listbox"
-            aria-labelledby="listbox-label"
-          >
-            <li
-              v-for="year in reversedYears"
-              :key="year"
-              class="text-neutral-800 relative cursor-default py-2 pl-3 pr-9"
-              role="option"
-              @click="
-                book.publishYear = year;
-                showYearDropdown = false;
-              "
-            >
-              <div class="flex items-center rounded-md py-1 hover:bg-primary">
-                <span class="font-normal ml-3 block truncate">{{ year }}</span>
-              </div>
               <span
-                v-if="book.publishYear === year"
-                class="text-neutral-600 absolute inset-y-0 right-0 flex items-center pr-4"
+                :class="{ 'text-gray-500': !form.publishYear }"
+                class="block truncate text-base"
               >
+                {{
+                  form.publishYear ? form.publishYear : "When was it published"
+                }}
               </span>
-            </li>
-          </ul>
-        </div>
+              <span
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+              >
+                <ChevronUpDownIcon
+                  aria-hidden="true"
+                  class="h-5 w-5 text-gray-400"
+                />
+              </span>
+            </ListboxButton>
+
+            <transition
+              leave-active-class="transition duration-100 ease-in"
+              leave-from-class="opacity-100"
+              leave-to-class="opacity-0"
+            >
+              <ListboxOptions
+                class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+              >
+                <ListboxOption
+                  v-for="year in reversedYears"
+                  :key="year.id"
+                  v-slot="{ active, selected }"
+                  :value="year"
+                  as="template"
+                >
+                  <li
+                    :class="[
+                      active ? 'bg-brown text-neutral-50' : 'text-black',
+                      'relative cursor-default select-none py-2 pl-10 pr-4',
+                    ]"
+                  >
+                    <span
+                      :class="[
+                        selected ? 'font-medium' : 'font-normal',
+                        'block truncate',
+                      ]"
+                      >{{ year }}</span
+                    >
+                    <span
+                      v-if="selected"
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue"
+                    >
+                      <CheckIcon
+                        :class="{ 'text-neutral-50': active }"
+                        aria-hidden="true"
+                        class="h-5 w-5"
+                      />
+                    </span>
+                  </li>
+                </ListboxOption>
+              </ListboxOptions>
+            </transition>
+          </div>
+        </Listbox>
       </div>
 
-      <div class="flex items-center justify-center my-6 space-x-6 text-lg">
-        <label for="read">Read?</label>
+      <div class="my-6 flex items-center justify-center space-x-2 text-lg">
         <input
-          v-model="isRead"
-          class="border-bronze text-left border rounded-md"
+          v-model="form.read"
+          class="rounded border border-bronze text-left"
           name="read"
           type="checkbox"
         />
+        <label for="read">Read?</label>
+
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
-      <div class="flex justify-center mt-6 space-x-8">
-        <StyledButton type="submit"> Save</StyledButton>
+      <div class="mt-6 flex justify-center space-x-8">
+        <StyledButton type="submit" isProcessing="isProcessing"
+          >Save</StyledButton
+        >
 
         <StyledButton>
-          <Link href="/books"> Cancel</Link>
+          <Link href="/books">Cancel</Link>
         </StyledButton>
       </div>
     </form>
   </FormLayout>
 </template>
 
-<style scoped>
-.error {
-  color: darkred;
-  font-size: 14px;
-  font-style: italic;
-}
-</style>
+<style scoped></style>

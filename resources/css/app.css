@@ -11,15 +11,9 @@
   min-width: 0;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  @apply text-neutral-800 bg-primary;
-}
-
-select {
-  @apply text-lg;
+.error {
+  @apply text-red;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
 }

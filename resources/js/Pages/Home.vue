@@ -1,21 +1,24 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { ArrowUpRightIcon } from "@heroicons/vue/20/solid";
 
 const animate = ref(false);
 
 onMounted(() => {
   animate.value = true;
 });
+
+const isHovered = ref(false);
 </script>
 
 <template>
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div class="relative h-[80vh] sm:h-[60vh] md:h-[70vh] w-auto">
+    <div class="relative h-[60vh] w-auto sm:h-[40vh] md:h-[50vh]">
       <img
         src="/library.jpeg"
-        class="absolute top-0 left-0 h-full w-full object-cover rounded-md"
+        class="absolute left-0 top-0 h-full w-full rounded-md object-cover"
       />
       <Transition
         enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -23,34 +26,56 @@ onMounted(() => {
         leave-active-class="transition-opacity duration-700 ease-in-out"
         leave-to-class="opacity-0"
       >
-        <main
+        <header
           v-show="animate"
-          class="absolute top-0 left-0 h-full w-full flex flex-col justify-center text-neutral-50 items-center"
+          class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center text-neutral-50"
         >
           <div
-            class="bg-black/50 rounded-md p-8 w-3/4 sm:w-1/2 md:1/3 lg:1/4 xl:w-1/5"
+            class="rounded-md bg-black/50 p-8 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
           >
             <h1 class="text-3xl font-bold">Welcome to Quillify!</h1>
 
-            <h2 class="mt-8 pt-8 text-xl font-semibold">
-              Your personal library.
-            </h2>
+            <h2 class="mt-8 text-xl font-semibold">Your personal library.</h2>
           </div>
-        </main>
+        </header>
       </Transition>
     </div>
 
+    <main>
+      <p class="mt-4 text-center text-lg">
+        Quillify is a simple and minimal way to keep track of your TBR list!
+      </p>
+
+      <span
+        class="mt-2 flex items-center justify-center text-center text-base sm:flex-wrap"
+      >
+        <div class="flex flex-wrap justify-center">
+          Currently in alpha. Please report any issues on&nbsp;
+          <Link
+            @mouseover="isHovered = true"
+            @mouseleave="isHovered = false"
+            class="flex items-center text-sm text-blue hover:underline"
+            href="https://github.com/aileks/quillify/"
+          >
+            GitHub.
+            <ArrowUpRightIcon
+              class="h-4 w-4"
+              :class="{
+                '-translate-y-0.5 translate-x-0.5 transform transition-transform duration-150':
+                  isHovered,
+              }"
+            />
+          </Link>
+        </div>
+      </span>
+    </main>
+
     <div class="flex justify-center">
-      <footer class="absolute text-sm left-0 right-0 bottom-0 pb-1 mb-1">
-        Made with 👩‍💻 by
-        <Link
-          href="https://github.com/aileks/quillify"
-          class="hover:underline font-medium text-blue"
-          >Aaliyah
-        </Link>
+      <footer class="absolute bottom-0 mb-1 pb-1 text-xs">
+        <p class="text-center">
+          &copy; 2024 Aaliyah Harper. All rights reserved.
+        </p>
       </footer>
     </div>
   </Layout>
 </template>
-
-<style scoped></style>

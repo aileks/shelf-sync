@@ -1,3 +1,4 @@
+// TODO: Migrate to TypeScript
 import "./bootstrap";
 import "../css/app.css";
 
