@@ -3,6 +3,7 @@ import MobileModal from "@/Components/MobileModal.vue";
 import { onMounted, onUnmounted, ref, computed, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
+import { CheckIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({
   books: Object,
@@ -169,7 +170,7 @@ onUnmounted(() => {
               class="pb-2 text-sm font-medium"
             >
               Finished on
-              <span class="text-green font-bold">
+              <span class="font-bold text-green">
                 {{
                   new Date(book.date_read).toLocaleDateString(undefined, {
                     year: "numeric",
@@ -339,19 +340,23 @@ onUnmounted(() => {
           <tbody class="flex-1 divide-y divide-gray-200 bg-white">
             <tr v-for="book in books.data" :key="book.id" class="divide-x">
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
-                <span class="mx-2" v-if="book.read">✔️</span>
-                <span
-                  class="text-green font-bold"
-                  v-if="book.read && book.date_read"
-                >
-                  {{
-                    new Date(book.date_read).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })
-                  }}
-                </span>
+                <div class="flex items-center justify-center">
+                  <span v-if="book.read && !book.date_read">
+                    <CheckIcon class="h-6 w-6 text-green" />
+                  </span>
+                  <span
+                    class="font-bold text-green"
+                    v-if="book.read && book.date_read"
+                  >
+                    {{
+                      new Date(book.date_read).toLocaleDateString(undefined, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                    }}
+                  </span>
+                </div>
               </td>
 
               <td class="px-2 italic" data-label="Title">
@@ -432,7 +437,7 @@ onUnmounted(() => {
   >
     <div
       v-show="success"
-      class="bg-green fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg shadow-lg"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
       @click="success = null"
     >
       <div class="p-4">

@@ -26,9 +26,6 @@ let isProcessing = ref(false);
 const submit = () => {
   // TODO: Find a better way to handle isProcessing value change
   isProcessing.value = true;
-  // if (form.date_read) {
-  //   form.date_read = new Date(form.date_read).toISOString().split("T")[0];
-  // }
   form.post("/books/add");
   isProcessing.value = false;
 };
@@ -83,6 +80,7 @@ const submit = () => {
           min="1"
           name="pages"
           placeholder="How many pages?"
+          required
           type="number"
         />
         <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
