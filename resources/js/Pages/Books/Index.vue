@@ -411,7 +411,7 @@ onUnmounted(() => {
   >
     <div
       v-show="success"
-      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-emerald-600 shadow-lg"
+      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
       @click="success = null"
     >
       <div class="p-4">
