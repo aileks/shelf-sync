@@ -109,15 +109,18 @@ watch(
   }, 300),
 );
 
-onMounted(() => {
-  window.addEventListener("resize", updateIsMobile);
+onMounted(
+  () => {
+    window.addEventListener("resize", updateIsMobile);
 
-  if (success) {
-    setTimeout(() => {
-      success.value = null;
-    }, 5000);
-  }
-});
+    if (success) {
+      setTimeout(() => {
+        success.value = null;
+      }, 5000);
+    }
+  },
+  { passive: true },
+);
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateIsMobile);
@@ -125,6 +128,8 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <!-- TODO: Extract mobile and desktop views into separate components -->
+
   <Head title="Books" />
 
   <Layout>
@@ -194,7 +199,8 @@ onUnmounted(() => {
           </div>
         </li>
       </ul>
-      <!-- Pagination  -->
+
+      <!-- Mobile Pagination  -->
       <div
         class="flex w-full items-center justify-around bg-brown py-2 text-center"
       >
@@ -370,7 +376,7 @@ onUnmounted(() => {
           </tbody>
         </table>
 
-        <!-- Pagination  -->
+        <!-- Desktop Pagination  -->
         <div class="bg-brown py-2 text-neutral-50">
           <Component
             :is="link.url ? 'Link' : 'span'"

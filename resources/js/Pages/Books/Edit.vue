@@ -52,6 +52,7 @@ const reversedYears = Array.from(
 ).reverse();
 
 const saveBook = () => {
+  // TODO: Find a better way to handle isProcessing value change
   isProcessing.value = true;
   form.patch(`/books/edit/${form.id}`);
   isProcessing.value = false;
@@ -59,6 +60,8 @@ const saveBook = () => {
 </script>
 
 <template>
+  <!-- TODO: Clean up file -->
+
   <Head title="Edit Your Book" />
 
   <FormLayout>
@@ -117,6 +120,7 @@ const saveBook = () => {
         <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
       </div>
 
+      <!-- TODO: Extract component -->
       <!--Genres-->
       <div class="mt-4">
         <Combobox v-model="form.genre">
@@ -197,6 +201,7 @@ const saveBook = () => {
         </Combobox>
       </div>
 
+      <!-- TODO: Extract component -->
       <!--Publish Year-->
       <div class="mt-4">
         <Listbox v-model="form.publishYear">

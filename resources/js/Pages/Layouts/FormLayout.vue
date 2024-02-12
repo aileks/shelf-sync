@@ -6,9 +6,9 @@ import NavBar from "@/Components/NavBar.vue";
   <NavBar />
 
   <main>
-    <div class="flex items-center text-left mx-2 justify-center mt-16">
+    <div class="mx-2 mt-16 flex items-center justify-center text-left">
       <div
-        class="bg-sandy p-8 w-[400px] text-lg rounded-lg border border-bronze shadow-paper"
+        class="w-[400px] rounded-lg border border-bronze bg-sandy p-8 text-lg shadow-paper"
       >
         <slot />
       </div>

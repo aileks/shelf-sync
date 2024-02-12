@@ -8,21 +8,21 @@
       <div
         class="flex flex-col justify-center overflow-hidden rounded-md sm:w-full md:w-full lg:w-1/3"
       >
-        <h2 class="text-2xl font-bold text-center bg-bronze text-neutral-50">
+        <h2 class="bg-bronze text-center text-2xl font-bold text-neutral-50">
           Stats
         </h2>
         <table class="divide-y">
           <tr class="divide-x">
-            <th class="w-1/2 pl-2 text-left bg-tan">Total Books:</th>
-            <td class="pr-2 text-right bg-sandy">37</td>
+            <th class="w-1/2 bg-tan pl-2 text-left">Total Books:</th>
+            <td class="bg-sandy pr-2 text-right">37</td>
           </tr>
           <tr class="divide-x">
-            <th class="pl-2 text-left bg-tan">Books Read This Year:</th>
-            <td class="pr-2 text-right bg-sandy">4</td>
+            <th class="bg-tan pl-2 text-left">Books Read This Year:</th>
+            <td class="bg-sandy pr-2 text-right">4</td>
           </tr>
           <tr class="divide-x">
-            <th class="pl-2 text-left bg-tan">Most Read Genre:</th>
-            <td class="pr-2 text-right bg-sandy">Horror</td>
+            <th class="bg-tan pl-2 text-left">Most Read Genre:</th>
+            <td class="bg-sandy pr-2 text-right">Horror</td>
           </tr>
         </table>
       </div>

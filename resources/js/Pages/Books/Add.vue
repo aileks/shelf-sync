@@ -54,6 +54,7 @@ const reversedYears = Array.from(
 ).reverse();
 
 const submit = () => {
+  // TODO: Find a better way to handle isProcessing value change
   isProcessing.value = true;
   form.post("/books/add");
   isProcessing.value = false;
@@ -61,6 +62,8 @@ const submit = () => {
 </script>
 
 <template>
+  <!-- TODO: Clean up file -->
+
   <Head title="Add a Book" />
 
   <FormLayout>
@@ -109,6 +112,7 @@ const submit = () => {
         <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
       </div>
 
+      <!-- TODO: Extract component -->
       <!--Genres-->
       <div class="mt-4">
         <Combobox v-model="form.genre">
@@ -192,6 +196,7 @@ const submit = () => {
         </div>
       </div>
 
+      <!-- TODO: Extract component -->
       <!--Publish Year-->
       <div class="mt-4">
         <Listbox v-model="form.publishYear">
