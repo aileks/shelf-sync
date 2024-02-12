@@ -109,18 +109,15 @@ watch(
   }, 300),
 );
 
-onMounted(
-  () => {
-    window.addEventListener("resize", updateIsMobile);
+onMounted(() => {
+  window.addEventListener("resize", updateIsMobile);
 
-    if (success) {
-      setTimeout(() => {
-        success.value = null;
-      }, 5000);
-    }
-  },
-  { passive: true },
-);
+  if (success) {
+    setTimeout(() => {
+      success.value = null;
+    }, 3000);
+  }
+});
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateIsMobile);
@@ -128,8 +125,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- TODO: Extract mobile and desktop views into separate components -->
-
   <Head title="Books" />
 
   <Layout>
@@ -144,6 +139,7 @@ onUnmounted(() => {
       <Modal :isMobile="isMobile" :changeSort="changeSort" />
     </div>
 
+    <!-- TODO: Extract mobile and desktop views into separate components -->
     <!-- Mobile View -->
     <div
       v-show="isMobile"
@@ -411,7 +407,7 @@ onUnmounted(() => {
   >
     <div
       v-show="success"
-      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-emerald-600 shadow-lg"
+      class="bg-green fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg shadow-lg"
       @click="success = null"
     >
       <div class="p-4">

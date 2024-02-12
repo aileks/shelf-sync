@@ -25,6 +25,7 @@ export default {
         tan: "#ceb68b",
         blue: "#2e4269",
         red: "#9e442e",
+        green: "#608c6e",
       },
       fontFamily: {
         serif: ["Fraunces", ...defaultTheme.fontFamily.serif],
@@ -32,8 +33,8 @@ export default {
     },
   },
   plugins: [forms, daisyui],
-  daisyui : {
+  daisyui: {
     styled: true,
-    themes: ['light']
-  }
+    themes: ["light"],
+  },
 };
