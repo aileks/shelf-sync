@@ -108,10 +108,14 @@ class BookController extends Controller
         return to_route('books');
     }
 
-    public function destroy(Request $request, Book $book)
+    public function destroy(Book $book)
     {
         $book->delete();
+        $books = auth()->user()->books()->get();
 
-        return to_route('books');
+        return Inertia::render('Books/Index', [
+            'books' => $books,
+            'success' => session()->flash('success', 'Book successfully deleted.'),
+        ]);
     }
 }

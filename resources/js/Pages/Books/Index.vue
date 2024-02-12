@@ -81,10 +81,9 @@ const deleteBook = (id) => {
       }
     },
     onSuccess: () => {
-      success.value = "Book successfully deleted.";
-      setTimeout(() => {
-        success.value = null;
-      }, 3000);
+      router.get("/books", {
+        page: books.value.current_page,
+      });
     },
   });
 };
@@ -132,7 +131,7 @@ onUnmounted(() => {
       <input
         id="search"
         v-model="search"
-        class="w-60 rounded-md border-bronze"
+        class="rounded-md border-bronze sm:w-[80%] md:w-[60%] lg:w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -360,13 +359,12 @@ onUnmounted(() => {
                   Edit
                 </Link>
 
-                <Link
+                <button
                   class="inline-block text-red hover:underline"
-                  href="#"
                   @click.prevent="deleteBook(book.id)"
                 >
                   Delete
-                </Link>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -418,6 +416,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/** TODO: Change to tailwind classes */
 #search {
   position: relative;
   padding-left: 32px;
@@ -427,11 +426,5 @@ onUnmounted(() => {
   background-position: left 10px center;
   background-size: 18px 18px;
   max-width: 600px;
-}
-
-@media (max-width: 640px) {
-  #search {
-    width: 80%;
-  }
 }
 </style>
