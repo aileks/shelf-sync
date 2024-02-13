@@ -130,9 +130,10 @@ onUnmounted(() => {
   <Layout>
     <div class="flex items-center justify-around">
       <input
+        v-show="books.data"
         id="search"
         v-model="search"
-        class="rounded-md border-bronze sm:w-[80%] md:w-[60%] lg:w-60"
+        class="rounded-md border-bronze shadow-paper sm:w-[80%] md:w-[60%] lg:w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -288,7 +289,7 @@ onUnmounted(() => {
           <h2 class="text-xl">No books found.</h2>
         </div>
 
-        <table v-else class="w-full max-w-screen-xl table-auto">
+        <table v-else class="w-full table-auto">
           <thead
             class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
           >
@@ -379,11 +380,7 @@ onUnmounted(() => {
                 {{ book.publish_year }}
               </td>
 
-              <td
-                :class="!isMobile ? 'space-x-2' : ''"
-                class="px-2"
-                data-label="Modify"
-              >
+              <td class="px-2 sm:space-x-0 md:space-x-1" data-label="Modify">
                 <Link
                   :href="`/books/edit/${book.id}`"
                   class="inline-block text-blue hover:underline"
@@ -430,21 +427,17 @@ onUnmounted(() => {
     </div>
   </Layout>
 
-  <Transition
-    enter-active-class="transition-opacity duration-200 ease-in-out"
-    enter-from-class="transform opacity-0"
-    enter-to-class="transform opacity-100"
-  >
+  <Teleport to="body">
     <div
       v-show="success"
-      class="fixed bottom-0 right-0 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
+      class="fixed top-14 z-50 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
       @click="success = null"
     >
-      <div class="p-4">
-        <p class="text-neutral-50">{{ success }}</p>
+      <div class="px-4 py-2 text-neutral-50">
+        {{ success }}
       </div>
     </div>
-  </Transition>
+  </Teleport>
 </template>
 
 <style scoped>

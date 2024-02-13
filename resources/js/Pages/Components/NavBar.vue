@@ -1,5 +1,6 @@
 <script setup>
 import StyledButton from "@/Components/StyledButton.vue";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 </script>
 
 <template>
@@ -55,11 +56,58 @@ import StyledButton from "@/Components/StyledButton.vue";
               <Link href="/books">View Books</Link>
             </StyledButton>
 
-            <StyledButton v-show="$page.props.auth.user">
-              <Link as="button" href="/logout" method="post" type="button">
-                Log Out
-              </Link>
-            </StyledButton>
+            <Menu
+              as="div"
+              class="relative z-10 inline-block text-left"
+              v-show="$page.props.auth.user"
+            >
+              <MenuButton
+                class="mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none"
+              >
+                Account
+              </MenuButton>
+
+              <Transition
+                enter-active-class="transition duration-150 ease-out"
+                enter-from-class="transform opacity-0 scale-95"
+                leave-to-class="transform opacity-0 scale-95"
+              >
+                <MenuItems
+                  class="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-tan font-medium shadow-paper ring-1 ring-black/5 focus:outline-none"
+                >
+                  <div class="px-1 py-1">
+                    <MenuItem v-slot="{ active }">
+                      <Link
+                        :class="[
+                          active
+                            ? 'bg-brown text-neutral-50'
+                            : 'text-neutral-800',
+                          'group flex w-full items-center rounded-md px-2 py-2 text-base',
+                        ]"
+                        href="/profile"
+                      >
+                        Profile
+                      </Link>
+                    </MenuItem>
+
+                    <MenuItem v-slot="{ active }">
+                      <Link
+                        :class="[
+                          active
+                            ? 'bg-brown text-neutral-50'
+                            : 'text-neutral-800',
+                          'group flex w-full items-center rounded-md px-2 py-2 text-base',
+                        ]"
+                        href="/logout"
+                        method="post"
+                      >
+                        Log Out
+                      </Link>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Transition>
+            </Menu>
           </ul>
         </div>
       </div>
@@ -90,6 +138,10 @@ import StyledButton from "@/Components/StyledButton.vue";
           class="flex flex-col space-y-6 px-4 py-8"
           v-show="$page.props.auth.user"
         >
+          <StyledButton>
+            <Link href="/profile">Profile</Link>
+          </StyledButton>
+
           <StyledButton>
             <Link as="button" href="/logout" method="post" type="button">
               Log Out

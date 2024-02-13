@@ -19,6 +19,7 @@ export default {
       },
       colors: {
         primary: "#f8ead6",
+        accent: "#6e2e42",
         brown: "#69442e",
         bronze: "#9d8461",
         sandy: "#cfbda6",

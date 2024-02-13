@@ -6,7 +6,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Notifications\ResetPasswordNotification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -28,7 +27,11 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($model) {
-            $model->{$model->getKeyName()} = (string)Str::uuid();
+            $model->{$model->getKeyName()} = (string) Str::uuid();
+        });
+
+        static::deleting(function ($user) {
+            $user->books()->delete();
         });
     }
 
@@ -67,5 +70,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class);
     }
-
 }
