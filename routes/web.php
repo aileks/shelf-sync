@@ -7,25 +7,27 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Home
 Route::get('/', fn () => Inertia::render('Home'))->name('home');
 
-// Books stuff
 Route::middleware('auth')->group(function () {
+    // Books
     Route::get('/books', [BookController::class, 'index'])->name('books');
     Route::get('/books/add', [BookController::class, 'create'])->name('books.add');
     Route::get('/books/edit/{book}', [BookController::class, 'edit'])->name('books.edit');
     Route::post('/books/add', [BookController::class, 'store']);
     Route::patch('/books/edit/{book}', [BookController::class, 'update']);
     Route::delete('/books/{book}', [BookController::class, 'destroy']);
-});
 
-// FIXME: Make functional
-// Route::get('/profile/stats', fn () => Inertia::render('Profile/Stats'));
-// Route::get('profile/settings', fn () => Inertia::render('Profile/Settings'));
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    // Route::post('/profile/update', [ProfileController::class, 'update']);
+    Route::delete('/profile', [ProfileController::class, 'destroy']);
+});
 
 // Auth stuff
 // registration

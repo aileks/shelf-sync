@@ -53,6 +53,7 @@ const submit = () => {
           required
           type="text"
         />
+
         <div v-if="errors.title" class="error">{{ errors.title }}</div>
       </div>
 
