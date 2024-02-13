@@ -1,6 +1,6 @@
 <script setup>
 import MobileModal from "@/Components/MobileModal.vue";
-import { onMounted, onUnmounted, ref, computed, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import debounce from "lodash/debounce";
 import { CheckIcon } from "@heroicons/vue/20/solid";
