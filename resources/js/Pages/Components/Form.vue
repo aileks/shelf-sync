@@ -1,16 +1,13 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import { inject } from "vue";
 
 const props = defineProps({
   formFields: Array,
   postUrl: String,
-  remember: Boolean,
 });
 
 const form = useForm({
   ...Object.fromEntries(props.formFields.map((field) => [field.model, null])),
-  remember: props.remember,
 });
 
 const submit = () => {
@@ -24,23 +21,40 @@ const submit = () => {
 
 <template>
   <form @submit.prevent="submit">
-    <div
-      v-for="(field, index) in props.formFields"
-      :key="index"
-      class="flex flex-col"
-    >
-      <label :for="field.label" class="mb-1 ml-1 mt-3"
-        >{{ field.label }}:</label
-      >
+    <div v-for="(field, index) in props.formFields" :key="index">
+      <!-- <div
+        v-if="field.model === 'remember'"
+        class="grid grid-cols-2 items-center gap-2"
+      > -->
+      <!-- </div> -->
+      <div v-if="field.model !== 'remember'" class="flex flex-col">
+        <label :for="field.label" class="mb-1 ml-1 mt-3"
+          >{{ field.label }}:</label
+        >
+        <input
+          v-model="form[field.model]"
+          :name="field.name"
+          :placeholder="field.placeholder"
+          :type="field.type"
+          class="rounded-md border border-bronze"
+          required
+        />
+      </div>
 
-      <input
-        v-model="form[field.model]"
-        :name="field.name"
-        :placeholder="field.placeholder"
-        :type="field.type"
-        class="rounded-md border border-bronze"
-        required
-      />
+      <div
+        v-else
+        class="mt-6 flex items-center space-x-2 text-sm italic text-blue"
+      >
+        <input
+          v-model="form[field.model]"
+          :name="field.name"
+          :placeholder="field.placeholder"
+          :type="field.type"
+          class="rounded"
+        />
+
+        <label :for="field.label" class=""> {{ field.label }}</label>
+      </div>
 
       <div
         v-if="form.errors[field.model]"

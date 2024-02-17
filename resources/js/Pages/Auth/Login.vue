@@ -25,6 +25,12 @@ const formFields = [
     type: "password",
     placeholder: "Password",
   },
+  {
+    model: "remember",
+    label: "Remember Me",
+    name: "remember",
+    type: "checkbox",
+  },
 ];
 
 const status = ref(props.status);
@@ -61,15 +67,10 @@ const handleSubmit = () => {
       submit-text="Login"
       @submit="handleSubmit"
     >
-      <div class="mx-4 mt-6 flex flex-1 items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <input v-model="remember" class="rounded" type="checkbox" />
-          <label class="text-base text-blue" for="remember">Remember Me</label>
-        </div>
-
-        <StyledButton type="submit" :isProcessing="isProcessing"
-          >Log In</StyledButton
-        >
+      <div class="mx-4 mt-6 flex flex-1 items-center justify-end">
+        <StyledButton type="submit" :isProcessing="isProcessing">
+          Log In
+        </StyledButton>
       </div>
     </Form>
   </FormLayout>
