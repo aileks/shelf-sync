@@ -35,7 +35,13 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
         <div
           class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
         >
-          <Link href="/">Quillify</Link>
+          <Link href="/">
+            <img
+              class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-80 hover:shadow-none"
+              src="quill-logo.png"
+              alt="minimalistic quill logo"
+            />
+          </Link>
         </div>
         <div class="hidden flex-none lg:block">
           <ul class="menu menu-horizontal text-base">
