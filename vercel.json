@@ -21,6 +21,10 @@
       "dest": "/public/library.jpeg"
     },
     {
+      "src": "/quill-logo.png",
+      "dest": "/public/quill-logo.png"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.php"
     }
