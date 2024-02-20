@@ -129,8 +129,6 @@ onUnmounted(() => {
 <template>
   <Head title="Books" />
 
-  {{ console.log(books.data) }}
-
   <Layout>
     <div class="flex items-center justify-around">
       <input
@@ -346,9 +344,10 @@ onUnmounted(() => {
             <tr v-for="book in books.data" :key="book.id" class="divide-x">
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
                 <div class="flex items-center justify-center">
-                  <span v-if="book.read && !book.date_read && book.finished">
+                  <span v-if="book.read && book.finished && !book.date_read">
                     <CheckIcon class="h-6 w-6 text-green" />
                   </span>
+
                   <span
                     v-else-if="book.read && book.finished && book.date_read"
                     class="font-bold text-green"
