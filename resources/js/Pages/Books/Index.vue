@@ -129,6 +129,8 @@ onUnmounted(() => {
 <template>
   <Head title="Books" />
 
+  {{ console.log(books.data) }}
+
   <Layout>
     <div class="flex items-center justify-around">
       <input
@@ -348,7 +350,7 @@ onUnmounted(() => {
                     <CheckIcon class="h-6 w-6 text-green" />
                   </span>
                   <span
-                    v-if="book.read && book.finished && book.date_read"
+                    v-else-if="book.read && book.finished && book.date_read"
                     class="font-bold text-green"
                   >
                     {{
@@ -361,7 +363,7 @@ onUnmounted(() => {
                   </span>
 
                   <span
-                    v-if="book.read && !book.finished && !book.date_read"
+                    v-else-if="book.read && !book.finished && !book.date_read"
                     class="font-bold text-green"
                   >
                     DNF
