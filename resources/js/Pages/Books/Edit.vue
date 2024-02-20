@@ -19,6 +19,7 @@ const author = props.book.author;
 const form = useForm({
   ...props.book,
   read: Boolean(props.book.read),
+  finished: Boolean(props.book.finished),
 });
 
 const reversedYears = Array.from(
@@ -102,7 +103,6 @@ const saveBook = () => {
         <div v-if="errors.genre" class="error">{{ errors.genre }}</div>
       </div>
 
-      <!-- TODO: Extract component -->
       <!--Publish Year-->
       <div class="mt-4">
         <YearSelector v-model="form.publish_year" />
@@ -111,23 +111,43 @@ const saveBook = () => {
         </div>
       </div>
 
-      <div class="my-6 flex items-center justify-center space-x-2 text-lg">
-        <input
-          v-model="form.read"
-          class="rounded border border-bronze text-left"
-          name="read"
-          type="checkbox"
-        />
-        <label for="read">Read?</label>
+      <!-- Read status -->
+      <div
+        class="mb-4 mt-6 flex flex-col items-center justify-center space-y-2 text-lg"
+      >
+        <div class="flex items-center justify-center">
+          <input
+            v-model="form.read"
+            class="mr-1 rounded text-left"
+            name="read"
+            type="checkbox"
+          />
+
+          <label for="read">Read?</label>
+        </div>
+
+        <div v-if="form.read" class="flex items-center">
+          <input
+            v-model="form.finished"
+            class="mr-1 rounded text-left"
+            name="finished"
+            type="checkbox"
+          />
+          <label for="finished">Finished?</label>
+        </div>
 
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
       <!-- Conditional based on read status -->
-      <div v-show="form.read" class="flex flex-col items-center justify-center">
+      <div
+        v-if="form.finished"
+        class="flex flex-col items-center justify-center"
+      >
         <label class="mb-2 text-center" for="date_read">
-          When did you read it?
+          When did you finish it?
         </label>
+
         <input
           v-model="form.date_read"
           class="mb-4 w-60 rounded-md border-none"
@@ -139,7 +159,7 @@ const saveBook = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit" :isProcessing="isProcessing">
+        <StyledButton :isProcessing="isProcessing" type="submit">
           Save
         </StyledButton>
 

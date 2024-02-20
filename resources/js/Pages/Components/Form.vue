@@ -53,7 +53,7 @@ const submit = () => {
           class="rounded"
         />
 
-        <label :for="field.label" class=""> {{ field.label }}</label>
+        <label :for="field.label" class="">{{ field.label }}</label>
       </div>
 
       <div

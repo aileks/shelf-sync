@@ -15,6 +15,7 @@ const success = ref(props.success);
 const isMobile = ref(window.innerWidth <= 800);
 let clickCount = 0;
 
+// Sorting
 const sortBy = ref("");
 const sortDirection = ref("asc");
 const changeSort = (column) => {
@@ -70,10 +71,12 @@ const sortIcon = (column) => {
   return sortDirection.value === "asc" ? "▲" : "▼";
 };
 
+// Mobile reactivity
 const updateIsMobile = () => {
   isMobile.value = window.innerWidth <= 800;
 };
 
+// Delete book
 const deleteBook = (id) => {
   router.delete(`/books/${id}`, {
     onBefore: () => {
@@ -109,16 +112,15 @@ watch(
   }, 300),
 );
 
+// Hooks
 onMounted(() => {
   window.addEventListener("resize", updateIsMobile);
-
   if (success) {
     setTimeout(() => {
       success.value = null;
     }, 3000);
   }
 });
-
 onUnmounted(() => {
   window.removeEventListener("resize", updateIsMobile);
 });
@@ -137,7 +139,7 @@ onUnmounted(() => {
         placeholder="Search Books..."
         type="search"
       />
-      <MobileModal :isMobile="isMobile" :changeSort="changeSort" />
+      <MobileModal :changeSort="changeSort" :isMobile="isMobile" />
     </div>
 
     <!-- TODO: Extract mobile and desktop views into separate components -->
@@ -294,43 +296,43 @@ onUnmounted(() => {
             class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
           >
             <th
-              @click="changeSort('read')"
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
+              @click="changeSort('read')"
             >
               <span>{{ sortIcon("read") }}</span>
               Finished
             </th>
             <th
-              @click="changeSort('title')"
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
+              @click="changeSort('title')"
             >
               <span>{{ sortIcon("title") }}</span>
               Title
             </th>
             <th
-              @click="changeSort('author')"
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
+              @click="changeSort('author')"
             >
               <span>{{ sortIcon("author") }}</span>
               Author
             </th>
             <th
-              @click="changeSort('genre')"
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
+              @click="changeSort('genre')"
             >
               <span>{{ sortIcon("genre") }}</span>
               Genre
             </th>
             <th
-              @click="changeSort('pages')"
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
+              @click="changeSort('pages')"
             >
               <span>{{ sortIcon("pages") }}</span>
               Pages
             </th>
             <th
-              @click="changeSort('publish_year')"
               class="px-2 sm:w-auto md:w-auto"
+              @click="changeSort('publish_year')"
             >
               <span>{{ sortIcon("publish_year") }}</span>
               Published
@@ -342,12 +344,12 @@ onUnmounted(() => {
             <tr v-for="book in books.data" :key="book.id" class="divide-x">
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
                 <div class="flex items-center justify-center">
-                  <span v-if="book.read && !book.date_read">
+                  <span v-if="book.read && !book.date_read && book.finished">
                     <CheckIcon class="h-6 w-6 text-green" />
                   </span>
                   <span
+                    v-if="book.read && book.finished && book.date_read"
                     class="font-bold text-green"
-                    v-if="book.read && book.date_read"
                   >
                     {{
                       new Date(book.date_read).toLocaleDateString(undefined, {
@@ -356,6 +358,13 @@ onUnmounted(() => {
                         day: "numeric",
                       })
                     }}
+                  </span>
+
+                  <span
+                    v-if="book.read && !book.finished && !book.date_read"
+                    class="font-bold text-green"
+                  >
+                    DNF
                   </span>
                 </div>
               </td>

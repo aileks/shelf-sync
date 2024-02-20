@@ -19,6 +19,7 @@ const form = useForm({
   publish_year: null,
   read: false,
   date_read: null,
+  finished: false,
 });
 
 let isProcessing = ref(false);
@@ -45,6 +46,7 @@ const submit = () => {
       <!-- Title -->
       <div class="text-md mt-4 flex flex-col space-y-1">
         <label class="text-left" for="title">Title</label>
+
         <input
           v-model="form.title"
           class="rounded-md border-none text-left"
@@ -60,6 +62,7 @@ const submit = () => {
       <!-- Author -->
       <div class="text-md mt-4 flex flex-col space-y-1">
         <label class="text-left" for="author">Author</label>
+
         <input
           v-model="form.author"
           class="rounded-md border-none text-left"
@@ -68,12 +71,14 @@ const submit = () => {
           required
           type="text"
         />
+
         <div v-if="errors.author" class="error">{{ errors.author }}</div>
       </div>
 
       <!-- Number of Pages -->
       <div class="text-md mt-4 flex flex-col space-y-2">
         <label class="text-left" for="pages">Pages</label>
+
         <input
           v-model="form.pages"
           class="rounded-md border-none text-left"
@@ -84,6 +89,7 @@ const submit = () => {
           required
           type="number"
         />
+
         <div v-if="errors.pages" class="error">{{ errors.pages }}</div>
       </div>
 
@@ -104,23 +110,42 @@ const submit = () => {
       </div>
 
       <!-- Read Status -->
-      <div class="mb-4 mt-6 flex items-center justify-center space-x-2 text-lg">
-        <input
-          v-model="form.read"
-          class="rounded text-left"
-          name="read"
-          type="checkbox"
-        />
-        <label for="read">Read?</label>
+      <div
+        class="mb-4 mt-6 flex flex-col items-center justify-center space-y-2 text-lg"
+      >
+        <div class="flex items-center justify-center">
+          <input
+            v-model="form.read"
+            class="mr-1 rounded text-left"
+            name="read"
+            type="checkbox"
+          />
+
+          <label for="read">Read?</label>
+        </div>
+
+        <div v-if="form.read" class="flex items-center">
+          <input
+            v-model="form.finished"
+            class="mr-1 rounded text-left"
+            name="finished"
+            type="checkbox"
+          />
+          <label for="finished">Finished?</label>
+        </div>
 
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
       <!-- Conditional based on read status -->
-      <div v-show="form.read" class="flex flex-col items-center justify-center">
+      <div
+        v-if="form.finished"
+        class="flex flex-col items-center justify-center"
+      >
         <label class="mb-2 text-center" for="date_read">
-          When did you read it?
+          When did you finish it?
         </label>
+
         <input
           v-model="form.date_read"
           class="mb-4 w-60 rounded-md border-none"
@@ -132,7 +157,7 @@ const submit = () => {
       </div>
 
       <div class="mt-6 flex justify-center space-x-8">
-        <StyledButton type="submit" :isProcessing="isProcessing">
+        <StyledButton :isProcessing="isProcessing" type="submit">
           <span
             v-if="isProcessing"
             class="loading loading-spinner loading-sm"
