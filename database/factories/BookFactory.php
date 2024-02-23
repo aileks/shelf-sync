@@ -22,6 +22,7 @@ class BookFactory extends Factory
             'genre' => $genre,
             'publish_year' => fake()->year(),
             'read' => fake()->boolean(),
+            'finished' => fake()->boolean(),
             'date_read' => fake()->date(),
         ];
     }

@@ -347,7 +347,7 @@ onUnmounted(() => {
                   </span>
                   <span
                     class="font-bold text-green"
-                    v-if="book.read && book.date_read"
+                    v-else-if="book.read && book.finished && book.date_read"
                   >
                     {{
                       new Date(book.date_read).toLocaleDateString(undefined, {
@@ -356,6 +356,12 @@ onUnmounted(() => {
                         day: "numeric",
                       })
                     }}
+                  </span>
+                  <span
+                    class="font-bold text-green"
+                    v-else-if="book.read && !book.finished && !book.date_read"
+                  >
+                    DNF
                   </span>
                 </div>
               </td>

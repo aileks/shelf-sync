@@ -17,15 +17,6 @@ class Book extends Model
 
     protected $keyType = 'string';
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->{$model->getKeyName()} = (string) Str::uuid();
-        });
-    }
-
     protected $fillable = [
         'user_id',
         'title',
@@ -35,7 +26,17 @@ class Book extends Model
         'publish_year',
         'read',
         'date_read',
+        'finished',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->{$model->getKeyName()} = (string) Str::uuid();
+        });
+    }
 
     public function user(): BelongsTo
     {

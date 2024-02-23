@@ -19,6 +19,7 @@ const form = useForm({
   publish_year: null,
   read: false,
   date_read: null,
+  finished: false,
 });
 
 let isProcessing = ref(false);
@@ -104,22 +105,37 @@ const submit = () => {
       </div>
 
       <!-- Read Status -->
-      <div class="mb-4 mt-6 flex items-center justify-center space-x-2 text-lg">
-        <input
-          v-model="form.read"
-          class="rounded text-left"
-          name="read"
-          type="checkbox"
-        />
-        <label for="read">Read?</label>
+      <div class="mb-4 mt-6 flex items-center justify-center space-y-2 text-lg">
+        <div class="flex items-center justify-center">
+          <input
+            v-model="form.read"
+            class="rounded text-left"
+            name="read"
+            type="checkbox"
+          />
+          <label for="read">Read?</label>
+        </div>
+
+        <div v-if="form.read" class="flex items-center">
+          <input
+            v-model="form.finished"
+            class="mr-1 rounded text-left"
+            name="finished"
+            type="checkbox"
+          />
+          <label for="finished">Finished?</label>
+        </div>
 
         <div v-if="errors.read" class="error">{{ errors.read }}</div>
       </div>
 
       <!-- Conditional based on read status -->
-      <div v-show="form.read" class="flex flex-col items-center justify-center">
+      <div
+        v-if="form.finished"
+        class="flex flex-col items-center justify-center"
+      >
         <label class="mb-2 text-center" for="date_read">
-          When did you read it?
+          When did you finish it?
         </label>
         <input
           v-model="form.date_read"
