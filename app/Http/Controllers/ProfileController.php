@@ -37,15 +37,17 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
+        $user = $request->user();
+
         $data = $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
             'confirmEmail' => ['required', 'email', 'same:email'],
             'currentPassword' => ['required'],
         ]);
 
-        if (isset($data['currentPassword']) && ! Hash::check($data['currentPassword'], $request->user()->password)) {
+        if (isset($data['currentPassword']) && ! Hash::check($data['currentPassword'], $user->password)) {
             return Inertia::render('Profile/Index', [
-                'user' => $request->user->only('name', 'email'),
+                'user' => $user->only('name', 'email'),
                 'errors' => [
                     'currentPassword' => 'The provided password does not match your current password.',
                 ],
