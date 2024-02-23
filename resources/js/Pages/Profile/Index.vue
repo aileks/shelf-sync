@@ -1,8 +1,7 @@
 <script setup>
-import { computed, ref } from "vue";
+import { onMounted, watch, ref } from "vue";
 import { useForm, router } from "@inertiajs/vue3";
-import { Bar, Line } from "vue-chartjs";
-import { ChevronDownIcon, CheckIcon } from "@heroicons/vue/20/solid";
+import StyledButton from "@/Components/StyledButton.vue";
 import {
   TabGroup,
   TabList,
@@ -14,33 +13,18 @@ import {
   DialogTitle,
   TransitionRoot,
   TransitionChild,
-  Listbox,
-  ListboxButton,
-  ListboxOption,
-  ListboxOptions,
 } from "@headlessui/vue";
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-} from "chart.js";
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-);
+const props = defineProps({
+  user: Object,
+  books: Number,
+  errors: Object,
+  activeTab: Number,
+  success: String,
+});
+
+const activeTab = ref(props.activeTab);
+const success = ref(props.success);
 
 let isOpen = ref(false);
 const openModal = () => {
@@ -50,152 +34,65 @@ const closeModal = () => {
   isOpen.value = false;
 };
 
-const props = defineProps({
-  user: Object,
-  books: Object,
-  errors: Object,
-});
-
-// TODO: Implement
-// const form = useForm({
-//   email: null,
-//   confirmEmail: null,
-//   currentPassword: null,
-// });
-
-const totalBooks = Object.values(props.books).length;
-const bookGenres = Object.values(props.books).map((book) => book.genre);
-const availableYears = computed(() => {
-  const years = new Set();
-  props.books.forEach((book) => {
-    if (book.created_at) {
-      const year = new Date(book.created_at).getFullYear();
-      years.add(year);
-    }
-  });
-  return [...years].sort();
-});
-let selectedYear = ref(availableYears.value[0]);
-
-// Chart for spread of genres
-const genreCounts = computed(() => {
-  const counts = {};
-  bookGenres.forEach((genre) => {
-    counts[genre] = counts[genre] ? counts[genre] + 1 : 1;
-  });
-  return counts;
-});
-const genreData = {
-  labels: Object.keys(genreCounts.value),
-  datasets: [
-    {
-      label: "Books per Genre",
-      data: Object.values(genreCounts.value),
-      backgroundColor: "#2e4269b3",
-      borderColor: "#2e4269",
-      borderWidth: 1,
-    },
-  ],
-};
-
-// Chart for books finished per year
-const booksFinishedPerYear = computed(() => {
-  return Object.values(props.books).reduce((counts, book) => {
-    if (book.date_read) {
-      const year = new Date(book.date_read).getFullYear();
-      counts[year] = counts[year] ? counts[year] + 1 : 1;
-    }
-    return counts;
-  }, {});
-});
-const booksFinishedPerYearData = {
-  labels: Object.keys(booksFinishedPerYear.value),
-  datasets: [
-    {
-      label: "Books Finished",
-      data: Object.values(booksFinishedPerYear.value),
-      borderColor: "#2e4269",
-      tension: 0.4,
-    },
-  ],
-};
-// Chart for books added per day in a given year
-const booksAddedPerDay = computed(() => {
-  const currentYear = new Date().getFullYear();
-  return Object.values(props.books).reduce((counts, book) => {
-    if (book.created_at) {
-      const date = new Date(book.created_at);
-      const year = date.getFullYear();
-      if (year === currentYear) {
-        const day = date.toISOString().split("T")[0];
-        counts[day] = counts[day] ? counts[day] + 1 : 1;
-      }
-    }
-    return counts;
-  }, {});
-});
-const booksAddedPerDayData = {
-  labels: Object.keys(booksAddedPerDay.value),
-  datasets: [
-    {
-      label: "Books Added",
-      data: Object.values(booksAddedPerDay.value),
-      borderColor: "#2e4269",
-      tension: 0.4,
-    },
-  ],
-};
-
-const barGraphOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
-};
-const lineGraphOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 1,
-        callback: function (value) {
-          if (Math.floor(value) === value) {
-            return value;
-          }
-        },
-      },
-    },
-  },
-};
-
 const deleteAccount = () => {
   router.delete("/profile");
 };
 
-// TODO: Implement
-// const submit = () => {
-//   form.post("/profile/update");
-// };
+// Update Profile
+const form = useForm({
+  email: null,
+  confirmEmail: null,
+  currentPassword: null,
+});
+
+// Realtime validation
+let validateEmail = (email, confirmEmail) => {
+  props.errors.email = null; // reset email errors
+
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/;
+
+  if (!emailRegex.test(email)) {
+    props.errors.email = "Invalid email";
+    return;
+  }
+
+  if (email !== confirmEmail) {
+    props.errors.email = "Emails do not match";
+  }
+};
+watch(
+  () => form.email,
+  (newEmail) => {
+    validateEmail(newEmail, form.confirmEmail);
+  },
+);
+watch(
+  () => form.confirmEmail,
+  (newConfirmEmail) => {
+    validateEmail(form.email, newConfirmEmail);
+  },
+);
+
+onMounted(() => {
+  if (success) {
+    setTimeout(() => {
+      success.value = null;
+    }, 3000);
+  }
+});
+
+const submit = () => {
+  if (props.errors.email !== null) {
+    return;
+  }
+  form.post("/profile");
+};
 </script>
 
 <template>
   <Head title="Profile" />
-
+  {{ console.log(activeTab) }}
   <Layout>
-    <!-- TODO: Implement/Complete -->
     <div class="grid place-items-center">
       <TabGroup
         :default-index="0"
@@ -209,23 +106,12 @@ const deleteAccount = () => {
         >
           <Tab as="template" v-slot="{ selected }">
             <button
-              class="px-2 py-1 outline-none"
+              class="px-2 py-1 outline-none md:text-lg"
               :class="{
                 'border-b-2 border-accent': selected,
               }"
             >
               Settings
-            </button>
-          </Tab>
-
-          <Tab as="template" v-slot="{ selected }">
-            <button
-              class="px-2 py-1 outline-none"
-              :class="{
-                'border-b-2 border-accent': selected,
-              }"
-            >
-              Graphs
             </button>
           </Tab>
         </TabList>
@@ -247,7 +133,7 @@ const deleteAccount = () => {
                 </Tab>
 
                 <!-- FIXME: Redirect should return to this tab -->
-                <!-- <Tab class="text-left" v-slot="{ selected }">
+                <Tab class="text-left" v-slot="{ selected }">
                   <button
                     class="transform rounded-md px-2 py-1 text-sm outline-none transition-colors duration-200"
                     :class="{
@@ -257,7 +143,7 @@ const deleteAccount = () => {
                   >
                     Update Email
                   </button>
-                </Tab> -->
+                </Tab>
 
                 <Tab class="text-left" v-slot="{ selected }">
                   <button
@@ -274,6 +160,7 @@ const deleteAccount = () => {
 
               <TabPanels class="flex flex-grow justify-center">
                 <TabPanel
+                  :selected="activeTab === 0"
                   class="flex w-full flex-col items-center space-y-8 rounded-md"
                 >
                   <div class="flex w-2/3 justify-between border-b border-blue">
@@ -288,12 +175,12 @@ const deleteAccount = () => {
 
                   <div class="flex w-2/3 justify-between border-b border-blue">
                     <span class="font-semibold"> Total Books:</span>
-                    <span class="italic">{{ totalBooks }}</span>
+                    <span class="italic">{{ books }}</span>
                   </div>
                 </TabPanel>
 
                 <!-- FIXME: Redirect should return to this tab -->
-                <!-- <TabPanel class="w-full">
+                <TabPanel :selected="activeTab === 0" class="w-full">
                   <form @submit.prevent="submit">
                     <div
                       class="flex flex-col justify-center space-y-4 text-left"
@@ -313,7 +200,7 @@ const deleteAccount = () => {
                         Confirm New Email:
                       </label>
                       <input
-                        id="email"
+                        id="confirm-email"
                         v-model="form.confirmEmail"
                         type="email"
                         placeholder="Confirm Email"
@@ -343,10 +230,12 @@ const deleteAccount = () => {
                     </div>
 
                     <div class="flex items-end justify-end pt-8">
-                      <StyledButton type="submit">Save</StyledButton>
+                      <StyledButton type="submit" :disabled="props.errors.email"
+                        >Save</StyledButton
+                      >
                     </div>
                   </form>
-                </TabPanel> -->
+                </TabPanel>
 
                 <TabPanel class="w-full">
                   <h2 class="text-xl font-semibold">
@@ -359,131 +248,6 @@ const deleteAccount = () => {
                   >
                     Delete
                   </button>
-                </TabPanel>
-              </TabPanels>
-            </TabGroup>
-          </TabPanel>
-
-          <TabPanel class="w-full">
-            <TabGroup>
-              <TabList
-                class="flex items-center justify-start space-x-2 text-sm font-medium"
-              >
-                <Tab as="template" v-slot="{ selected }">
-                  <button
-                    class="transform rounded-md px-2 py-1 outline-none transition-colors duration-200"
-                    :class="{
-                      'text-nuetral-800': !selected,
-                      'bg-accent text-neutral-50': selected,
-                    }"
-                  >
-                    Books Per Genre
-                  </button>
-                </Tab>
-
-                <Tab as="template" v-slot="{ selected }">
-                  <button
-                    class="transform rounded-md px-2 py-1 outline-none transition-colors duration-200"
-                    :class="{
-                      'text-nuetral-800': !selected,
-                      'bg-accent text-neutral-50': selected,
-                    }"
-                  >
-                    Books Finished Per Year
-                  </button>
-                </Tab>
-
-                <Tab as="template" v-slot="{ selected }">
-                  <button
-                    class="transform rounded-md px-2 py-1 outline-none transition-colors duration-200"
-                    :class="{
-                      'text-nuetral-800': !selected,
-                      'bg-accent text-neutral-50': selected,
-                    }"
-                  >
-                    Books Added Per Day
-                  </button>
-                </Tab>
-              </TabList>
-
-              <TabPanels class="mt-6 text-left text-neutral-800">
-                <TabPanel class="w-full">
-                  <Bar :data="genreData" :options="barGraphOptions" />
-                </TabPanel>
-
-                <TabPanel class="w-full">
-                  <Line
-                    :data="booksFinishedPerYearData"
-                    :options="lineGraphOptions"
-                  />
-                </TabPanel>
-
-                <TabPanel class="flex w-full flex-col">
-                  <Listbox v-model="selectedYear">
-                    <ListboxButton
-                      class="relative flex w-1/6 cursor-default items-center self-end rounded-md bg-white px-2 py-1 text-left shadow-paper focus:outline-none"
-                    >
-                      <ChevronDownIcon
-                        aria-hidden="true"
-                        class="h-6 w-6 pr-2"
-                      />
-
-                      {{ selectedYear }}
-                    </ListboxButton>
-
-                    <Transition
-                      enter-active-class="transition duration-150 ease-out"
-                      enter-from-class="opacity-0"
-                      leave-active-class="transition duration-100 ease-in"
-                      leave-to-class="opacity-0"
-                    >
-                      <ListboxOptions
-                        class="absolute mt-9 flex max-h-60 max-w-md items-center justify-center self-end overflow-auto rounded-md bg-white py-1 shadow-paper ring-1 ring-black/5 focus:outline-none"
-                      >
-                        <ListboxOption
-                          :key="year.id"
-                          :value="year"
-                          v-for="year in availableYears"
-                          as="template"
-                          v-slot="{ active, selected }"
-                        >
-                          <li
-                            :class="[
-                              active
-                                ? 'bg-brown text-neutral-50'
-                                : 'text-neutral-800',
-                              'relative cursor-default select-none py-1 pl-10 pr-4',
-                            ]"
-                          >
-                            <span
-                              :class="[
-                                selected ? 'font-medium' : 'font-normal',
-                                'block truncate',
-                              ]"
-                            >
-                              {{ year }}
-                            </span>
-
-                            <span
-                              v-if="selected"
-                              class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue"
-                            >
-                              <CheckIcon
-                                :class="{ 'text-neutral-50': active }"
-                                aria-hidden="true"
-                                class="h-3 w-3"
-                              />
-                            </span>
-                          </li>
-                        </ListboxOption>
-                      </ListboxOptions>
-                    </Transition>
-                  </Listbox>
-
-                  <Line
-                    :data="booksAddedPerDayData"
-                    :options="lineGraphOptions"
-                  />
                 </TabPanel>
               </TabPanels>
             </TabGroup>
@@ -559,4 +323,17 @@ const deleteAccount = () => {
       </Dialog>
     </TransitionRoot>
   </Layout>
+
+  <Teleport to="body">
+    <div
+      v-show="success"
+      class="fixed top-14 z-50 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
+      @click="success = null"
+    >
+      <div class="px-4 py-2 text-neutral-50">
+        {{ success }}
+      </div>
+    </div>
+  </Teleport>
+  {{ console.log(success) }}
 </template>
