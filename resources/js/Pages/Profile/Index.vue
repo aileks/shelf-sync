@@ -91,7 +91,7 @@ const submit = () => {
 
 <template>
   <Head title="Profile" />
-  {{ console.log(activeTab) }}
+
   <Layout>
     <div class="grid place-items-center">
       <TabGroup
@@ -180,7 +180,7 @@ const submit = () => {
                 </TabPanel>
 
                 <!-- FIXME: Redirect should return to this tab -->
-                <TabPanel :selected="activeTab === 0" class="w-full">
+                <TabPanel :selected="activeTab === 1" class="w-full">
                   <form @submit.prevent="submit">
                     <div
                       class="flex flex-col justify-center space-y-4 text-left"
@@ -335,5 +335,4 @@ const submit = () => {
       </div>
     </div>
   </Teleport>
-  {{ console.log(success) }}
 </template>
