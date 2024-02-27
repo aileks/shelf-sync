@@ -1,11 +1,11 @@
 <script setup>
 import StyledButton from "@/Components/StyledButton.vue";
-import {Menu, MenuButton, MenuItems, MenuItem} from "@headlessui/vue";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 </script>
 
 <template>
   <div class="drawer">
-    <input id="my-drawer-3" type="checkbox" class="drawer-toggle"/>
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div
       class="drawer-content m-1 flex flex-col rounded-md bg-tan shadow-paper"
     >
@@ -150,18 +150,9 @@ import {Menu, MenuButton, MenuItems, MenuItem} from "@headlessui/vue";
             <Link href="/profile">Profile</Link>
           </StyledButton>
 
-          <Link
-            :class="[
-              active
-                ? 'bg-brown text-neutral-50'
-                : 'text-neutral-800',
-              'group flex w-full items-center rounded-md px-2 py-2 text-base',
-            ]"
-            href="/logout"
-            method="post"
-          >
-            Log Out
-          </Link>
+          <StyledButton>
+            <Link href="/logout" method="post">Log Out</Link>
+          </StyledButton>
 
           <StyledButton>
             <Link href="/books/add">Add Book</Link>

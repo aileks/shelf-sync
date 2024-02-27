@@ -34,4 +34,8 @@ export default {
     },
   },
   plugins: [forms, daisyui],
+  daisyui: {
+    styled: true,
+    themes: ["light"],
+  },
 };
