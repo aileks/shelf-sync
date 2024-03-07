@@ -41,8 +41,12 @@
     "CACHE_DRIVER": "array",
     "LOG_CHANNEL": "stderr",
     "SESSION_DRIVER": "cookie",
+<<<<<<< HEAD
     "DB_CONNECTION": "mysql",
     "DB_PORT": "3306",
     "MYSQL_ATTR_SSL_CA": "/etc/pki/tls/certs/ca-bundle.crt"
+=======
+    "DB_CONNECTION": "pgsql",
+>>>>>>> 11d07fb (oopsie)
   }
 }
