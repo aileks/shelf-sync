@@ -17,7 +17,7 @@ const isHovered = ref(false);
   <Layout>
     <div class="relative h-[60vh] w-auto sm:h-[40vh] md:h-[50vh]">
       <img
-        src="/library.jpeg"
+        src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         class="absolute left-0 top-0 h-full w-full rounded-md object-cover"
       />
       <Transition

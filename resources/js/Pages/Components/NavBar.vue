@@ -39,7 +39,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
           <Link href="/">
             <img
               class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-80 hover:shadow-none"
-              src="/quill-logo.png"
+              src="https://raw.githubusercontent.com/aileks/quillify/main/public/quill-logo.png"
               alt="minimalistic quill logo"
             />
           </Link>
