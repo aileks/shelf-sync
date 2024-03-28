@@ -18,7 +18,7 @@ App is now in alpha. [Go check it out!](https://www.quillify-app.com/)
 
 ### Example Table of Books
 
-![Books Table](screenshots/books-table.png)
+![Books Table](screenshots/table.png)
 
 ### Example adding books
 
