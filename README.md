@@ -14,7 +14,7 @@ App is now in alpha. [Go check it out!](https://www.quillify-app.com/)
 
 ### Profile Page
 
-![Profile Page](screenshots/login.png)
+![Profile Page](screenshots/profile.png)
 
 ### Example Table of Books
 
