@@ -20,6 +20,6 @@ App is now in alpha. [Go check it out!](https://www.quillify-app.com/)
 
 ![Books Table](screenshots/table.png)
 
-### Example adding books
+### Example Adding A Book
 
 ![Books Table](screenshots/add-book.png)
