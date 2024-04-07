@@ -11,22 +11,6 @@
     {
       "src": "/(.*)",
       "dest": "/api/index.php"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/public/favicon.ico"
-    },
-    {
-      "src": "/library.jpeg",
-      "dest": "/public/library.jpeg"
-    },
-    {
-      "src": "/quill-logo.png",
-      "dest": "/public/quill-logo.png"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.php"
     }
   ],
   "env": {
