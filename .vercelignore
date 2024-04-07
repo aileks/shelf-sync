@@ -1,2 +1,4 @@
 # .vercelignore
-vendor
+/vendor
+/public/build
+
