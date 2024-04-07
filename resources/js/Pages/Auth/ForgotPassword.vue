@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/vue3";
 import Form from "@/Components/Form.vue";
 import StyledButton from "@/Components/StyledButton.vue";
 
