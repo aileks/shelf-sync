@@ -2,7 +2,7 @@
 
 <p>A simple app to log all the books you've read (or want to read).</p>
 
-App is now in alpha. [Go check it out!](https://www.quillify-app.com/)
+App is now in beta. [Go check it out!](https://www.quillify-app.com/)
 
 ### Home Page
 
