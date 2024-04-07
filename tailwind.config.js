@@ -37,5 +37,6 @@ export default {
   daisyui: {
     styled: true,
     themes: ["light"],
+    logs: false
   },
 };
