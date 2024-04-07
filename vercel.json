@@ -3,11 +3,15 @@
   "framework": null,
   "functions": {
     "api/index.php": {
-      "runtime": "vercel-php@0.6.1"
+      "runtime": "vercel-php@0.6.0"
     }
   },
   "outputDirectory": "public",
   "routes": [
+    {
+      "src": "/build/(.*)",
+      "dest": "/build/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/api/index.php"
