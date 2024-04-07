@@ -1,5 +1,4 @@
 {
-  "homepage": ".",
   "private": true,
   "type": "module",
   "scripts": {
