@@ -1,8 +1,3 @@
-
-🌼   daisyUI 4.10.1
-├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
-╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
-
 import defaultTheme from "tailwindcss/defaultTheme";
 import forms from "@tailwindcss/forms";
 import daisyui from "daisyui";
@@ -40,8 +35,8 @@ export default {
   },
   plugins: [forms, daisyui],
   daisyui: {
-    logs: false,
     styled: true,
     themes: ["light"],
+    logs: false
   },
 };
