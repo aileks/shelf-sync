@@ -1,8 +1,3 @@
-
-🌼   daisyUI 4.7.3
-├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
-╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
-
 <script setup>
 import { onMounted, ref } from "vue";
 import { ArrowUpRightIcon } from "@heroicons/vue/20/solid";
