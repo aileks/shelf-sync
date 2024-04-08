@@ -9,14 +9,6 @@
   "outputDirectory": "public",
   "routes": [
     {
-      "src": "/build/(.*)",
-      "dest": "/build/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.php"
-    },
-    {
       "src": "/favicon.ico",
       "dest": "/public/favicon.ico"
     },
@@ -27,6 +19,14 @@
     {
       "src": "/quill-logo.png",
       "dest": "/public/quill-logo.png"
+    },
+    {
+      "src": "/build/(.*)",
+      "dest": "/build/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
     }
   ],
   "env": {
