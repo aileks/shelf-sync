@@ -1,8 +1,3 @@
-
-🌼   daisyUI 4.7.3
-├─ ✔︎ 1 theme added		https://daisyui.com/docs/themes
-╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
-
 <script setup>
 import { onMounted, ref } from "vue";
 import { ArrowUpRightIcon } from "@heroicons/vue/20/solid";
@@ -56,7 +51,7 @@ const isHovered = ref(false);
       >
         <div class="flex flex-wrap justify-center">
           Currently in beta. Please report any issues on&nbsp;
-          <Link
+          <a
             @mouseover="isHovered = true"
             @mouseleave="isHovered = false"
             class="flex items-center text-sm text-blue hover:underline"
@@ -70,7 +65,7 @@ const isHovered = ref(false);
                   isHovered,
               }"
             />
-          </Link>
+          </a>
         </div>
       </span>
     </main>
