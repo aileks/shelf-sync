@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Auth stuff
+// TODO: Cleanup
 // registration
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
