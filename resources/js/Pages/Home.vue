@@ -50,7 +50,7 @@
 
     <main class="flex flex-col items-center justify-center">
       <div class="mb-6 mt-10 rounded-md bg-sandy px-8 py-12">
-        <p class="mx-10 px-10 text-lg font-medium sm:text-base">
+        <p class="mx-10 px-10 text-base font-medium sm:text-lg">
           Quillify is your simple, elegant solution for tracking your reading
           journey. Effortlessly manage your book collection with our searchable
           list and keep your reading goals on track. Discover a more organized
