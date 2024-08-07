@@ -36,19 +36,13 @@
           class="flex h-1/2 w-full flex-col items-center justify-center text-neutral-50 sm:h-full"
         >
           <div class="relative z-10">
-            <h1 class="m-4 text-2xl font-bold sm:text-5xl">
+            <h1 class="my-4 text-2xl font-bold sm:text-5xl">
               Organize Your Reading Life with Quillify
             </h1>
 
-            <p class="mb-8 text-lg sm:text-2xl">
+            <p class="my-12 text-lg sm:text-2xl">
               Track and share your literary journey
             </p>
-
-            <button
-              class="rounded-md bg-brown px-4 py-2 font-bold text-white shadow-paper transition duration-300 hover:bg-brown/90"
-            >
-              <Link href="/register">Create Your Free Library</Link>
-            </button>
           </div>
         </header>
       </Transition>
@@ -56,12 +50,19 @@
 
     <main class="flex flex-col items-center justify-center">
       <div class="mb-6 mt-10 rounded-md bg-sandy px-8 py-12">
-        <p class="self-center text-lg font-medium sm:text-base">
+        <p class="mx-10 px-10 text-lg font-medium sm:text-base">
           Quillify is your simple, elegant solution for tracking your reading
           journey. Effortlessly manage your book collection with our searchable
           list and keep your reading goals on track. Discover a more organized
           and enjoyable reading experience with Quillify.
         </p>
+        <Link href="/register">
+          <button
+            class="mt-12 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
+          >
+            Create Your Free Library!
+          </button>
+        </Link>
       </div>
     </main>
 

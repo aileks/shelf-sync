@@ -36,13 +36,11 @@
         <div
           class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
         >
-          <Link href="/">
-            <img
-              class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-80 hover:shadow-none"
-              src="https://raw.githubusercontent.com/aileks/quillify/main/public/quill-logo.png"
-              alt="minimalistic quill logo"
-            />
-          </Link>
+          <img
+            class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-90 hover:shadow-none"
+            src="https://raw.githubusercontent.com/aileks/quillify/main/public/quill-logo.png"
+            alt="minimalistic quill logo"
+          />
         </div>
 
         <div class="hidden flex-none lg:block">
@@ -51,18 +49,22 @@
             <!-- <StyledButton v-show="!$page.props.auth.user"> -->
             <!--   <Link href="/register">Register</Link> -->
             <!-- </StyledButton> -->
+            <Link href="/login">
+              <StyledButton v-show="!$page.props.auth.user">
+                Log In
+              </StyledButton>
+            </Link>
 
-            <StyledButton v-show="!$page.props.auth.user">
-              <Link href="/login">Log In</Link>
-            </StyledButton>
-
-            <StyledButton v-show="$page.props.auth.user">
-              <Link href="/books/add">Add Book</Link>
-            </StyledButton>
-
-            <StyledButton v-show="$page.props.auth.user">
-              <Link href="/books">View Books</Link>
-            </StyledButton>
+            <Link href="/books/add">
+              <StyledButton v-show="$page.props.auth.user">
+                Add Book
+              </StyledButton>
+            </Link>
+            <Link href="/books">
+              <StyledButton v-show="$page.props.auth.user">
+                View Books
+              </StyledButton>
+            </Link>
 
             <Menu
               as="div"
