@@ -11,7 +11,6 @@ export default {
     "./resources/js/**/*.vue",
   ],
 
-  // prettier-ignorer
   theme: {
     extend: {
       boxShadow: {

@@ -1,14 +1,14 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { ArrowUpRightIcon } from "@heroicons/vue/20/solid";
+  import { onMounted, ref } from 'vue';
+  import { ArrowUpRightIcon } from '@heroicons/vue/20/solid';
 
-const animate = ref(false);
+  const animate = ref(false);
 
-onMounted(() => {
-  animate.value = true;
-});
+  onMounted(() => {
+    animate.value = true;
+  });
 
-const isHovered = ref(false);
+  const isHovered = ref(false);
 </script>
 
 <template>
@@ -18,8 +18,11 @@ const isHovered = ref(false);
     <div class="relative h-[60vh] w-auto sm:h-[40vh] md:h-[50vh]">
       <img
         src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
-        class="absolute left-0 top-0 h-full w-full rounded-md object-cover"
+        class="gradient absolute inset-0 h-full w-full rounded-md object-cover"
       />
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-amber-900/70 to-emerald-900/70 dark:from-gray-900/80 dark:to-gray-800/80"
+      ></div>
       <Transition
         enter-active-class="transition-opacity duration-1000 ease-in-out"
         enter-from-class="opacity-0"
@@ -28,14 +31,20 @@ const isHovered = ref(false);
       >
         <header
           v-show="animate"
-          class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center text-neutral-50"
+          class="flex h-full w-full flex-col items-center justify-center text-neutral-50"
         >
-          <div
-            class="rounded-md bg-black/50 p-8 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
-          >
-            <h1 class="text-3xl font-bold">Welcome to Quillify!</h1>
+          <div class="relative z-10 text-center text-white">
+            <h1 class="mb-4 text-5xl font-bold">
+              Organize Your Reading Life with Quillify
+            </h1>
 
-            <h2 class="mt-8 text-xl font-semibold">Your personal library.</h2>
+            <p class="mb-8 text-2xl">Track and share your literary journey</p>
+
+            <button
+              class="rounded-lg bg-bronze px-4 py-2 font-bold text-white transition duration-300 hover:bg-bronze/90"
+            >
+              Start Your Free Library
+            </button>
           </div>
         </header>
       </Transition>
@@ -54,7 +63,7 @@ const isHovered = ref(false);
           <a
             @mouseover="isHovered = true"
             @mouseleave="isHovered = false"
-            class="flex items-center text-sm text-blue hover:underline"
+            class="mt-[2px] flex items-center text-sm text-blue hover:underline"
             href="https://github.com/aileks/quillify/"
           >
             GitHub.

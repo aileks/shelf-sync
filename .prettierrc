@@ -1,5 +1,11 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
   "tabWidth": 2,
-  "useTabs": false
+  "experimentalTernaries": true,
+  "useTabs": false,
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "vueIndentScriptAndStyle": true
 }
