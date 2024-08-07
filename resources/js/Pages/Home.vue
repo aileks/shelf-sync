@@ -60,7 +60,7 @@
     >
       <img
         class="absolute left-0 top-5 h-full w-full -rotate-2 rounded-lg object-cover opacity-80 drop-shadow-md"
-        src="table.png"
+        src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
         alt="table of books"
       />
 
@@ -73,14 +73,14 @@
           and keep your reading goals on track.
         </p>
 
-        <p class="mt-2 px-4 text-base font-medium sm:text-lg">
+        <p class="mt-4 px-4 text-base font-medium sm:text-lg">
           Discover a more organized and enjoyable reading experience with
           Quillify.
         </p>
 
         <Link href="/register">
           <button
-            class="relative mt-12 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
+            class="relative mt-8 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
           >
             Start Now!
           </button>
