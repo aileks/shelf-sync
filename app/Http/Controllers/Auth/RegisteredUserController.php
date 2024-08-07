@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'min:3'],
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', function ($attribute, $value, $fail) {
                 $passwordRule = Rules\Password::min(8)
                     ->mixedCase()
@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             }],
         ], [
             'password.confirmed' => 'The password confirmation does not match.',
-        ]);
+    ]);
 
         $user = User::create([
             'name' => $request->name,
@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return Inertia::location(route('home'));
+        return to_route('books');
     }
 
     /**
