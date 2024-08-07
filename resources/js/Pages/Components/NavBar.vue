@@ -1,6 +1,6 @@
 <script setup>
-import StyledButton from "@/Components/StyledButton.vue";
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+  import StyledButton from '@/Components/StyledButton.vue';
+  import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 </script>
 
 <template>
@@ -48,9 +48,9 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
         <div class="hidden flex-none lg:block">
           <ul class="menu menu-horizontal text-base">
             <!-- Navbar menu content here -->
-            <StyledButton v-show="!$page.props.auth.user">
-              <Link href="/register">Register</Link>
-            </StyledButton>
+            <!-- <StyledButton v-show="!$page.props.auth.user"> -->
+            <!--   <Link href="/register">Register</Link> -->
+            <!-- </StyledButton> -->
 
             <StyledButton v-show="!$page.props.auth.user">
               <Link href="/login">Log In</Link>
@@ -87,9 +87,9 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
                     <MenuItem v-slot="{ active }">
                       <Link
                         :class="[
-                          active
-                            ? 'bg-brown text-neutral-50'
-                            : 'text-neutral-800',
+                          active ?
+                            'bg-brown text-neutral-50'
+                          : 'text-neutral-800',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
                         href="/profile"
@@ -101,9 +101,9 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
                     <MenuItem v-slot="{ active }">
                       <Link
                         :class="[
-                          active
-                            ? 'bg-brown text-neutral-50'
-                            : 'text-neutral-800',
+                          active ?
+                            'bg-brown text-neutral-50'
+                          : 'text-neutral-800',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
                         href="/logout"
