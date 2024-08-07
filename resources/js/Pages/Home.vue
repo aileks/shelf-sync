@@ -54,17 +54,18 @@
       </Transition>
     </div>
 
-    <main class="flex flex-col">
-      <div class="slef-start px-4">
-        <h2 class="mb-6 mt-10 text-center text-2xl font-bold">How It Works</h2>
-        <p>
-          Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
-          cillum sint consectetur cupidatat.
+    <main class="flex flex-col items-center justify-center">
+      <div class="mb-6 mt-10 rounded-md bg-sandy px-8 py-12">
+        <p class="self-center text-lg font-medium sm:text-base">
+          Quillify is your simple, elegant solution for tracking your reading
+          journey. Effortlessly manage your book collection with our searchable
+          list and keep your reading goals on track. Discover a more organized
+          and enjoyable reading experience with Quillify.
         </p>
       </div>
     </main>
 
-    <div class="flex justify-center">
+    <footer class="flex justify-center">
       <span
         class="absolute bottom-10 mt-2 flex items-center justify-center text-center text-sm sm:flex-wrap"
       >
@@ -88,11 +89,11 @@
         </div>
       </span>
 
-      <footer class="absolute bottom-0 mb-1 pb-1 text-sm">
+      <div class="absolute bottom-0 mb-1 pb-1 text-sm">
         <p class="text-center">
           &copy; 2024 Aaliyah Harper. All rights reserved.
         </p>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </Layout>
 </template>
