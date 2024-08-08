@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Home
-Route::get('/', fn() => Inertia::render('Home'))->name('home');
+Route::get('/', fn() => Inertia::render('Home'))->middleware('guest')->name('home');
 
 Route::middleware('auth')->group(function () {
   // Books
