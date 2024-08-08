@@ -15,51 +15,51 @@ use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws ValidationException
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', function ($attribute, $value, $fail) {
-                $passwordRule = Rules\Password::min(8)
-                    ->mixedCase()
-                    ->letters()
-                    ->numbers()
-                    ->symbols(1);
+  /**
+   * Handle an incoming registration request.
+   *
+   * @throws ValidationException
+   */
+  public function store(Request $request)
+  {
+    $request->validate([
+      'name' => ['required', 'string', 'max:255', 'min:3'],
+      'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+      'password' => ['required', 'confirmed', function ($attribute, $value, $fail) {
+        $passwordRule = Rules\Password::min(8)
+          ->mixedCase()
+          ->letters()
+          ->numbers()
+          ->symbols(1);
 
-                $validator = validator([$attribute => $value], [$attribute => $passwordRule]);
+        $validator = validator([$attribute => $value], [$attribute => $passwordRule]);
 
-                if ($validator->fails()) {
-                    $fail('Passwords must consist of at least 8 characters, including an uppercase letter, a number, and a symbol.');
-                }
-            }],
-        ], [
-            'password.confirmed' => 'The password confirmation does not match.',
+        if ($validator->fails()) {
+          $fail('Passwords must consist of at least 8 characters, including an uppercase letter, a number, and a symbol.');
+        }
+      }],
+    ], [
+      'password.confirmed' => 'The password confirmation does not match.',
     ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    $user = User::create([
+      'name' => $request->name,
+      'email' => $request->email,
+      'password' => Hash::make($request->password),
+    ]);
 
-        event(new Registered($user));
+    event(new Registered($user));
 
-        Auth::login($user);
+    Auth::login($user);
 
-        return to_route('books');
-    }
+    return to_route('books');
+  }
 
-    /**
-     * Display the registration view.
-     */
-    public function create(): Response
-    {
-        return Inertia::render('Auth/Register');
-    }
+  /**
+   * Display the registration view.
+   */
+  public function create(): Response
+  {
+    return Inertia::render('Auth/Register');
+  }
 }
