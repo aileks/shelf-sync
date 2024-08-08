@@ -19,16 +19,16 @@
       class="relative z-0 flex w-auto flex-1 flex-col items-center justify-center"
     >
       <img
-        src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         class="absolute inset-0 w-full rounded-md object-cover sm:h-full"
+        src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
       />
 
       <!-- <div -->
-      <!--   class="absolute inset-0 rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80" -->
+      <!--   class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full" -->
       <!-- ></div> -->
 
       <header
-        class="text-shadow text-overlay z-10 my-2 ml-4 mr-3 flex flex-col items-center justify-center place-self-center py-4 text-neutral-50 sm:py-0"
+        class="text-shadow text-overlay z-10 mb-12 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md py-4 text-neutral-50 sm:mb-2 sm:py-0"
       >
         <Transition
           enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -37,17 +37,17 @@
           leave-to-class="opacity-0"
         >
           <div v-show="animate" class="z-10 h-full w-full px-4 text-center">
-            <h1 class="my-2 text-xl font-bold sm:my-4 sm:text-2xl md:text-5xl">
-              Organize Your Reading Life with Quillify
+            <h1 class="my-2 text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl">
+              Organize Your Reading Life With Quillify
             </h1>
 
-            <p class="my-8 pt-4 text-base sm:my-12 sm:text-lg md:text-2xl">
+            <p class="my-6 pt-4 text-base sm:my-12 sm:text-lg md:text-2xl">
               Track and share your literary journey
             </p>
 
             <Link href="/register">
               <button
-                class="rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
+                class="dark:bg-dark-green dark:hover:bg-dark-green/85 mb-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
               >
                 Create Your Personal Library
               </button>
@@ -102,7 +102,7 @@
         <a
           @mouseover="isHovered = true"
           @mouseleave="isHovered = false"
-          class="flex items-center text-blue hover:underline"
+          class="dark:text-dark-blue mt-[1px] flex items-center text-blue hover:underline"
           href="https://github.com/aileks/quillify/"
         >
           GitHub.
@@ -124,13 +124,12 @@
 </template>
 
 <style scoped>
-  .text-overlay {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 1rem;
-    border-radius: 0.25rem;
-  }
-
   .text-shadow {
     text-shadow: 2px 2px 4px rgb(0, 0, 0);
+  }
+
+  .text-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
   }
 </style>

@@ -1,35 +1,35 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
-import StyledButton from "@/Components/StyledButton.vue";
-import Form from "@/Components/Form.vue";
-import FormLayout from "@/Layouts/FormLayout.vue";
-import GenreSelector from "@/Components/GenreSelector.vue";
-import YearSelector from "@/Components/YearSelector.vue";
+  import { useForm } from '@inertiajs/vue3';
+  import { ref } from 'vue';
+  import StyledButton from '@/Components/StyledButton.vue';
+  import Form from '@/Components/Form.vue';
+  import FormLayout from '@/Layouts/FormLayout.vue';
+  import GenreSelector from '@/Components/GenreSelector.vue';
+  import YearSelector from '@/Components/YearSelector.vue';
 
-defineProps({
-  errors: Object,
-});
+  defineProps({
+    errors: Object,
+  });
 
-const form = useForm({
-  title: null,
-  author: null,
-  pages: null,
-  genre: "",
-  publish_year: null,
-  read: false,
-  date_read: null,
-  finished: false,
-});
+  const form = useForm({
+    title: null,
+    author: null,
+    pages: null,
+    genre: '',
+    publish_year: null,
+    read: false,
+    date_read: null,
+    finished: false,
+  });
 
-let isProcessing = ref(false);
+  let isProcessing = ref(false);
 
-const submit = () => {
-  // TODO: Find a better way to handle isProcessing value change
-  isProcessing.value = true;
-  form.post("/books/add");
-  isProcessing.value = false;
-};
+  const submit = () => {
+    // TODO: Find a better way to handle isProcessing value change
+    isProcessing.value = true;
+    form.post('/books/add');
+    isProcessing.value = false;
+  };
 </script>
 
 <template>
@@ -38,7 +38,10 @@ const submit = () => {
   <Head title="Add a Book" />
 
   <FormLayout>
-    <h1 id="box-text" class="border-b border-bronze pb-1.5 text-3xl">
+    <h1
+      id="box-text"
+      class="dark:border-dark-bronze border-b border-bronze pb-1.5 text-3xl"
+    >
       Add Book
     </h1>
 
@@ -167,7 +170,7 @@ const submit = () => {
 
         <Link
           :disabled="isProcessing"
-          class="mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none disabled:bg-brown/50"
+          class="dark:bg-dark-bronze dark:hover:dark-bg-bronze/90 mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-800 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none disabled:bg-brown/50"
           href="/books"
         >
           <span
