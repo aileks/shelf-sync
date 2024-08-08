@@ -20,12 +20,13 @@
         class="flex-0 relative z-0 my-8 flex w-auto flex-col items-center justify-center sm:mb-16"
       >
         <img
-          class="absolute h-[300px] w-[600px] overflow-hidden rounded-md object-cover blur-sm sm:h-full sm:w-full"
+          v-show="animate"
+          class="absolute h-[300px] w-[600px] rounded-md object-cover blur-sm sm:h-full sm:w-full"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         />
 
         <header
-          class="z-10 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md text-neutral-50 sm:mb-12"
+          class="z-10 mx-4 my-6 flex flex-col items-center justify-center place-self-center self-center rounded-md text-neutral-50 sm:mb-12"
         >
           <Transition
             enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -34,7 +35,6 @@
             leave-to-class="opacity-0"
           >
             <div
-              v-show="animate"
               class="text-shadow text-overlay z-10 h-full w-full rounded-md px-4 text-center"
             >
               <h1
@@ -65,7 +65,7 @@
         class="relative mt-4 flex flex-1 flex-col items-center justify-center overflow-hidden sm:mt-10"
       >
         <img
-          class="absolute left-0 top-0 h-full w-full -rotate-2 rounded-lg object-cover opacity-80 drop-shadow-md"
+          class="absolute left-0 top-0 h-full w-full -rotate-6 rounded-lg object-cover opacity-80 blur-sm drop-shadow-md"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
           alt="table of books"
         />
