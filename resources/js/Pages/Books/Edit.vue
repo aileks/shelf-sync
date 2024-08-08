@@ -1,38 +1,38 @@
 <script setup>
-import { ref } from "vue";
-import { useForm } from "@inertiajs/vue3";
-import FormLayout from "@/Layouts/FormLayout.vue";
-import StyledButton from "@/Components/StyledButton.vue";
-import GenreSelector from "@/Components/GenreSelector.vue";
-import YearSelector from "@/Components/YearSelector.vue";
+  import { ref } from 'vue';
+  import { useForm } from '@inertiajs/vue3';
+  import FormLayout from '@/Layouts/FormLayout.vue';
+  import StyledButton from '@/Components/StyledButton.vue';
+  import GenreSelector from '@/Components/GenreSelector.vue';
+  import YearSelector from '@/Components/YearSelector.vue';
 
-let isProcessing = ref(false);
+  let isProcessing = ref(false);
 
-const props = defineProps({
-  book: Object,
-  errors: Object,
-});
+  const props = defineProps({
+    book: Object,
+    errors: Object,
+  });
 
-const title = props.book.title;
-const author = props.book.author;
+  const title = props.book.title;
+  const author = props.book.author;
 
-const form = useForm({
-  ...props.book,
-  read: Boolean(props.book.read),
-  finished: Boolean(props.book.finished),
-});
+  const form = useForm({
+    ...props.book,
+    read: Boolean(props.book.read),
+    finished: Boolean(props.book.finished),
+  });
 
-const reversedYears = Array.from(
-  { length: new Date().getFullYear() - 1800 + 1 },
-  (_, i) => i + 1800,
-).reverse();
+  const reversedYears = Array.from(
+    { length: new Date().getFullYear() - 1800 + 1 },
+    (_, i) => i + 1800,
+  ).reverse();
 
-const saveBook = () => {
-  // TODO: Find a better way to handle isProcessing value change
-  isProcessing.value = true;
-  form.patch(`/books/edit/${form.id}`);
-  isProcessing.value = false;
-};
+  const saveBook = () => {
+    // TODO: Find a better way to handle isProcessing value change
+    isProcessing.value = true;
+    form.put(`/books/edit/${form.id}`);
+    isProcessing.value = false;
+  };
 </script>
 
 <template>
