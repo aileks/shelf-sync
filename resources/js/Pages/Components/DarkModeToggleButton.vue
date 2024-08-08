@@ -1,26 +1,6 @@
 <script setup>
   import { ref, watchEffect } from 'vue';
-
-  const darkMode = ref(false);
-
-  const toggleDarkMode = () => {
-    darkMode.value = !darkMode.value;
-
-    if (darkMode.value) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
-  // watch for dark mode state changes and update the class on the document
-  watchEffect(() => {
-    if (darkMode.value) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  });
+  import { darkMode, toggleDarkMode } from '../../stores/darkMode.js';
 </script>
 
 <template>

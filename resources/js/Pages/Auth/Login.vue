@@ -1,56 +1,56 @@
 <script setup>
-import Form from "@/Components/Form.vue";
-import FormLayout from "@/Layouts/FormLayout.vue";
-import StyledButton from "@/Components/StyledButton.vue";
-import { ref, watch, defineEmits } from "vue";
+  import Form from '@/Components/Form.vue';
+  import FormLayout from '@/Layouts/FormLayout.vue';
+  import StyledButton from '@/Components/StyledButton.vue';
+  import { ref, watch, defineEmits } from 'vue';
 
-const props = defineProps({
-  status: String,
-});
+  const props = defineProps({
+    status: String,
+  });
 
-let isProcessing = ref(false);
+  let isProcessing = ref(false);
 
-const formFields = [
-  {
-    model: "email",
-    label: "Email",
-    name: "email",
-    type: "email",
-    placeholder: "Email",
-  },
-  {
-    model: "password",
-    label: "Password",
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-  },
-  {
-    model: "remember",
-    label: "Remember Me",
-    name: "remember",
-    type: "checkbox",
-  },
-];
+  const formFields = [
+    {
+      model: 'email',
+      label: 'Email',
+      name: 'email',
+      type: 'email',
+      placeholder: 'Email',
+    },
+    {
+      model: 'password',
+      label: 'Password',
+      name: 'password',
+      type: 'password',
+      placeholder: 'Password',
+    },
+    {
+      model: 'remember',
+      label: 'Remember Me',
+      name: 'remember',
+      type: 'checkbox',
+    },
+  ];
 
-const status = ref(props.status);
+  const status = ref(props.status);
 
-const remember = ref(false);
+  const remember = ref(false);
 
-watch(status, (newStatus) => {
-  if (newStatus) {
-    setTimeout(() => {
-      status.value = null;
-    }, 3000);
-  }
-});
+  watch(status, newStatus => {
+    if (newStatus) {
+      setTimeout(() => {
+        status.value = null;
+      }, 3000);
+    }
+  });
 
-const emit = defineEmits(["submit"]);
-const handleSubmit = () => {
-  isProcessing.value = true;
-  emit("submit");
-  isProcessing.value = false;
-};
+  const emit = defineEmits(['submit']);
+  const handleSubmit = () => {
+    isProcessing.value = true;
+    emit('submit');
+    isProcessing.value = false;
+  };
 </script>
 
 <template>
@@ -77,7 +77,7 @@ const handleSubmit = () => {
 
   <div class="mb-0 mt-4 flex justify-center pb-0">
     <Link
-      class="text-sm font-bold italic text-blue hover:underline"
+      class="dark:text-dark-blue text-sm font-bold italic text-blue hover:underline"
       href="/forgot-password"
     >
       Forgot Password?

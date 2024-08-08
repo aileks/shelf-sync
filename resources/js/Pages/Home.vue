@@ -15,18 +15,18 @@
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div class="relative h-[60vh] w-auto sm:h-[40vh] md:h-[50vh]">
+    <div class="relative h-[300px] w-auto sm:h-[40vh]">
       <img
         src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
-        class="gradient absolute inset-0 h-1/2 w-full rounded-md object-cover sm:h-full"
+        class="absolute inset-0 h-[300px] w-full rounded-md object-cover sm:h-full"
       />
 
       <div
-        class="absolute inset-0 h-1/2 rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full"
+        class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full"
       ></div>
 
       <header
-        class="flex h-1/2 w-full flex-col items-center justify-center text-neutral-50 sm:h-full"
+        class="flex h-full flex-col items-center justify-center text-neutral-50"
       >
         <Transition
           enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -35,17 +35,17 @@
           leave-to-class="opacity-0"
         >
           <div v-show="animate" class="z-10">
-            <h1 class="my-4 text-2xl font-bold sm:text-5xl">
-              Organize Your Reading Life with Quillify
+            <h1 class="mb-4 text-2xl font-bold sm:text-5xl">
+              Organize Your Reading Life With Quillify
             </h1>
 
-            <p class="my-12 text-lg sm:text-2xl">
+            <p class="my-8 text-lg sm:text-2xl">
               Track and share your literary journey
             </p>
 
             <Link href="/register">
               <button
-                class="rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
+                class="dark:bg-dark-green dark:hover:bg-dark-green/85 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
               >
                 Create Your Personal Library
               </button>
@@ -65,7 +65,7 @@
       />
 
       <div
-        class="relative my-10 w-3/4 rounded-lg bg-sandy px-8 py-12 sm:h-full"
+        class="dark:bg-dark-primary relative my-10 w-3/4 rounded-lg bg-sandy px-8 py-12 sm:h-full"
       >
         <p class="px-4 text-base font-medium sm:text-lg">
           Quillify is your simple, elegant solution for tracking your reading
@@ -80,7 +80,7 @@
 
         <Link href="/register">
           <button
-            class="relative mt-8 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
+            class="dark:bg-dark-green dark:hover:bg-dark-green/85 relative mt-8 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
           >
             Start Now!
           </button>
@@ -96,7 +96,7 @@
         <a
           @mouseover="isHovered = true"
           @mouseleave="isHovered = false"
-          class="flex items-center text-blue hover:underline"
+          class="dark:text-dark-blue mt-[1px] flex items-center text-blue hover:underline"
           href="https://github.com/aileks/quillify/"
         >
           GitHub.

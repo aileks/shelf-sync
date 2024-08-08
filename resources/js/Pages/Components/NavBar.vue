@@ -8,7 +8,7 @@
   <div :class="['drawer', darkMode ? 'dark' : '']">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div
-      class="dark:bg-dark-background drawer-content m-1 flex flex-col rounded-md bg-tan shadow-paper"
+      class="dark:bg-dark-tan drawer-content m-1 flex flex-col rounded-md bg-tan shadow-paper"
     >
       <!-- Navbar -->
       <div class="navbar w-full rounded-md">
@@ -22,7 +22,7 @@
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              class="dark:text-dark-text inline-block h-6 w-6 stroke-current text-neutral-800"
+              class="inline-block h-6 w-6 stroke-current"
             >
               <path
                 stroke-linecap="round"
@@ -35,7 +35,7 @@
         </div>
 
         <div
-          class="dark:text-dark-text mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
+          class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
         >
           <img
             class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-90 hover:shadow-none"
@@ -69,7 +69,7 @@
               v-show="$page.props.auth.user"
             >
               <MenuButton
-                class="dark:bg-dark-accent dark:text-dark-text mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none"
+                class="dark:bg-dark-brown mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none"
               >
                 Account
               </MenuButton>
@@ -80,15 +80,15 @@
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <MenuItems
-                  class="dark:bg-dark-background absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-tan font-medium shadow-paper ring-1 ring-black/5 focus:outline-none"
+                  class="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-tan font-medium shadow-paper ring-1 ring-black/5 focus:outline-none"
                 >
                   <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
                       <Link
                         :class="[
                           active ?
-                            'dark:bg-dark-accent dark:text-dark-text bg-brown text-neutral-50'
-                          : 'dark:text-dark-text text-neutral-800',
+                            'bg-brown text-neutral-50'
+                          : 'text-neutral-800',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
                         href="/profile"
@@ -101,8 +101,8 @@
                       <Link
                         :class="[
                           active ?
-                            'dark:bg-dark-accent dark:text-dark-text bg-brown text-neutral-50'
-                          : 'dark:text-dark-text text-neutral-800',
+                            'bg-brown text-neutral-50'
+                          : 'text-neutral-800',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
                         href="/logout"
@@ -116,9 +116,9 @@
               </Transition>
             </Menu>
           </ul>
-
-          <DarkModeToggleButton />
         </div>
+
+        <DarkModeToggleButton />
       </div>
     </div>
 

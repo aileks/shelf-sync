@@ -1,22 +1,22 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+  import { useForm } from '@inertiajs/vue3';
 
-const props = defineProps({
-  formFields: Array,
-  postUrl: String,
-});
+  const props = defineProps({
+    formFields: Array,
+    postUrl: String,
+  });
 
-const form = useForm({
-  ...Object.fromEntries(props.formFields.map((field) => [field.model, null])),
-});
+  const form = useForm({
+    ...Object.fromEntries(props.formFields.map(field => [field.model, null])),
+  });
 
-const submit = () => {
-  const options = {
-    preserveState: true,
+  const submit = () => {
+    const options = {
+      preserveState: true,
+    };
+
+    form.post(props.postUrl, options);
   };
-
-  form.post(props.postUrl, options);
-};
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const submit = () => {
 
       <div
         v-else
-        class="mt-6 flex items-center space-x-2 text-sm italic text-blue"
+        class="dark:text-dark-blue mt-6 flex items-center space-x-2 text-sm italic text-blue"
       >
         <input
           v-model="form[field.model]"
@@ -53,7 +53,7 @@ const submit = () => {
 
       <div
         v-if="form.errors[field.model]"
-        class="error mt-3 text-center text-sm italic text-red"
+        class="error dark:text-dark-red mt-3 text-center text-sm italic text-red"
       >
         {{ form.errors[field.model] }}
       </div>
