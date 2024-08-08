@@ -77,7 +77,7 @@
 
   <div class="mb-0 mt-4 flex justify-center pb-0">
     <Link
-      class="dark:text-dark-blue text-sm font-bold italic text-blue hover:underline"
+      class="text-sm font-bold italic text-blue hover:underline dark:text-dark-red"
       href="/forgot-password"
     >
       Forgot Password?
