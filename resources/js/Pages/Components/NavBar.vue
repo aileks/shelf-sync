@@ -8,7 +8,7 @@
   <div :class="['drawer', darkMode ? 'dark' : '']">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div
-      class="dark:bg-dark-tan drawer-content m-1 flex flex-col rounded-md bg-tan shadow-paper"
+      class="drawer-content m-1 flex flex-col rounded-md bg-tan shadow-paper dark:bg-dark-tan"
     >
       <!-- Navbar -->
       <div class="navbar w-full rounded-md">
@@ -69,7 +69,7 @@
               v-show="$page.props.auth.user"
             >
               <MenuButton
-                class="dark:bg-dark-brown mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none"
+                class="mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-50 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none dark:bg-dark-brown"
               >
                 Account
               </MenuButton>
@@ -118,7 +118,7 @@
           </ul>
         </div>
 
-        <!-- <DarkModeToggleButton /> -->
+        <DarkModeToggleButton />
       </div>
     </div>
 
