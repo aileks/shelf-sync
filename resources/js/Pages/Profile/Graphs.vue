@@ -1,156 +1,156 @@
 <script setup>
-import { Bar, Line } from "vue-chartjs";
-import { ChevronDownIcon, CheckIcon } from "@heroicons/vue/20/solid";
+  import { Bar, Line } from 'vue-chartjs';
+  import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/20/solid';
 
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-} from "chart.js";
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+  } from 'chart.js';
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-);
+  ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+  );
 
-const bookGenres = Object.values(props.books).map((book) => book.genre);
-const availableYears = computed(() => {
-  const years = new Set();
-  props.books.forEach((book) => {
-    if (book.created_at) {
-      const year = new Date(book.created_at).getFullYear();
-      years.add(year);
-    }
-  });
-  return [...years].sort();
-});
-
-const selectedYear = ref(null);
-watch(
-  availableYears,
-  (newVal) => {
-    if (newVal.length > 0) {
-      selectedYear.value = newVal[newVal.length - 1];
-    }
-  },
-  { immediate: true },
-);
-
-// Chart for spread of genres
-const genreCounts = computed(() => {
-  const counts = {};
-  bookGenres.forEach((genre) => {
-    counts[genre] = counts[genre] ? counts[genre] + 1 : 1;
-  });
-  return counts;
-});
-const genreData = {
-  labels: Object.keys(genreCounts.value),
-  datasets: [
-    {
-      label: "Books per Genre",
-      data: Object.values(genreCounts.value),
-      backgroundColor: "#2e4269b3",
-      borderColor: "#2e4269",
-      borderWidth: 1,
-    },
-  ],
-};
-
-// Chart for books finished per year
-const booksFinishedPerYear = computed(() => {
-  return Object.values(props.books).reduce((counts, book) => {
-    if (book.date_read) {
-      const year = new Date(book.date_read).getFullYear();
-      counts[year] = counts[year] ? counts[year] + 1 : 1;
-    }
-    return counts;
-  }, {});
-});
-const booksFinishedPerYearData = {
-  labels: Object.keys(booksFinishedPerYear.value),
-  datasets: [
-    {
-      label: "Books Finished",
-      data: Object.values(booksFinishedPerYear.value),
-      borderColor: "#2e4269",
-      tension: 0.4,
-    },
-  ],
-};
-// Chart for books added per day in a given year
-const booksAddedPerDay = computed(() => {
-  const currentYear = new Date().getFullYear();
-  return Object.values(props.books).reduce((counts, book) => {
-    if (book.created_at) {
-      const date = new Date(book.created_at);
-      const year = date.getFullYear();
-      if (year === currentYear) {
-        const day = date.toISOString().split("T")[0];
-        counts[day] = counts[day] ? counts[day] + 1 : 1;
+  const bookGenres = Object.values(props.books).map(book => book.genre);
+  const availableYears = computed(() => {
+    const years = new Set();
+    props.books.forEach(book => {
+      if (book.created_at) {
+        const year = new Date(book.created_at).getFullYear();
+        years.add(year);
       }
-    }
-    return counts;
-  }, {});
-});
-const booksAddedPerDayData = {
-  labels: Object.keys(booksAddedPerDay.value),
-  datasets: [
-    {
-      label: "Books Added",
-      data: Object.values(booksAddedPerDay.value),
-      borderColor: "#2e4269",
-      tension: 0.4,
-    },
-  ],
-};
+    });
+    return [...years].sort();
+  });
 
-const barGraphOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
+  const selectedYear = ref(null);
+  watch(
+    availableYears,
+    newVal => {
+      if (newVal.length > 0) {
+        selectedYear.value = newVal[newVal.length - 1];
+      }
     },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
+    { immediate: true },
+  );
+
+  // Chart for spread of genres
+  const genreCounts = computed(() => {
+    const counts = {};
+    bookGenres.forEach(genre => {
+      counts[genre] = counts[genre] ? counts[genre] + 1 : 1;
+    });
+    return counts;
+  });
+  const genreData = {
+    labels: Object.keys(genreCounts.value),
+    datasets: [
+      {
+        label: 'Books per Genre',
+        data: Object.values(genreCounts.value),
+        backgroundColor: '#2e4269b3',
+        borderColor: '#2e4269',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Chart for books finished per year
+  const booksFinishedPerYear = computed(() => {
+    return Object.values(props.books).reduce((counts, book) => {
+      if (book.date_read) {
+        const year = new Date(book.date_read).getFullYear();
+        counts[year] = counts[year] ? counts[year] + 1 : 1;
+      }
+      return counts;
+    }, {});
+  });
+  const booksFinishedPerYearData = {
+    labels: Object.keys(booksFinishedPerYear.value),
+    datasets: [
+      {
+        label: 'Books Finished',
+        data: Object.values(booksFinishedPerYear.value),
+        borderColor: '#2e4269',
+        tension: 0.4,
+      },
+    ],
+  };
+  // Chart for books added per day in a given year
+  const booksAddedPerDay = computed(() => {
+    const currentYear = new Date().getFullYear();
+    return Object.values(props.books).reduce((counts, book) => {
+      if (book.created_at) {
+        const date = new Date(book.created_at);
+        const year = date.getFullYear();
+        if (year === currentYear) {
+          const day = date.toISOString().split('T')[0];
+          counts[day] = counts[day] ? counts[day] + 1 : 1;
+        }
+      }
+      return counts;
+    }, {});
+  });
+  const booksAddedPerDayData = {
+    labels: Object.keys(booksAddedPerDay.value),
+    datasets: [
+      {
+        label: 'Books Added',
+        data: Object.values(booksAddedPerDay.value),
+        borderColor: '#2e4269',
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const barGraphOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
-  },
-};
-const lineGraphOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
     },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 1,
-        callback: function (value) {
-          if (Math.floor(value) === value) {
-            return value;
-          }
+  };
+  const lineGraphOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+          callback: function (value) {
+            if (Math.floor(value) === value) {
+              return value;
+            }
+          },
         },
       },
     },
-  },
-};
+  };
 </script>
 
 <template>
