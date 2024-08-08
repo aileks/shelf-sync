@@ -1,11 +1,14 @@
 <script setup>
   import { onMounted, ref } from 'vue';
+  import { ArrowUpRightIcon } from '@heroicons/vue/20/solid';
 
   const animate = ref(false);
 
   onMounted(() => {
     animate.value = true;
   });
+
+  const isHovered = ref(false);
 </script>
 
 <template>
@@ -14,16 +17,12 @@
   <Layout>
     <div class="flex h-screen flex-col justify-center">
       <div
-        class="flex-0 relative z-0 flex w-auto flex-col items-center justify-center sm:mb-16"
+        class="flex-0 relative z-0 my-8 flex w-auto flex-col items-center justify-center sm:mb-16"
       >
         <img
-          class="absolute inset-0 w-full rounded-md object-cover blur-sm sm:h-full"
+          class="absolute h-[300px] w-[600px] overflow-hidden rounded-md object-cover blur-sm"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         />
-
-        <!-- <div -->
-        <!--   class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full" -->
-        <!-- ></div> -->
 
         <header
           class="z-10 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md text-neutral-50 sm:mb-12"
@@ -34,15 +33,18 @@
             leave-active-class="transition-opacity duration-700 ease-in-out"
             leave-to-class="opacity-0"
           >
-            <div v-show="animate" class="z-10 h-full w-full px-4 text-center">
+            <div
+              v-show="animate"
+              class="text-shadow text-overlay z-10 h-full w-full rounded-md px-4 text-center"
+            >
               <h1
-                class="text-shadow text-overlay my-2 rounded-md text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl"
+                class="my-2 text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl"
               >
                 Organize Your Reading Life With Quillify
               </h1>
 
               <p
-                class="text-shadow text-overlay my-6 rounded-md pt-4 text-base sm:my-12 sm:text-lg md:text-2xl"
+                class="my-6 rounded-md pt-4 text-base sm:my-12 sm:text-lg md:text-2xl"
               >
                 Track and share your literary journey
               </p>
@@ -94,11 +96,9 @@
     </div>
 
     <footer
-      class="absolute left-0 right-0 flex flex-col bg-tan text-sm text-neutral-800 dark:bg-dark-bronze dark:text-neutral-50"
+      class="absolute left-0 right-0 my-4 flex flex-col bg-tan text-sm text-neutral-800 dark:bg-dark-bronze dark:text-neutral-50"
     >
-      <span
-        class="my-2 flex items-center justify-center text-center sm:flex-wrap"
-      >
+      <span class="mt-3 flex items-center justify-center text-center">
         Please report any issues on&nbsp;&nbsp;
         <a
           @mouseover="isHovered = true"
@@ -117,7 +117,7 @@
         </a>
       </span>
 
-      <p class="mb-2 text-center">
+      <p class="my-2 text-center">
         &copy; 2024 Aaliyah Harper. All rights reserved.
       </p>
     </footer>

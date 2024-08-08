@@ -37,11 +37,14 @@
         <div
           class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
         >
-          <img
-            class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-90 hover:shadow-none"
-            src="https://raw.githubusercontent.com/aileks/quillify/main/public/quill-logo.png"
-            alt="minimalistic quill logo"
-          />
+          <a href="https://github.com/aileks/quillify">
+            <img
+              class="h-12 w-12 rounded-md shadow-paper transition-all duration-300 hover:opacity-90 hover:shadow-none"
+              src="https://raw.githubusercontent.com/aileks/quillify/main/public/quill-logo.png"
+              alt="minimalistic quill logo"
+              title="Checkout the repo!"
+            />
+          </a>
         </div>
 
         <div class="hidden flex-none lg:block">
