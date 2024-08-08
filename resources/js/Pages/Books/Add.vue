@@ -40,7 +40,7 @@
   <FormLayout>
     <h1
       id="box-text"
-      class="border-b border-bronze pb-1.5 text-3xl dark:border-dark-bronze"
+      class="border-b border-bronze pb-1.5 text-3xl dark:border-tan"
     >
       Add Book
     </h1>
