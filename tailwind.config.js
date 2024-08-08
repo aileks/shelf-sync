@@ -26,7 +26,7 @@ export default {
         blue: '#2e4269',
         red: '#9e442e',
         green: '#608c6e',
-        'dark-primary': '#1c1713',
+        'dark-primary': '#15100c',
         'dark-accent': '#8d3b54',
         'dark-brown': '#7a5037',
         'dark-bronze': '#b39b76',
