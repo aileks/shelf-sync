@@ -8,7 +8,7 @@
     <!-- sun icon -->
     <svg
       v-if="darkMode"
-      class="swap-off h-8 w-8 fill-current"
+      class="swap-off h-8 w-8 fill-primary"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >
@@ -20,7 +20,7 @@
     <!-- moon icon -->
     <svg
       v-else
-      class="swap-on h-8 w-8 fill-current text-neutral-800"
+      class="swap-on h-8 w-8 fill-dark-primary"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >
