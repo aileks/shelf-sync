@@ -15,111 +15,115 @@
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div
-      class="relative z-0 flex w-auto flex-1 flex-col items-center justify-center"
-    >
-      <img
-        class="absolute inset-0 w-full rounded-md object-cover sm:h-full"
-        src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
-      />
-
-      <!-- <div -->
-      <!--   class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full" -->
-      <!-- ></div> -->
-
-      <header
-        class="text-shadow text-overlay z-10 mb-12 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md py-4 text-neutral-50 sm:mb-2 sm:py-0"
-      >
-        <Transition
-          enter-active-class="transition-opacity duration-1000 ease-in-out"
-          enter-from-class="opacity-0"
-          leave-active-class="transition-opacity duration-700 ease-in-out"
-          leave-to-class="opacity-0"
-        >
-          <div v-show="animate" class="z-10 h-full w-full px-4 text-center">
-            <h1 class="my-2 text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl">
-              Organize Your Reading Life With Quillify
-            </h1>
-
-            <p class="my-6 pt-4 text-base sm:my-12 sm:text-lg md:text-2xl">
-              Track and share your literary journey
-            </p>
-
-            <Link href="/register">
-              <button
-                class="dark:bg-dark-green dark:hover:bg-dark-green/85 mb-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none"
-              >
-                Create Your Personal Library
-              </button>
-            </Link>
-          </div>
-        </Transition>
-      </header>
-    </div>
-
-    <main
-      class="relative mt-4 flex flex-col items-center justify-center overflow-hidden sm:mt-10"
-    >
-      <img
-        class="absolute left-0 top-0 h-full w-full -rotate-2 rounded-lg object-cover opacity-80 drop-shadow-md"
-        src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
-        alt="table of books"
-      />
-
+    <div class="min-h-screen">
       <div
-        class="relative my-4 w-11/12 rounded-lg bg-sandy px-4 py-6 sm:my-10 sm:w-3/4 sm:px-8 sm:py-12"
+        class="relative z-0 flex w-auto flex-1 flex-col items-center justify-between"
       >
-        <p class="px-2 font-medium sm:px-4 sm:text-base sm:text-lg">
-          Quillify is your simple, elegant solution for tracking your reading
-          journey. Effortlessly manage your book collection our searchable list
-          and keep your reading goals on track.
-        </p>
+        <img
+          class="absolute inset-0 w-full rounded-md object-cover sm:h-full"
+          src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
+        />
 
-        <p
-          class="mt-2 px-2 font-medium sm:mt-4 sm:px-4 sm:text-base sm:text-lg"
+        <!-- <div -->
+        <!--   class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full" -->
+        <!-- ></div> -->
+
+        <header
+          class="text-shadow text-overlay z-10 mb-12 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md py-4 text-neutral-50 sm:mb-2 sm:py-0"
         >
-          Discover a more organized and enjoyable reading experience with
-          Quillify.
-        </p>
-
-        <Link href="/register">
-          <button
-            class="relative mt-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none sm:mt-8"
+          <Transition
+            enter-active-class="transition-opacity duration-1000 ease-in-out"
+            enter-from-class="opacity-0"
+            leave-active-class="transition-opacity duration-700 ease-in-out"
+            leave-to-class="opacity-0"
           >
-            Start Now!
-          </button>
-        </Link>
+            <div v-show="animate" class="z-10 h-full w-full px-4 text-center">
+              <h1
+                class="my-2 text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl"
+              >
+                Organize Your Reading Life With Quillify
+              </h1>
+
+              <p class="my-6 pt-4 text-base sm:my-12 sm:text-lg md:text-2xl">
+                Track and share your literary journey
+              </p>
+
+              <Link href="/register">
+                <button
+                  class="mb-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/85"
+                >
+                  Create Your Personal Library
+                </button>
+              </Link>
+            </div>
+          </Transition>
+        </header>
       </div>
-    </main>
 
-    <footer
-      class="absolute bottom-0 left-0 right-0 mb-2 flex flex-col items-center justify-center text-sm sm:mt-12"
-    >
-      <span
-        class="my-2 flex items-center justify-center text-center sm:flex-wrap"
+      <main
+        class="relative mt-4 flex flex-1 flex-col items-center justify-center overflow-hidden sm:mt-10"
       >
-        Please report any issues on&nbsp;
-        <a
-          @mouseover="isHovered = true"
-          @mouseleave="isHovered = false"
-          class="dark:text-dark-blue mt-[1px] flex items-center text-blue hover:underline"
-          href="https://github.com/aileks/quillify/"
-        >
-          GitHub.
-          <ArrowUpRightIcon
-            class="h-4 w-4"
-            :class="{
-              '-translate-y-0.5 translate-x-0.5 transform transition-transform duration-150':
-                isHovered,
-            }"
-          />
-        </a>
-      </span>
+        <img
+          class="absolute left-0 top-0 h-full w-full -rotate-2 rounded-lg object-cover opacity-80 drop-shadow-md"
+          src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
+          alt="table of books"
+        />
 
-      <p class="text-center">
-        &copy; 2024 Aaliyah Harper. All rights reserved.
-      </p>
-    </footer>
+        <div
+          class="relative my-4 w-11/12 rounded-lg bg-sandy px-4 py-6 sm:my-10 sm:w-3/4 sm:px-8 sm:py-12"
+        >
+          <p class="px-2 font-medium sm:px-4 sm:text-base sm:text-lg">
+            Quillify is your simple, elegant solution for tracking your reading
+            journey. Effortlessly manage your book collection our searchable
+            list and keep your reading goals on track.
+          </p>
+
+          <p
+            class="mt-2 px-2 font-medium sm:mt-4 sm:px-4 sm:text-base sm:text-lg"
+          >
+            Discover a more organized and enjoyable reading experience with
+            Quillify.
+          </p>
+
+          <Link href="/register">
+            <button
+              class="relative mt-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90 sm:mt-8"
+            >
+              Start Now!
+            </button>
+          </Link>
+        </div>
+      </main>
+
+      <footer
+        class="fixed bottom-0 left-0 right-0 mb-1 flex flex-1 flex-col items-center justify-center text-sm dark:text-neutral-50"
+      >
+        <span
+          class="my-2 flex items-center justify-center text-center sm:flex-wrap"
+        >
+          Please report any issues on&nbsp;
+          <a
+            @mouseover="isHovered = true"
+            @mouseleave="isHovered = false"
+            class="ml-[1px] mt-[1px] flex items-center text-blue hover:underline dark:text-dark-green"
+            href="https://github.com/aileks/quillify/"
+          >
+            GitHub.
+            <ArrowUpRightIcon
+              class="h-4 w-4"
+              :class="{
+                '-translate-y-0.5 translate-x-0.5 transform transition-transform duration-150':
+                  isHovered,
+              }"
+            />
+          </a>
+        </span>
+
+        <p class="text-center">
+          &copy; 2024 Aaliyah Harper. All rights reserved.
+        </p>
+      </footer>
+    </div>
   </Layout>
 </template>
 
