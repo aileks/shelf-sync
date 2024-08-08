@@ -30,7 +30,7 @@ export default {
         'dark-accent': '#8d3b54',
         'dark-brown': '#7a5037',
         'dark-bronze': '#b39b76',
-        'dark-sandy': '#8c7f6e',
+        'dark-sandy': '#a08e79',
         'dark-tan': '#9e8b69',
         'dark-blue': '#3a547f',
         'dark-red': '#b85339',
