@@ -65,21 +65,23 @@
         class="relative mt-8 flex flex-1 flex-col items-center justify-center"
       >
         <img
-          class="absolute left-0 top-0 h-full w-full -rotate-6 overflow-hidden rounded-lg object-cover opacity-80 blur-sm drop-shadow-md"
+          class="z-1 absolute left-0 top-0 h-full w-full -rotate-3 overflow-hidden rounded-lg object-cover opacity-80 blur-sm drop-shadow-md"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
           alt="table of books"
         />
 
         <div
-          class="relative my-4 w-11/12 rounded-lg bg-bronze px-4 py-6 text-neutral-50 dark:bg-dark-bronze sm:my-10 sm:w-3/4 sm:px-8 sm:py-12"
+          class="relative my-4 w-11/12 rounded-lg bg-bronze px-4 py-6 text-neutral-50 dark:bg-dark-bronze sm:my-10 sm:px-8 sm:py-12 md:w-2/3"
         >
-          <p class="px-2 font-medium sm:px-4 sm:text-lg">
+          <p class="px-2 text-base font-medium sm:px-4 sm:text-lg md:text-xl">
             Quillify is your simple, elegant solution for tracking your reading
-            journey. Effortlessly manage your book collection with our searchable
-            list and keep your reading goals on track.
+            journey. Effortlessly manage your book collection with our
+            searchable list and keep your reading goals on track.
           </p>
 
-          <p class="mt-2 px-2 font-medium sm:mt-4 sm:px-4 sm:text-lg">
+          <p
+            class="mt-2 px-2 text-base font-medium sm:mt-4 sm:px-4 sm:text-lg md:text-xl"
+          >
             Discover a more organized and enjoyable reading experience with
             Quillify.
           </p>
