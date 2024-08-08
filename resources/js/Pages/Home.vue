@@ -62,10 +62,10 @@
       </div>
 
       <main
-        class="relative mt-4 flex flex-1 flex-col items-center justify-center overflow-hidden sm:mt-10"
+        class="relative mt-8 flex flex-1 flex-col items-center justify-center"
       >
         <img
-          class="absolute left-0 top-0 h-full w-full -rotate-6 rounded-lg object-cover opacity-80 blur-sm drop-shadow-md"
+          class="absolute left-0 top-0 h-full w-full -rotate-6 overflow-hidden rounded-lg object-cover opacity-80 blur-sm drop-shadow-md"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
           alt="table of books"
         />
@@ -75,7 +75,7 @@
         >
           <p class="px-2 font-medium sm:px-4 sm:text-lg">
             Quillify is your simple, elegant solution for tracking your reading
-            journey. Effortlessly manage your book collection our searchable
+            journey. Effortlessly manage your book collection with our searchable
             list and keep your reading goals on track.
           </p>
 
