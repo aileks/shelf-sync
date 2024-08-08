@@ -12,12 +12,12 @@
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div class="min-h-screen">
+    <div class="flex h-screen flex-col justify-center">
       <div
-        class="relative z-0 flex w-auto flex-1 flex-col items-center justify-between"
+        class="flex-0 relative z-0 flex w-auto flex-col items-center justify-center sm:mb-16"
       >
         <img
-          class="absolute inset-0 w-full rounded-md object-cover sm:h-full"
+          class="absolute inset-0 w-full rounded-md object-cover blur-sm sm:h-full"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         />
 
@@ -26,7 +26,7 @@
         <!-- ></div> -->
 
         <header
-          class="text-shadow text-overlay z-10 mb-12 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md py-4 text-neutral-50 sm:mb-2 sm:py-0"
+          class="z-10 ml-4 mr-3 mt-2 flex flex-col items-center justify-center place-self-center self-center rounded-md text-neutral-50 sm:mb-12"
         >
           <Transition
             enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -36,12 +36,14 @@
           >
             <div v-show="animate" class="z-10 h-full w-full px-4 text-center">
               <h1
-                class="my-2 text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl"
+                class="text-shadow text-overlay my-2 rounded-md text-xl font-bold sm:my-4 sm:text-2xl md:text-4xl"
               >
                 Organize Your Reading Life With Quillify
               </h1>
 
-              <p class="my-6 pt-4 text-base sm:my-12 sm:text-lg md:text-2xl">
+              <p
+                class="text-shadow text-overlay my-6 rounded-md pt-4 text-base sm:my-12 sm:text-lg md:text-2xl"
+              >
                 Track and share your literary journey
               </p>
 
