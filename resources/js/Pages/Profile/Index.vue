@@ -2,6 +2,7 @@
   import { onMounted, watch, ref } from 'vue';
   import { useForm, router } from '@inertiajs/vue3';
   import StyledButton from '@/Components/StyledButton.vue';
+  import Graphs from '@/Components/Graphs.vue';
   import {
     TabGroup,
     TabList,
@@ -17,13 +18,13 @@
 
   const props = defineProps({
     user: Object,
-    totalBooks: Number,
-    finishedBooks: Number,
-    unfinishedBooks: Number,
     errors: Object,
     activeTab: Number,
-    success: String,
+    books: Array,
   });
+
+  const finishedBooks = props.books.filter(book => book.finished);
+  const unfinishedBooks = props.books.filter(book => !book.finished);
 
   const activeTab = ref(props.activeTab);
   const success = ref(props.success);
@@ -116,6 +117,19 @@
               Settings
             </button>
           </Tab>
+
+          <div class="invisible sm:visible">
+            <Tab as="template" v-slot="{ selected }">
+              <button
+                class="px-2 py-1 outline-none md:text-lg"
+                :class="{
+                  'border-b-2 border-accent dark:border-dark-accent': selected,
+                }"
+              >
+                Graphs
+              </button>
+            </Tab>
+          </div>
         </TabList>
 
         <TabPanels class="p-4 text-neutral-800">
@@ -166,24 +180,24 @@
                   class="flex w-full flex-col items-center space-y-8 rounded-md"
                 >
                   <div
-                    class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
+                    class="flex w-3/4 justify-between border-b border-blue dark:border-dark-blue sm:w-2/3"
                   >
                     <span class="font-semibold">Finished Books:</span>
-                    <span class="italic">{{ finishedBooks }}</span>
+                    <span class="italic">{{ finishedBooks.length }}</span>
                   </div>
 
                   <div
-                    class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
+                    class="flex w-5/6 justify-between border-b border-blue dark:border-dark-blue sm:w-2/3"
                   >
                     <span class="font-semibold">Incomplete Books:</span>
-                    <span class="italic">{{ unfinishedBooks }}</span>
+                    <span class="italic">{{ unfinishedBooks.length }}</span>
                   </div>
 
                   <div
                     class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
                   >
                     <span class="font-semibold"> Total Books:</span>
-                    <span class="italic">{{ totalBooks }}</span>
+                    <span class="italic">{{ books.length }}</span>
                   </div>
                 </TabPanel>
 
@@ -265,6 +279,13 @@
               </TabPanels>
             </TabGroup>
           </TabPanel>
+
+          <Graphs
+            :user="props.user"
+            :errors="props.errros"
+            :activeTab="props.activeTab"
+            :books="props.books"
+          />
         </TabPanels>
       </TabGroup>
     </div>
