@@ -20,7 +20,7 @@
         class="flex-0 relative z-0 my-8 flex w-auto flex-col items-center justify-center sm:mb-16"
       >
         <img
-          class="absolute h-[300px] w-[600px] overflow-hidden rounded-md object-cover blur-sm"
+          class="absolute h-[300px] w-[600px] overflow-hidden rounded-md object-cover blur-sm sm:h-full sm:w-full"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         />
 
