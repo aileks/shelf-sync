@@ -6,6 +6,12 @@
   const isMobile = ref(window.innerWidth <= 800);
   const isHovered = ref(false);
 
+  const props = defineProps({
+    success: String,
+  });
+
+  const success = ref(props.success);
+
   const updateIsMobile = () => {
     isMobile.value = window.innerWidth <= 800;
   };

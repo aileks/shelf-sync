@@ -17,7 +17,9 @@
 
   const props = defineProps({
     user: Object,
-    books: Number,
+    totalBooks: Number,
+    finishedBooks: Number,
+    unfinishedBooks: Number,
     errors: Object,
     activeTab: Number,
     success: String,
@@ -77,7 +79,7 @@
     if (success) {
       setTimeout(() => {
         success.value = null;
-      }, 3000);
+      }, 500);
     }
   });
 
@@ -163,30 +165,35 @@
                   :selected="activeTab === 0"
                   class="flex w-full flex-col items-center space-y-8 rounded-md"
                 >
-                  <!-- <div -->
-                  <!--   class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue" -->
-                  <!-- > -->
-                  <!--   <span class="font-semibold">Name:</span> -->
-                  <!--   <span class="italic">{{ user.name }}</span> -->
-                  <!-- </div> -->
+                  <div
+                    class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
+                  >
+                    <span class="font-semibold">Finished Books:</span>
+                    <span class="italic">{{ finishedBooks }}</span>
+                  </div>
 
-                  <!-- <div -->
-                  <!--   class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue" -->
-                  <!-- > -->
-                  <!--   <span class="font-semibold">Email:</span> -->
-                  <!--   <span class="italic">{{ user.email }}</span> -->
-                  <!-- </div> -->
+                  <div
+                    class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
+                  >
+                    <span class="font-semibold">Incomplete Books:</span>
+                    <span class="italic">{{ unfinishedBooks }}</span>
+                  </div>
 
                   <div
                     class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
                   >
                     <span class="font-semibold"> Total Books:</span>
-                    <span class="italic">{{ books }}</span>
+                    <span class="italic">{{ totalBooks }}</span>
                   </div>
                 </TabPanel>
 
                 <!-- FIXME: Redirect should return to this tab -->
                 <TabPanel :selected="activeTab === 1" class="w-full">
+                  <div class="mb-4 flex w-2/3 justify-between">
+                    <span class="font-semibold">Current Email:</span>
+                    <span class="italic">{{ user.email }}</span>
+                  </div>
+
                   <form @submit.prevent="submit">
                     <div
                       class="flex flex-col justify-center space-y-4 text-left"
