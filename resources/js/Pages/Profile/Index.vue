@@ -1,92 +1,92 @@
 <script setup>
-import { onMounted, watch, ref } from "vue";
-import { useForm, router } from "@inertiajs/vue3";
-import StyledButton from "@/Components/StyledButton.vue";
-import {
-  TabGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  TransitionRoot,
-  TransitionChild,
-} from "@headlessui/vue";
+  import { onMounted, watch, ref } from 'vue';
+  import { useForm, router } from '@inertiajs/vue3';
+  import StyledButton from '@/Components/StyledButton.vue';
+  import {
+    TabGroup,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+    TransitionRoot,
+    TransitionChild,
+  } from '@headlessui/vue';
 
-const props = defineProps({
-  user: Object,
-  books: Number,
-  errors: Object,
-  activeTab: Number,
-  success: String,
-});
+  const props = defineProps({
+    user: Object,
+    books: Number,
+    errors: Object,
+    activeTab: Number,
+    success: String,
+  });
 
-const activeTab = ref(props.activeTab);
-const success = ref(props.success);
+  const activeTab = ref(props.activeTab);
+  const success = ref(props.success);
 
-let isOpen = ref(false);
-const openModal = () => {
-  isOpen.value = true;
-};
-const closeModal = () => {
-  isOpen.value = false;
-};
+  let isOpen = ref(false);
+  const openModal = () => {
+    isOpen.value = true;
+  };
+  const closeModal = () => {
+    isOpen.value = false;
+  };
 
-const deleteAccount = () => {
-  router.delete("/profile");
-};
+  const deleteAccount = () => {
+    router.delete('/profile');
+  };
 
-// Update Profile
-const form = useForm({
-  email: null,
-  confirmEmail: null,
-  currentPassword: null,
-});
+  // Update Profile
+  const form = useForm({
+    email: null,
+    confirmEmail: null,
+    currentPassword: null,
+  });
 
-// Realtime validation
-let validateEmail = (email, confirmEmail) => {
-  props.errors.email = null; // reset email errors
+  // Realtime validation
+  let validateEmail = (email, confirmEmail) => {
+    props.errors.email = null; // reset email errors
 
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/;
 
-  if (!emailRegex.test(email)) {
-    props.errors.email = "Invalid email";
-    return;
-  }
+    if (!emailRegex.test(email)) {
+      props.errors.email = 'Invalid email';
+      return;
+    }
 
-  if (email !== confirmEmail) {
-    props.errors.email = "Emails do not match";
-  }
-};
-watch(
-  () => form.email,
-  (newEmail) => {
-    validateEmail(newEmail, form.confirmEmail);
-  },
-);
-watch(
-  () => form.confirmEmail,
-  (newConfirmEmail) => {
-    validateEmail(form.email, newConfirmEmail);
-  },
-);
+    if (email !== confirmEmail) {
+      props.errors.email = 'Emails do not match';
+    }
+  };
+  watch(
+    () => form.email,
+    newEmail => {
+      validateEmail(newEmail, form.confirmEmail);
+    },
+  );
+  watch(
+    () => form.confirmEmail,
+    newConfirmEmail => {
+      validateEmail(form.email, newConfirmEmail);
+    },
+  );
 
-onMounted(() => {
-  if (success) {
-    setTimeout(() => {
-      success.value = null;
-    }, 3000);
-  }
-});
+  onMounted(() => {
+    if (success) {
+      setTimeout(() => {
+        success.value = null;
+      }, 3000);
+    }
+  });
 
-const submit = () => {
-  if (props.errors.email !== null) {
-    return;
-  }
-  form.post("/profile");
-};
+  const submit = () => {
+    if (props.errors.email !== null) {
+      return;
+    }
+    form.post('/profile');
+  };
 </script>
 
 <template>
@@ -97,7 +97,7 @@ const submit = () => {
       <TabGroup
         :default-index="0"
         as="TabGroup"
-        class="w-full max-w-screen-sm rounded-md bg-sandy p-4 shadow-paper"
+        class="w-full max-w-screen-sm rounded-md bg-sandy p-4 shadow-paper dark:bg-dark-sandy"
       >
         <h3 class="mb-4 text-left text-xl font-bold">Hello, {{ user.name }}</h3>
 
@@ -108,7 +108,7 @@ const submit = () => {
             <button
               class="px-2 py-1 outline-none md:text-lg"
               :class="{
-                'border-b-2 border-accent': selected,
+                'border-b-2 border-accent dark:border-dark-accent': selected,
               }"
             >
               Settings
@@ -125,7 +125,7 @@ const submit = () => {
                     class="transform rounded-md px-2 py-1 text-sm outline-none transition-colors duration-200"
                     :class="{
                       'text-nuetral-800': !selected,
-                      'bg-accent text-neutral-50': selected,
+                      'bg-accent text-neutral-50 dark:bg-dark-accent': selected,
                     }"
                   >
                     Your Account
@@ -138,7 +138,7 @@ const submit = () => {
                     class="transform rounded-md px-2 py-1 text-sm outline-none transition-colors duration-200"
                     :class="{
                       'text-nuetral-800': !selected,
-                      'bg-accent text-neutral-50': selected,
+                      'bg-accent text-neutral-50 dark:bg-dark-accent': selected,
                     }"
                   >
                     Update Email
@@ -149,8 +149,8 @@ const submit = () => {
                   <button
                     class="transform rounded-md px-2 py-1 text-sm outline-none transition-colors duration-200"
                     :class="{
-                      'text-red': !selected,
-                      'bg-red text-neutral-50': selected,
+                      'text-red dark:text-dark-red': !selected,
+                      'bg-red text-neutral-50 dark:bg-dark-red': selected,
                     }"
                   >
                     Delete Account
@@ -244,7 +244,7 @@ const submit = () => {
 
                   <button
                     @click="openModal"
-                    class="mt-4 transform rounded-md border border-red px-4 py-2 text-xl font-bold text-red transition-all duration-150 hover:bg-red hover:text-neutral-50"
+                    class="mt-4 transform rounded-md border border-red px-4 py-2 text-xl font-bold text-red dark:text-dark-red dark:border-dark-red transition-all duration-150 dark:hover:bg-dark-red dark:hover:text-neutral-50 hover:bg-red hover:text-neutral-50"
                   >
                     Delete
                   </button>
@@ -294,7 +294,7 @@ const submit = () => {
                 </DialogTitle>
 
                 <div class="mt-2 flex flex-col">
-                  <span class="text-neutral-700">
+                  <span class="text-neutral-800">
                     Are you sure you want to delete your account?
                   </span>
                 </div>
@@ -302,7 +302,7 @@ const submit = () => {
                 <div class="mt-4 flex justify-between">
                   <button
                     type="submit"
-                    class="inline-flex transform justify-center rounded-md border border-transparent bg-red px-4 py-2 text-sm font-medium text-neutral-50 transition-all duration-150 hover:bg-red/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2"
+                    class="inline-flex transform justify-center rounded-md border border-transparent bg-red px-4 py-2 text-sm font-medium text-neutral-50 transition-all duration-150 hover:bg-red/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2"
                     @click="deleteAccount"
                   >
                     Yes, Delete My Account
@@ -310,7 +310,7 @@ const submit = () => {
 
                   <button
                     type="button"
-                    class="inline-flex transform justify-center rounded-md border border-transparent bg-green px-4 py-2 text-sm font-medium text-neutral-50 transition-all duration-150 hover:bg-green/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2"
+                    class="inline-flex transform justify-center rounded-md border border-transparent bg-green px-4 py-2 text-sm font-medium text-neutral-50 transition-all duration-150 hover:bg-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2"
                     @click="closeModal"
                   >
                     No, Keep My Account
