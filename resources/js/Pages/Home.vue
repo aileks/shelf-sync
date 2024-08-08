@@ -15,18 +15,18 @@
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div class="relative z-0 h-[300px] w-auto sm:h-[40vh]">
+    <div class="relative z-10 w-auto">
       <img
         src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         class="absolute inset-0 h-[300px] w-full rounded-md object-cover sm:h-full"
       />
 
-      <div
-        class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full"
-      ></div>
+      <!-- <div -->
+      <!--   class="absolute inset-0 h-full rounded-md bg-gradient-to-r from-gray-900/80 to-gray-800/80 sm:h-full" -->
+      <!-- ></div> -->
 
       <header
-        class="flex h-full flex-col items-center justify-center text-neutral-50"
+        class="text-shadow text-overlay z-30 my-2 ml-4 mr-3 flex flex-col items-center justify-center self-center rounded-md py-4 text-neutral-50 sm:py-0"
       >
         <Transition
           enter-active-class="transition-opacity duration-1000 ease-in-out"
@@ -116,3 +116,14 @@
     </footer>
   </Layout>
 </template>
+
+<style scoped>
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+  }
+
+  .text-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+  }
+</style>
