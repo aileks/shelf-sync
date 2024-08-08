@@ -23,9 +23,10 @@ class ProfileController extends Controller
   {
     return Inertia::render('Profile/Index', [
       'user' => $request->user()->only('name', 'email'),
-      'totalBooks' => $request->user()->books()->get()->count(),
-      'finishedBooks' => $request->user()->books()->where('finished', '=', '1')->get()->count(),
-      'unfinishedBooks' => $request->user()->books()->where('finished', '=', '0')->get()->count(),
+      'books' => $request->user()->books()->get(),
+      // 'totalBooks' => $request->user()->books()->get()->count(),
+      // 'finishedBooks' => $request->user()->books()->where('finished', '=', '1')->get()->count(),
+      // 'unfinishedBooks' => $request->user()->books()->where('finished', '=', '0')->get()->count(),
       'success' => $request->session()->get('success'),
       'activeTab' => 0,
     ]);
@@ -85,6 +86,6 @@ class ProfileController extends Controller
 
     $user->delete();
 
-    return redirect(route('home'));
+    return to_route('home');
   }
 }
