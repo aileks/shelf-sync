@@ -135,7 +135,7 @@
         v-show="books.data"
         id="search"
         v-model="search"
-        class="rounded-md border-tan shadow-paper dark:border-dark-accent sm:w-[80%] md:w-[60%] lg:w-60"
+        class="rounded-md border-accent shadow-paper dark:border-dark-accent sm:w-[80%] md:w-[60%] lg:w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -149,9 +149,7 @@
       id="mobile-table"
       class="mt-2 flex w-full flex-col items-center justify-center overflow-hidden rounded-md shadow-paper"
     >
-      <h2
-        class="w-full bg-brown text-xl text-neutral-50 dark:bg-dark-brown dark:bg-dark-brown"
-      >
+      <h2 class="w-full bg-brown text-xl text-neutral-50 dark:bg-dark-brown">
         Your Books
       </h2>
 
@@ -177,7 +175,7 @@
               class="pb-2 text-sm font-medium"
             >
               Finished on
-              <span class="font-bold text-green">
+              <span class="font-bold text-green dark:text-dark-green">
                 {{
                   new Date(book.date_read).toLocaleDateString(undefined, {
                     year: 'numeric',
@@ -202,7 +200,7 @@
           <div class="flex w-1/2 items-center justify-end font-semibold">
             <Link
               :href="`/books/edit/${book.id}`"
-              class="mr-3 text-blue hover:underline"
+              class="mr-3 text-blue hover:underline dark:text-dark-blue"
             >
               Edit
             </Link>
@@ -351,12 +349,14 @@
               <td class="px-2 sm:w-auto md:w-auto" data-label="Read">
                 <div class="flex items-center justify-center">
                   <span v-if="book.read && book.finished && !book.date_read">
-                    <CheckIcon class="h-6 w-6 text-green" />
+                    <CheckIcon
+                      class="h-6 w-6 text-green dark:text-dark-green"
+                    />
                   </span>
 
                   <span
                     v-else-if="book.read && book.finished && book.date_read"
-                    class="font-bold text-green"
+                    class="font-bold text-green dark:text-dark-green"
                   >
                     {{
                       new Date(book.date_read).toLocaleDateString(undefined, {
@@ -370,7 +370,7 @@
 
                   <span
                     v-else-if="book.read && !book.finished && !book.date_read"
-                    class="font-bold text-green"
+                    class="font-bold text-green dark:text-dark-green"
                   >
                     DNF
                   </span>
@@ -400,13 +400,13 @@
               <td class="px-2 sm:space-x-0 md:space-x-1" data-label="Modify">
                 <Link
                   :href="`/books/edit/${book.id}`"
-                  class="inline-block text-blue hover:underline"
+                  class="inline-block text-blue hover:underline dark:text-dark-blue"
                 >
                   Edit
                 </Link>
 
                 <button
-                  class="inline-block text-red hover:underline"
+                  class="inline-block text-red hover:underline dark:text-dark-red"
                   @click.prevent="deleteBook(book.id)"
                 >
                   Delete
@@ -450,7 +450,7 @@
   <Teleport to="body">
     <div
       v-show="success"
-      class="fixed top-14 z-50 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg"
+      class="fixed top-14 z-50 m-6 max-w-xs overflow-hidden rounded-lg bg-green shadow-lg dark:bg-dark-green"
       @click="success = null"
     >
       <div class="px-4 py-2 text-neutral-50">

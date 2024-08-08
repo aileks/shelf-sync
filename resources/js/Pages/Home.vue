@@ -6,8 +6,6 @@
   onMounted(() => {
     animate.value = true;
   });
-
-  const isHovered = ref(false);
 </script>
 
 <template>
@@ -49,7 +47,7 @@
 
               <Link href="/register">
                 <button
-                  class="mb-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90"
+                  class="mb-4 rounded-md bg-blue px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-blue/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90"
                 >
                   Create Your Personal Library
                 </button>
@@ -69,24 +67,22 @@
         />
 
         <div
-          class="relative my-4 w-11/12 rounded-lg bg-sandy px-4 py-6 sm:my-10 sm:w-3/4 sm:px-8 sm:py-12"
+          class="relative my-4 w-11/12 rounded-lg bg-bronze px-4 py-6 text-neutral-50 dark:bg-dark-bronze sm:my-10 sm:w-3/4 sm:px-8 sm:py-12"
         >
-          <p class="px-2 font-medium sm:px-4 sm:text-base sm:text-lg">
+          <p class="px-2 font-medium sm:px-4 sm:text-lg">
             Quillify is your simple, elegant solution for tracking your reading
             journey. Effortlessly manage your book collection our searchable
             list and keep your reading goals on track.
           </p>
 
-          <p
-            class="mt-2 px-2 font-medium sm:mt-4 sm:px-4 sm:text-base sm:text-lg"
-          >
+          <p class="mt-2 px-2 font-medium sm:mt-4 sm:px-4 sm:text-lg">
             Discover a more organized and enjoyable reading experience with
             Quillify.
           </p>
 
           <Link href="/register">
             <button
-              class="relative mt-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90 sm:mt-8"
+              class="relative mt-4 rounded-md bg-blue px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-blue/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90 sm:mt-8"
             >
               Start Now!
             </button>
