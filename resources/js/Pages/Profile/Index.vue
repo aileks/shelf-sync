@@ -97,7 +97,7 @@
       <TabGroup
         :default-index="0"
         as="TabGroup"
-        class="w-full max-w-screen-sm rounded-md bg-sandy p-4 shadow-paper dark:bg-dark-sandy"
+        class="w-full max-w-screen-sm rounded-md bg-sandy p-4 shadow-paper dark:bg-tan"
       >
         <h3 class="mb-4 text-left text-xl font-bold">Hello, {{ user.name }}</h3>
 
@@ -163,17 +163,23 @@
                   :selected="activeTab === 0"
                   class="flex w-full flex-col items-center space-y-8 rounded-md"
                 >
-                  <div class="flex w-2/3 justify-between border-b border-blue">
-                    <span class="font-semibold">Name:</span>
-                    <span class="italic">{{ user.name }}</span>
-                  </div>
+                  <!-- <div -->
+                  <!--   class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue" -->
+                  <!-- > -->
+                  <!--   <span class="font-semibold">Name:</span> -->
+                  <!--   <span class="italic">{{ user.name }}</span> -->
+                  <!-- </div> -->
 
-                  <div class="flex w-2/3 justify-between border-b border-blue">
-                    <span class="font-semibold">Email:</span>
-                    <span class="italic">{{ user.email }}</span>
-                  </div>
+                  <!-- <div -->
+                  <!--   class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue" -->
+                  <!-- > -->
+                  <!--   <span class="font-semibold">Email:</span> -->
+                  <!--   <span class="italic">{{ user.email }}</span> -->
+                  <!-- </div> -->
 
-                  <div class="flex w-2/3 justify-between border-b border-blue">
+                  <div
+                    class="flex w-2/3 justify-between border-b border-blue dark:border-dark-blue"
+                  >
                     <span class="font-semibold"> Total Books:</span>
                     <span class="italic">{{ books }}</span>
                   </div>
@@ -244,7 +250,7 @@
 
                   <button
                     @click="openModal"
-                    class="mt-4 transform rounded-md border border-red px-4 py-2 text-xl font-bold text-red dark:text-dark-red dark:border-dark-red transition-all duration-150 dark:hover:bg-dark-red dark:hover:text-neutral-50 hover:bg-red hover:text-neutral-50"
+                    class="mt-4 transform rounded-md border border-red px-4 py-2 text-xl font-bold text-red transition-all duration-150 hover:bg-red hover:text-neutral-50 dark:border-dark-red dark:text-dark-red dark:hover:bg-dark-red dark:hover:text-neutral-50"
                   >
                     Delete
                   </button>

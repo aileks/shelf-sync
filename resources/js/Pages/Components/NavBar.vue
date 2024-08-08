@@ -80,14 +80,14 @@
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <MenuItems
-                  class="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-tan font-medium shadow-paper ring-1 ring-black/5 focus:outline-none"
+                  class="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-tan font-medium shadow-paper ring-1 ring-black/5 focus:outline-none dark:bg-dark-tan"
                 >
                   <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
                       <Link
                         :class="[
                           active ?
-                            'bg-brown text-neutral-50'
+                            'bg-brown text-neutral-50 dark:bg-dark-brown'
                           : 'text-neutral-800',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
@@ -101,7 +101,7 @@
                       <Link
                         :class="[
                           active ?
-                            'bg-brown text-neutral-50'
+                            'bg-brown text-neutral-50 dark:bg-dark-brown'
                           : 'text-neutral-800',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
