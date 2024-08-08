@@ -15,7 +15,7 @@
   <Head title="Your Personal Library" />
 
   <Layout>
-    <div class="relative h-[300px] w-auto sm:h-[40vh]">
+    <div class="relative z-0 h-[300px] w-auto sm:h-[40vh]">
       <img
         src="https://raw.githubusercontent.com/aileks/quillify/main/public/library.jpeg"
         class="absolute inset-0 h-[300px] w-full rounded-md object-cover sm:h-full"
