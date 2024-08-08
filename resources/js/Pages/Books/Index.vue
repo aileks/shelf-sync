@@ -127,7 +127,7 @@
 </script>
 
 <template>
-  <Head title="Your Books" />
+  <Head title="Books" />
 
   <Layout>
     <div class="flex items-center justify-around">
@@ -135,7 +135,7 @@
         v-show="books.data"
         id="search"
         v-model="search"
-        class="rounded-md border-bronze shadow-paper dark:border-dark-bronze sm:w-[80%] md:w-[60%] lg:w-60"
+        class="rounded-md border-tan shadow-paper dark:border-dark-accent sm:w-[80%] md:w-[60%] lg:w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -149,7 +149,11 @@
       id="mobile-table"
       class="mt-2 flex w-full flex-col items-center justify-center overflow-hidden rounded-md shadow-paper"
     >
-      <h2 class="w-full bg-brown text-xl text-neutral-50">Your Books</h2>
+      <h2
+        class="w-full bg-brown text-xl text-neutral-50 dark:bg-dark-brown dark:bg-dark-brown"
+      >
+        Your Books
+      </h2>
 
       <ul class="w-full space-y-1 divide-y divide-neutral-400 bg-white">
         <li
@@ -216,7 +220,7 @@
 
       <!-- Mobile Pagination  -->
       <div
-        class="flex w-full items-center justify-around bg-brown py-2 text-center"
+        class="flex w-full items-center justify-around bg-brown py-2 text-center dark:bg-dark-brown"
       >
         <Component
           :is="books.prev_page_url ? 'Link' : 'span'"
@@ -282,7 +286,9 @@
         v-if="books.data"
         class="table-container overflow-hidden rounded-md shadow-paper"
       >
-        <h2 class="bg-brown text-2xl text-neutral-50">Your Books</h2>
+        <h2 class="bg-brown text-2xl text-neutral-50 dark:bg-dark-brown">
+          Your Books
+        </h2>
 
         <div
           v-if="isSearchActive && books.data.length === 0"
@@ -293,7 +299,7 @@
 
         <table v-else class="w-full table-auto">
           <thead
-            class="divide-x bg-bronze text-lg font-bold text-neutral-50 sm:text-base md:text-lg"
+            class="divide-x bg-bronze text-lg font-bold text-neutral-50 dark:bg-dark-bronze sm:text-base md:text-lg"
           >
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
@@ -411,7 +417,7 @@
         </table>
 
         <!-- Desktop Pagination  -->
-        <div class="bg-brown py-2 text-neutral-50">
+        <div class="bg-brown py-2 text-neutral-50 dark:bg-dark-brown">
           <Component
             :is="link.url ? 'Link' : 'span'"
             v-for="link in books.links"
