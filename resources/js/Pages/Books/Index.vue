@@ -1,133 +1,133 @@
 <script setup>
-import MobileModal from "@/Components/MobileModal.vue";
-import { onMounted, onUnmounted, ref, watch } from "vue";
-import { router } from "@inertiajs/vue3";
-import debounce from "lodash/debounce";
-import { CheckIcon } from "@heroicons/vue/20/solid";
+  import MobileModal from '@/Components/MobileModal.vue';
+  import { onMounted, onUnmounted, ref, watch } from 'vue';
+  import { router } from '@inertiajs/vue3';
+  import debounce from 'lodash/debounce';
+  import { CheckIcon } from '@heroicons/vue/20/solid';
 
-const props = defineProps({
-  books: Object,
-  success: String,
-});
-
-const books = ref(props.books);
-const success = ref(props.success);
-const isMobile = ref(window.innerWidth <= 800);
-let clickCount = 0;
-
-// Sorting
-const sortBy = ref("");
-const sortDirection = ref("asc");
-const changeSort = (column) => {
-  if (sortBy.value === column) {
-    clickCount++;
-    if (clickCount === 3) {
-      sortBy.value = null;
-      sortDirection.value = null;
-      clickCount = 0;
-    } else {
-      sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
-    }
-  } else {
-    sortBy.value = column;
-    sortDirection.value = "asc";
-    clickCount = 1;
-  }
-
-  if (sortBy.value !== null && sortDirection.value !== null) {
-    router.get(
-      "/books",
-      {
-        sort_by: sortBy.value,
-        sort_direction: sortDirection.value,
-        page: books.value.current_page,
-      },
-      {
-        preserveState: true,
-        onSuccess: (page) => {
-          books.value = page.props.books;
-        },
-      },
-    );
-  } else {
-    router.get(
-      "/books",
-      {
-        page: books.value.current_page,
-      },
-      {
-        preserveState: true,
-        onSuccess: (page) => {
-          books.value = page.props.books;
-        },
-      },
-    );
-  }
-};
-const sortIcon = (column) => {
-  if (sortBy.value !== column) {
-    return "";
-  }
-  return sortDirection.value === "asc" ? "▲" : "▼";
-};
-
-// Mobile reactivity
-const updateIsMobile = () => {
-  isMobile.value = window.innerWidth <= 800;
-};
-
-// Delete book
-const deleteBook = (id) => {
-  router.delete(`/books/${id}`, {
-    onBefore: () => {
-      if (!confirm("Are you sure you want to delete this book?")) {
-        return false;
-      }
-    },
-    onSuccess: () => {
-      router.get("/books", {
-        page: books.value.current_page,
-      });
-    },
+  const props = defineProps({
+    books: Object,
+    success: String,
   });
-};
 
-// Search functionality
-let search = ref("");
-let isSearchActive = ref(false);
-watch(
-  search,
-  debounce((value) => {
-    router.get(
-      "/books",
-      { search: value },
-      {
-        preserveState: true,
-        onSuccess: (page) => {
-          books.value = page.props.books;
-          isSearchActive.value = true;
+  const books = ref(props.books);
+  const success = ref(props.success);
+  const isMobile = ref(window.innerWidth <= 800);
+  let clickCount = 0;
+
+  // Sorting
+  const sortBy = ref('');
+  const sortDirection = ref('asc');
+  const changeSort = column => {
+    if (sortBy.value === column) {
+      clickCount++;
+      if (clickCount === 3) {
+        sortBy.value = null;
+        sortDirection.value = null;
+        clickCount = 0;
+      } else {
+        sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+      }
+    } else {
+      sortBy.value = column;
+      sortDirection.value = 'asc';
+      clickCount = 1;
+    }
+
+    if (sortBy.value !== null && sortDirection.value !== null) {
+      router.get(
+        '/books',
+        {
+          sort_by: sortBy.value,
+          sort_direction: sortDirection.value,
+          page: books.value.current_page,
         },
-      },
-    );
-  }, 300),
-);
+        {
+          preserveState: true,
+          onSuccess: page => {
+            books.value = page.props.books;
+          },
+        },
+      );
+    } else {
+      router.get(
+        '/books',
+        {
+          page: books.value.current_page,
+        },
+        {
+          preserveState: true,
+          onSuccess: page => {
+            books.value = page.props.books;
+          },
+        },
+      );
+    }
+  };
+  const sortIcon = column => {
+    if (sortBy.value !== column) {
+      return '';
+    }
+    return sortDirection.value === 'asc' ? '▲' : '▼';
+  };
 
-// Hooks
-onMounted(() => {
-  window.addEventListener("resize", updateIsMobile);
-  if (success) {
-    setTimeout(() => {
-      success.value = null;
-    }, 3000);
-  }
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", updateIsMobile);
-});
+  // Mobile reactivity
+  const updateIsMobile = () => {
+    isMobile.value = window.innerWidth <= 800;
+  };
+
+  // Delete book
+  const deleteBook = id => {
+    router.delete(`/books/${id}`, {
+      onBefore: () => {
+        if (!confirm('Are you sure you want to delete this book?')) {
+          return false;
+        }
+      },
+      onSuccess: () => {
+        router.get('/books', {
+          page: books.value.current_page,
+        });
+      },
+    });
+  };
+
+  // Search functionality
+  let search = ref('');
+  let isSearchActive = ref(false);
+  watch(
+    search,
+    debounce(value => {
+      router.get(
+        '/books',
+        { search: value },
+        {
+          preserveState: true,
+          onSuccess: page => {
+            books.value = page.props.books;
+            isSearchActive.value = true;
+          },
+        },
+      );
+    }, 300),
+  );
+
+  // Hooks
+  onMounted(() => {
+    window.addEventListener('resize', updateIsMobile);
+    if (success) {
+      setTimeout(() => {
+        success.value = null;
+      }, 3000);
+    }
+  });
+  onUnmounted(() => {
+    window.removeEventListener('resize', updateIsMobile);
+  });
 </script>
 
 <template>
-  <Head title="Books" />
+  <Head title="Your Books" />
 
   <Layout>
     <div class="flex items-center justify-around">
@@ -135,7 +135,7 @@ onUnmounted(() => {
         v-show="books.data"
         id="search"
         v-model="search"
-        class="rounded-md border-bronze shadow-paper sm:w-[80%] md:w-[60%] lg:w-60"
+        class="rounded-md border-bronze shadow-paper dark:border-dark-bronze sm:w-[80%] md:w-[60%] lg:w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -176,9 +176,9 @@ onUnmounted(() => {
               <span class="font-bold text-green">
                 {{
                   new Date(book.date_read).toLocaleDateString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
                   })
                 }}
               </span>
@@ -299,42 +299,42 @@ onUnmounted(() => {
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
               @click="changeSort('read')"
             >
-              <span>{{ sortIcon("read") }}</span>
+              <span>{{ sortIcon('read') }}</span>
               Finished
             </th>
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
               @click="changeSort('title')"
             >
-              <span>{{ sortIcon("title") }}</span>
+              <span>{{ sortIcon('title') }}</span>
               Title
             </th>
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
               @click="changeSort('author')"
             >
-              <span>{{ sortIcon("author") }}</span>
+              <span>{{ sortIcon('author') }}</span>
               Author
             </th>
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
               @click="changeSort('genre')"
             >
-              <span>{{ sortIcon("genre") }}</span>
+              <span>{{ sortIcon('genre') }}</span>
               Genre
             </th>
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
               @click="changeSort('pages')"
             >
-              <span>{{ sortIcon("pages") }}</span>
+              <span>{{ sortIcon('pages') }}</span>
               Pages
             </th>
             <th
               class="px-2 sm:w-auto md:w-auto"
               @click="changeSort('publish_year')"
             >
-              <span>{{ sortIcon("publish_year") }}</span>
+              <span>{{ sortIcon('publish_year') }}</span>
               Published
             </th>
             <th class="px-2 sm:w-auto md:w-auto">Modify</th>
@@ -354,10 +354,10 @@ onUnmounted(() => {
                   >
                     {{
                       new Date(book.date_read).toLocaleDateString(undefined, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        timeZone: "UTC",
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        timeZone: 'UTC',
                       })
                     }}
                   </span>
@@ -427,11 +427,14 @@ onUnmounted(() => {
 
       <div
         v-else-if="!books.data && !isSearchActive"
-        class="mx-auto max-w-md rounded-md bg-sandy p-8 shadow-paper"
+        class="mx-auto max-w-md rounded-md bg-sandy p-8 shadow-paper dark:bg-dark-bronze"
       >
         <h2 class="mb-4 text-2xl">You don't have any books yet.</h2>
 
-        <Link class="mt-4 text-xl text-brown hover:underline" href="/books/add">
+        <Link
+          class="mt-4 text-xl text-brown hover:underline dark:text-dark-brown"
+          href="/books/add"
+        >
           Add a book!
         </Link>
       </div>
@@ -452,15 +455,15 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/** TODO: Change to tailwind classes */
-#search {
-  position: relative;
-  padding-left: 32px;
-  padding-top: 8px;
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray" class="w-2 h-2"%3E%3Cpath fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /%3E%3C/svg%3E');
-  background-repeat: no-repeat;
-  background-position: left 10px center;
-  background-size: 18px 18px;
-  max-width: 600px;
-}
+  /** TODO: Change to tailwind classes */
+  #search {
+    position: relative;
+    padding-left: 32px;
+    padding-top: 8px;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray" class="w-2 h-2"%3E%3Cpath fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: left 10px center;
+    background-size: 18px 18px;
+    max-width: 600px;
+  }
 </style>

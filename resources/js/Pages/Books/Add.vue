@@ -40,7 +40,7 @@
   <FormLayout>
     <h1
       id="box-text"
-      class="dark:border-dark-bronze border-b border-bronze pb-1.5 text-3xl"
+      class="border-b border-bronze pb-1.5 text-3xl dark:border-dark-bronze"
     >
       Add Book
     </h1>
@@ -168,17 +168,15 @@
           <span v-else>Add</span>
         </StyledButton>
 
-        <Link
-          :disabled="isProcessing"
-          class="dark:bg-dark-bronze dark:hover:dark-bg-bronze/90 mx-1 rounded-md bg-brown px-2.5 py-1 text-neutral-800 shadow-paper transition-all duration-300 hover:bg-brown/80 hover:shadow-none disabled:bg-brown/50"
-          href="/books"
-        >
-          <span
-            v-if="isProcessing"
-            class="loading loading-spinner loading-sm"
-          ></span>
-          <span v-else>Go Back</span>
-        </Link>
+        <StyledButton>
+          <Link :disabled="isProcessing" href="/books">
+            <span
+              v-if="isProcessing"
+              class="loading loading-spinner loading-sm"
+            ></span>
+            <span v-else>Go Back</span>
+          </Link>
+        </StyledButton>
       </div>
     </form>
   </FormLayout>
