@@ -27,17 +27,22 @@ Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
   Route::post('/profile', [ProfileController::class, 'update']);
   Route::delete('/profile', [ProfileController::class, 'destroy']);
+
+  // Logout
+  Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+  Route::get('/logout')->middleware('guest'); // prevent direct access to this route if NOT authenticated
 });
 
 // Auth stuff
 // TODO: Cleanup
 // registration
-Route::get('/register', [RegisteredUserController::class, 'create']);
-Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest');
+Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
+
 // session
-Route::get('/login', [LoginController::class, 'create'])->name('login');
-Route::post('/login', [LoginController::class, 'store']);
-Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('/login', [LoginController::class, 'create'])->middleware('guest')->name('login');
+Route::post('/login', [LoginController::class, 'store'])->middleware('guest');
+
 // password reset
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
   ->middleware('guest')
@@ -45,6 +50,7 @@ Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
   ->middleware('guest')
   ->name('password.email');
+Route::get('/reset-password')->middleware('guest'); // prevent direct access to this route if authenticated
 Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
   ->middleware('guest')
   ->name('password.reset');
