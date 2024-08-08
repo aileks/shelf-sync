@@ -121,6 +121,7 @@
       }, 3000);
     }
   });
+
   onUnmounted(() => {
     window.removeEventListener('resize', updateIsMobile);
   });

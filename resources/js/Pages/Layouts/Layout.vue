@@ -1,9 +1,27 @@
 <script setup>
-  import { ref } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import NavBar from '../Components/NavBar.vue';
   import { ArrowUpRightIcon } from '@heroicons/vue/20/solid';
 
+  const isMobile = ref(window.innerWidth <= 800);
   const isHovered = ref(false);
+
+  const updateIsMobile = () => {
+    isMobile.value = window.innerWidth <= 800;
+  };
+
+  onMounted(() => {
+    window.addEventListener('resize', updateIsMobile);
+    if (success) {
+      setTimeout(() => {
+        success.value = null;
+      }, 1000);
+    }
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', updateIsMobile);
+  });
 </script>
 
 <template>
@@ -14,6 +32,7 @@
   </div>
 
   <footer
+    v-show="!isMobile"
     class="absolute bottom-0 left-0 right-0 mb-1 flex flex-1 flex-col items-center justify-center text-sm text-sm dark:text-neutral-50"
   >
     <span
