@@ -194,7 +194,7 @@
             class="transform rounded-md px-2 py-1 outline-none transition-colors duration-200"
             :class="{
               'text-nuetral-800': !selected,
-              'bg-accent text-neutral-50': selected,
+              'bg-accent text-neutral-50 dark:bg-dark-accent': selected,
             }"
           >
             Books Per Genre
@@ -206,7 +206,7 @@
             class="transform rounded-md px-2 py-1 outline-none transition-colors duration-200"
             :class="{
               'text-nuetral-800': !selected,
-              'bg-accent text-neutral-50': selected,
+              'bg-accent text-neutral-50 dark:bg-dark-accent': selected,
             }"
           >
             Books Finished Per Year
@@ -214,7 +214,7 @@
         </Tab>
       </TabList>
 
-      <TabPanels class="mt-6 text-left text-neutral-800">
+      <TabPanels class="mt-6 text-left text-neutral-900">
         <TabPanel class="w-full">
           <Bar :data="genreData" :options="barGraphOptions" />
         </TabPanel>
@@ -249,7 +249,7 @@
                     :class="[
                       active ?
                         'bg-dark-tan text-neutral-50'
-                      : 'text-neutral-800',
+                      : 'text-neutral-900',
                       'relative cursor-default select-none py-1 text-center',
                     ]"
                   >

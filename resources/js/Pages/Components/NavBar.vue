@@ -8,7 +8,7 @@
   <div :class="['drawer', darkMode ? 'dark' : '']">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div
-      class="drawer-content m-1 flex flex-col rounded-md bg-tan shadow-paper dark:bg-dark-tan"
+      class="drawer-content m-1 flex flex-col rounded-md bg-sandy shadow-paper dark:bg-dark-sandy"
     >
       <!-- Navbar -->
       <div class="navbar w-full rounded-md">
@@ -35,7 +35,7 @@
         </div>
 
         <div
-          class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-800 lg:text-xl"
+          class="mx-2 flex-1 px-2 text-lg font-bold text-neutral-900 lg:text-xl"
         >
           <a href="https://github.com/aileks/quillify">
             <img
@@ -91,7 +91,7 @@
                         :class="[
                           active ?
                             'bg-brown text-neutral-50 dark:bg-dark-brown'
-                          : 'text-neutral-800',
+                          : 'text-neutral-900',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
                         href="/profile"
@@ -105,7 +105,7 @@
                         :class="[
                           active ?
                             'bg-brown text-neutral-50 dark:bg-dark-brown'
-                          : 'text-neutral-800',
+                          : 'text-neutral-900',
                           'group flex w-full items-center rounded-md px-2 py-2 text-base',
                         ]"
                         href="/logout"
@@ -132,7 +132,7 @@
         class="drawer-overlay"
       ></label>
       <ul
-        class="dark:bg-dark-background menu min-h-full w-60 bg-neutral-800 text-lg"
+        class="dark:bg-dark-background menu min-h-full w-60 bg-neutral-900 text-lg"
       >
         <div
           class="flex flex-col space-y-6 px-4 py-8"

@@ -132,7 +132,7 @@
           </div>
         </TabList>
 
-        <TabPanels class="p-4 text-neutral-800">
+        <TabPanels class="p-4 text-neutral-900">
           <TabPanel class="w-full">
             <TabGroup as="div" class="flex gap-8">
               <TabList class="flex flex-col space-y-4">
@@ -322,13 +322,13 @@
               >
                 <DialogTitle
                   as="h2"
-                  class="text-xl font-semibold italic leading-6 text-neutral-800 underline"
+                  class="text-xl font-semibold italic leading-6 text-neutral-900 underline"
                 >
                   THIS ACTION CANNOT BE UNDONE!
                 </DialogTitle>
 
                 <div class="mt-2 flex flex-col">
-                  <span class="text-neutral-800">
+                  <span class="text-neutral-900">
                     Are you sure you want to delete your account?
                   </span>
                 </div>

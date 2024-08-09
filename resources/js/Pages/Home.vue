@@ -51,7 +51,7 @@
 
               <Link href="/register">
                 <button
-                  class="mb-4 rounded-md bg-blue px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-blue/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90"
+                  class="mb-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90"
                 >
                   Create Your Personal Library
                 </button>
@@ -88,7 +88,7 @@
 
           <Link href="/register">
             <button
-              class="relative mt-4 rounded-md bg-blue px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-blue/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90 sm:mt-8"
+              class="relative mt-4 rounded-md bg-green px-4 py-2 font-bold text-white shadow-paper transition-all duration-300 hover:bg-green/90 hover:shadow-none dark:bg-dark-blue dark:hover:bg-dark-blue/90 sm:mt-8"
             >
               Start Now!
             </button>
@@ -98,14 +98,14 @@
     </div>
 
     <footer
-      class="absolute left-0 right-0 my-4 flex flex-col bg-tan text-sm text-neutral-800 dark:bg-dark-bronze dark:text-neutral-50"
+      class="absolute left-0 right-0 my-4 flex flex-col bg-sandy text-sm text-neutral-900 dark:bg-dark-sandy dark:text-neutral-50"
     >
       <span class="mt-3 flex items-center justify-center text-center">
         Please report any issues on&nbsp;&nbsp;
         <a
           @mouseover="isHovered = true"
           @mouseleave="isHovered = false"
-          class="mt-[3px] flex items-center justify-center align-bottom text-blue hover:underline dark:text-dark-blue"
+          class="mt-[3px] flex items-center justify-center align-bottom text-green hover:underline dark:text-dark-green"
           href="https://github.com/aileks/quillify/"
         >
           GitHub.

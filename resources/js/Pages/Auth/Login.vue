@@ -73,16 +73,16 @@
         </StyledButton>
       </div>
     </Form>
-  </FormLayout>
 
-  <div class="mb-0 mt-4 flex justify-center pb-0">
-    <Link
-      class="text-sm font-bold italic text-blue hover:underline dark:text-dark-red"
-      href="/forgot-password"
-    >
-      Forgot Password?
-    </Link>
-  </div>
+    <div class="mb-0 mt-8 flex items-center justify-center pb-0">
+      <Link
+        class="text-sm font-bold italic text-blue hover:underline dark:text-dark-blue"
+        href="/forgot-password"
+      >
+        Forgot Password?
+      </Link>
+    </div>
+  </FormLayout>
 
   <Transition
     enter-active-class="transition-opacity duration-700 ease-in-out"
