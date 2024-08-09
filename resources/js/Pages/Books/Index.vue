@@ -136,7 +136,7 @@
         v-show="books.data"
         id="search"
         v-model="search"
-        class="rounded-md border-accent shadow-paper dark:border-dark-accent sm:w-[80%] md:w-[60%] lg:w-60"
+        class="w-72 rounded-md border-accent shadow-paper dark:border-dark-accent sm:w-[80%] md:w-[60%] lg:w-60"
         placeholder="Search Books..."
         type="search"
       />
@@ -145,77 +145,80 @@
 
     <!-- TODO: Extract mobile and desktop views into separate components -->
     <!-- Mobile View -->
-    <div
-      v-show="isMobile"
-      id="mobile-table"
-      class="mt-2 flex w-full flex-col items-center justify-center overflow-hidden rounded-md shadow-paper"
-    >
-      <h2 class="w-full bg-brown text-xl text-neutral-50 dark:bg-dark-brown">
-        Your Books
-      </h2>
+    <div class="mx-1 flex flex-col items-center justify-center">
+      <div
+        v-show="isMobile"
+        class="mt-4 flex w-full flex-col items-center justify-center overflow-hidden rounded-md shadow-paper"
+      >
+        <h2 class="w-full bg-brown text-xl text-neutral-50 dark:bg-dark-brown">
+          Your Books
+        </h2>
 
-      <ul class="w-full space-y-1 divide-y divide-neutral-400 bg-white">
-        <li
-          v-for="book in books.data"
-          :key="book.id"
-          class="mx-2 flex items-center py-4"
-        >
-          <div class="flex w-full flex-grow flex-col space-y-1">
-            <div
-              class="flex flex-nowrap justify-center space-x-2 text-center font-bold italic"
-            >
-              {{ book.title }}
+        <ul class="w-full space-y-1 divide-y divide-neutral-400 bg-white px-1">
+          <li
+            v-for="book in books.data"
+            :key="book.id"
+            class="mx-2 flex items-center py-4"
+          >
+            <div class="flex w-full flex-grow flex-col space-y-1">
+              <div
+                class="flex flex-nowrap justify-center space-x-2 text-center font-bold italic"
+              >
+                {{ book.title }}
+              </div>
+
+              <div class="py-1 font-semibold">
+                {{ book.author }}
+              </div>
+
+              <div
+                v-show="book.read && book.date_read"
+                class="pb-2 text-sm font-medium"
+              >
+                Finished on
+                <span class="font-bold text-green dark:text-dark-green">
+                  {{
+                    new Date(book.date_read).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })
+                  }}
+                </span>
+              </div>
+
+              <div
+                class="mt-2 flex items-center justify-around text-sm font-medium text-brown"
+              >
+                <span class="mx-2 whitespace-nowrap px-2">
+                  {{ book.pages }} pgs
+                </span>
+                <span class="mx-2 px-2">{{ book.publish_year }}</span>
+                <span class="mx-2 whitespace-nowrap px-2">{{
+                  book.genre
+                }}</span>
+              </div>
             </div>
 
-            <div class="py-1 font-semibold">
-              {{ book.author }}
+            <div class="flex w-1/2 items-center justify-end font-semibold">
+              <Link
+                :href="`/books/edit/${book.id}`"
+                class="mr-3 text-blue hover:underline dark:text-dark-blue"
+              >
+                Edit
+              </Link>
+
+              <Link
+                class="text-red hover:underline"
+                href="#"
+                @click.prevent="deleteBook(book.id)"
+              >
+                Delete
+              </Link>
             </div>
-
-            <div
-              v-show="book.read && book.date_read"
-              class="pb-2 text-sm font-medium"
-            >
-              Finished on
-              <span class="font-bold text-green dark:text-dark-green">
-                {{
-                  new Date(book.date_read).toLocaleDateString(undefined, {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })
-                }}
-              </span>
-            </div>
-
-            <div
-              class="mt-2 flex items-center justify-around text-sm font-medium text-brown"
-            >
-              <span class="mx-2 whitespace-nowrap px-2">
-                {{ book.pages }} pgs
-              </span>
-              <span class="mx-2 px-2">{{ book.publish_year }}</span>
-              <span class="mx-2 whitespace-nowrap px-2">{{ book.genre }}</span>
-            </div>
-          </div>
-
-          <div class="flex w-1/2 items-center justify-end font-semibold">
-            <Link
-              :href="`/books/edit/${book.id}`"
-              class="mr-3 text-blue hover:underline dark:text-dark-blue"
-            >
-              Edit
-            </Link>
-
-            <Link
-              class="text-red hover:underline"
-              href="#"
-              @click.prevent="deleteBook(book.id)"
-            >
-              Delete
-            </Link>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
 
       <!-- Mobile Pagination  -->
       <div
@@ -285,7 +288,7 @@
         v-if="books.data"
         class="table-container overflow-hidden rounded-md shadow-paper"
       >
-        <h2 class="bg-brown text-2xl text-neutral-50 dark:bg-dark-brown">
+        <h2 class="bg-brown text-2xl text-neutral-50 dark:bg-dark-tan">
           Your Books
         </h2>
 
@@ -298,7 +301,7 @@
 
         <table v-else class="w-full table-auto">
           <thead
-            class="divide-x bg-bronze text-lg font-bold text-neutral-50 dark:bg-dark-bronze sm:text-base md:text-lg"
+            class="divide-x bg-bronze text-lg font-bold text-neutral-50 dark:bg-dark-accent sm:text-base md:text-lg"
           >
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
@@ -418,7 +421,7 @@
         </table>
 
         <!-- Desktop Pagination  -->
-        <div class="bg-brown py-2 text-neutral-50 dark:bg-dark-brown">
+        <div class="bg-brown py-2 text-neutral-50 dark:bg-dark-tan">
           <Component
             :is="link.url ? 'Link' : 'span'"
             v-for="link in books.links"
