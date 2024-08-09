@@ -9,7 +9,7 @@
   <main>
     <div class="mx-2 mt-10 flex items-center justify-center text-left">
       <div
-        class="w-[400px] rounded-lg border border-bronze bg-sandy p-8 text-lg shadow-paper dark:border-dark-sandy dark:bg-dark-tan"
+        class="w-[400px] rounded-lg border border-accent bg-tan p-8 text-lg shadow-paper dark:border-dark-accent dark:bg-dark-tan"
       >
         <slot />
       </div>

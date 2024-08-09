@@ -96,11 +96,11 @@
   <Head title="Profile" />
 
   <Layout>
-    <div class="grid place-items-center">
+    <div class="mt-12 flex items-center justify-center">
       <TabGroup
         :default-index="0"
         as="TabGroup"
-        class="w-full max-w-screen-sm rounded-md bg-sandy p-4 shadow-paper dark:bg-tan"
+        class="w-full max-w-screen-lg rounded-md bg-sandy p-4 shadow-paper dark:bg-tan"
       >
         <h3 class="mb-4 text-left text-xl font-bold">Hello, {{ user.name }}</h3>
 

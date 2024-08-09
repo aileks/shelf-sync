@@ -8,7 +8,7 @@
   <div :class="['drawer', darkMode ? 'dark' : '']">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div
-      class="drawer-content m-1 flex flex-col rounded-md bg-sandy shadow-paper dark:bg-dark-sandy"
+      class="drawer-content m-1 flex flex-col rounded-md border border-accent bg-sandy shadow-paper dark:border-dark-accent dark:bg-dark-sandy"
     >
       <!-- Navbar -->
       <div class="navbar w-full rounded-md">
