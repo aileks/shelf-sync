@@ -53,7 +53,7 @@
         .map(book => new Date(book.date_read).getFullYear()),
     );
 
-    return [...years].sort((a, b) => a - b); // sort in ascending order
+    return [...years].sort((a, b) => b - a); // sort in ascending order
   });
 
   const availableMonths = computed(() => {
@@ -140,7 +140,7 @@
           label: 'Books Finished',
           data: dataForSelectedYear,
           borderColor: '#2e4269',
-          tension: 0.4,
+          // tension: 1,
         },
       ],
     };
@@ -159,6 +159,7 @@
       },
     },
   };
+
   const lineGraphOptions = {
     responsive: true,
     plugins: {
@@ -221,9 +222,9 @@
         <TabPanel class="flex w-full flex-col">
           <Listbox v-model="selectedYear">
             <ListboxButton
-              class="relative mb-1 flex w-1/6 cursor-default items-center self-end rounded-md bg-white py-1 pl-3 shadow-paper focus:outline-none"
+              class="relative mb-1 flex w-1/6 cursor-default items-center self-end rounded-md bg-white py-1 pl-2 shadow-paper focus:outline-none"
             >
-              <ChevronDownIcon aria-hidden="true" class="h-6 w-6 pr-2" />
+              <ChevronDownIcon aria-hidden="true" class="mx-1 h-6 w-6 pr-2" />
 
               {{ selectedYear }}
             </ListboxButton>
@@ -235,7 +236,7 @@
               leave-to-class="opacity-0"
             >
               <ListboxOptions
-                class="absolute mt-[2.25rem] max-w-md items-center justify-center self-end overflow-auto rounded-md bg-white shadow-paper ring-1 ring-black/5 focus:outline-none"
+                class="absolute mt-[2.25rem] max-h-60 w-24 items-center justify-center self-end overflow-auto rounded-md bg-white shadow-paper ring-1 ring-black/5 focus:outline-none"
               >
                 <ListboxOption
                   :key="year.id"
@@ -249,7 +250,7 @@
                       active ?
                         'bg-dark-tan text-neutral-50'
                       : 'text-neutral-800',
-                      'relative cursor-default select-none px-7 py-1',
+                      'relative cursor-default select-none py-1 text-center',
                     ]"
                   >
                     <span
@@ -261,16 +262,16 @@
                       {{ year }}
                     </span>
 
-                    <span
-                      v-if="selected"
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue"
-                    >
-                      <CheckIcon
-                        :class="{ 'text-neutral-50': active }"
-                        aria-hidden="true"
-                        class="h-3 w-3"
-                      />
-                    </span>
+                    <!-- <span -->
+                    <!--   v-if="selected" -->
+                    <!--   class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue" -->
+                    <!-- > -->
+                    <!--   <CheckIcon -->
+                    <!--     :class="{ 'text-neutral-50': active }" -->
+                    <!--     aria-hidden="true" -->
+                    <!--     class="h-6 w-6 pr-2" -->
+                    <!--   /> -->
+                    <!-- </span> -->
                   </li>
                 </ListboxOption>
               </ListboxOptions>
