@@ -145,9 +145,11 @@
 
     <!-- TODO: Extract mobile and desktop views into separate components -->
     <!-- Mobile View -->
-    <div class="mx-1 flex flex-col items-center justify-center">
+    <div
+      v-show="isMobile"
+      class="mx-1 flex flex-col items-center justify-center"
+    >
       <div
-        v-show="isMobile"
         class="mt-4 flex w-full flex-col items-center justify-center overflow-hidden rounded-md shadow-paper"
       >
         <h2 class="w-full bg-brown text-xl text-neutral-50 dark:bg-dark-brown">
@@ -288,7 +290,7 @@
         v-if="books.data"
         class="table-container overflow-hidden rounded-md shadow-paper"
       >
-        <h2 class="bg-brown text-2xl text-neutral-50 dark:bg-dark-tan">
+        <h2 class="bg-brown text-2xl text-neutral-50 dark:bg-dark-brown">
           Your Books
         </h2>
 
@@ -301,7 +303,7 @@
 
         <table v-else class="w-full table-auto">
           <thead
-            class="divide-x bg-bronze text-lg font-bold text-neutral-50 dark:bg-dark-accent sm:text-base md:text-lg"
+            class="divide-x bg-bronze text-lg font-bold text-neutral-50 dark:bg-dark-bronze sm:text-base md:text-lg"
           >
             <th
               class="cursor-pointer px-2 sm:w-auto md:w-auto"
@@ -421,7 +423,7 @@
         </table>
 
         <!-- Desktop Pagination  -->
-        <div class="bg-brown py-2 text-neutral-50 dark:bg-dark-tan">
+        <div class="bg-brown py-2 text-neutral-50 dark:bg-dark-brown">
           <Component
             :is="link.url ? 'Link' : 'span'"
             v-for="link in books.links"
