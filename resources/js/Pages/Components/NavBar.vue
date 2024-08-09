@@ -121,7 +121,7 @@
           </ul>
         </div>
 
-        <!-- <DarkModeToggleButton /> -->
+        <DarkModeToggleButton />
       </div>
     </div>
 
