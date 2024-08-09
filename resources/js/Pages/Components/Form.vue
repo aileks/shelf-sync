@@ -38,7 +38,7 @@
 
       <div
         v-else
-        class="mt-6 flex items-center space-x-2 text-sm italic text-blue dark:text-dark-blue"
+        class="mt-6 flex items-center space-x-2 text-sm italic text-blue"
       >
         <input
           v-model="form[field.model]"
