@@ -105,7 +105,7 @@
         <a
           @mouseover="isHovered = true"
           @mouseleave="isHovered = false"
-          class="mt-[3px] flex items-center justify-center align-bottom text-green hover:underline dark:text-dark-green"
+          class="mt-[3px] flex items-center justify-center align-bottom text-green hover:underline dark:text-dark-blue"
           href="https://github.com/aileks/quillify/"
         >
           GitHub.
