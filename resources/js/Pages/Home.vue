@@ -65,7 +65,7 @@
         class="relative mt-8 flex flex-1 flex-col items-center justify-center overflow-clip"
       >
         <img
-          class="absolute left-0 top-0 z-[-1] h-full w-full -rotate-2 rounded-lg object-cover opacity-80 blur-[4px] drop-shadow-md"
+          class="absolute left-0 top-0 z-[-1] h-full w-full -rotate-2 rounded-lg object-cover opacity-80 blur-[6px] drop-shadow-md"
           src="https://raw.githubusercontent.com/aileks/quillify/main/public/table.png"
           alt="table of books"
         />
