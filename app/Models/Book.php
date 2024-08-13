@@ -11,34 +11,35 @@ use Illuminate\Support\Str;
 
 class Book extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  public $incrementing = false;
+    public $incrementing = false;
 
-  protected $keyType = 'string';
-  protected $fillable = [
-    'user_id',
-    'title',
-    'author',
-    'pages',
-    'genre',
-    'publish_year',
-    'read',
-    'date_read',
-    'finished',
-  ];
+    protected $keyType = 'string';
 
-  protected static function boot(): void
-  {
-    parent::boot();
+    protected $fillable = [
+        'user_id',
+        'title',
+        'author',
+        'pages',
+        'genre',
+        'publish_year',
+        'read',
+        'date_read',
+        'finished',
+    ];
 
-    static::creating(function ($model) {
-      $model->{$model->getKeyName()} = (string)Str::uuid();
-    });
-  }
+    protected static function boot(): void
+    {
+        parent::boot();
 
-  public function user(): BelongsTo
-  {
-    return $this->belongsTo(User::class);
-  }
+        static::creating(function ($model) {
+            $model->{$model->getKeyName()} = (string) Str::uuid();
+        });
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -12,7 +12,6 @@ use Inertia\Response;
 
 class PasswordResetLinkController extends Controller
 {
-
     /**
      * Display the password reset link request view.
      */
