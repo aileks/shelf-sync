@@ -11,6 +11,7 @@
   const props = defineProps({
     book: Object,
     errors: Object,
+    queryParams: Object,
   });
 
   const title = props.book.title;
@@ -20,6 +21,7 @@
     ...props.book,
     read: Boolean(props.book.read),
     finished: Boolean(props.book.finished),
+    queryParams: props.queryParams,
   });
 
   const reversedYears = Array.from(

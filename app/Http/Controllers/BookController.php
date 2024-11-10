@@ -112,10 +112,14 @@ class BookController extends Controller
      * @param  Book  $book  The book object data to edit that is passed to the form.
      * @return Response The Inertia response to render the "edit book" page.
      */
-    public function edit(Book $book): Response
+    public function edit(Request $request, Book $book): Response
     {
+        $referrer = $request->headers->get('referer');
+        $params = parse_url($referrer, PHP_URL_QUERY);
+
         return Inertia::render('Books/Edit', [
             'book' => $book,
+            'queryParams' => $params,
         ]);
     }
 
@@ -142,9 +146,9 @@ class BookController extends Controller
 
         $book->update($data);
         $request->session()->flash('success', 'Book successfully updated.');
-        $queryParams = $request->query();
+        $query = $request->input('queryParams', []);
 
-        return to_route('books', $queryParams);
+        return to_route('books', $query);
     }
 
     /**
