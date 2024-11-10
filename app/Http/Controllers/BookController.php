@@ -141,10 +141,10 @@ class BookController extends Controller
         ]);
 
         $book->update($data);
-
         $request->session()->flash('success', 'Book successfully updated.');
+        $queryParams = $request->query();
 
-        return to_route('books');
+        return to_route('books', $queryParams);
     }
 
     /**
